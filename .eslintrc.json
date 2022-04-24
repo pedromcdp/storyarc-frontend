@@ -1,5 +1,10 @@
 {
-  "extends": ["next/core-web-vitals", "airbnb-base", "unused-imports"],
+  "extends": [
+    "next/core-web-vitals",
+    "airbnb-base",
+    "unused-imports",
+    "tailwindcss"
+  ],
   "rules": {
     "global-require": "off",
     "import/no-extraneous-dependencies": "off",
