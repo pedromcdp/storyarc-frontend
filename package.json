@@ -7,8 +7,7 @@
     "build": "next build",
     "start": "next start",
     "postinstall": "husky install",
-    "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
-    "commit": "git-cz"
+    "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\""
   },
   "dependencies": {
     "@heroicons/react": "^1.0.6",
