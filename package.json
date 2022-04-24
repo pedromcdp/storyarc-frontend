@@ -29,7 +29,6 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-tailwindcss": "^3.5.0",
     "eslint-plugin-unused-imports": "^2.0.0",
-    "git-cz": "^4.8.0",
     "husky": "^7.0.4",
     "postcss": "^8.4.12",
     "prettier": "^2.6.2",
@@ -38,7 +37,7 @@
   },
   "config": {
     "commitizen": {
-      "path": "./node_modules/git-cz"
+      "path": "./node_modules/cz-conventional-changelog"
     }
   }
 }
