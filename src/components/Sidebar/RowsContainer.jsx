@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 export default function RowsContainer({ children, title, ariaText }) {
   return (
     <div className="mt-4">
@@ -8,3 +10,9 @@ export default function RowsContainer({ children, title, ariaText }) {
     </div>
   );
 }
+
+RowsContainer.propTypes = {
+  children: PropTypes.node.isRequired,
+  title: PropTypes.string.isRequired,
+  ariaText: PropTypes.string.isRequired,
+};
