@@ -6,9 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "postinstall": "husky install",
     "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "commit": "git-cz"
-  },  
+  },
   "dependencies": {
     "@heroicons/react": "^1.0.6",
     "daisyui": "^2.14.2",
