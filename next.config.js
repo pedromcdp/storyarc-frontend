@@ -6,6 +6,7 @@ const nextConfig = {
       'api-assets.ua.pt',
       'media-cdn.tripadvisor.com',
       'www.evasoes.pt',
+      'lh3.googleusercontent.com',
     ],
   },
 };
