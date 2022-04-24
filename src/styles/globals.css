@@ -3,3 +3,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.postInputBtn {
+  @apply flex items-center space-x-2 hover:bg-gray-100 flex-grow justify-center p-2 rounded-xl my-1;
+}
