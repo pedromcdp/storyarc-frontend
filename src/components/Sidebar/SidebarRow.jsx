@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import PropTypes from 'prop-types';
 
 export default function SidebarRow({ title, Icon, src }) {
   return (
@@ -23,3 +24,9 @@ export default function SidebarRow({ title, Icon, src }) {
     </button>
   );
 }
+
+SidebarRow.propTypes = {
+  title: PropTypes.string.isRequired,
+  Icon: PropTypes.elementType,
+  src: PropTypes.string,
+};
