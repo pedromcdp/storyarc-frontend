@@ -12,7 +12,7 @@ import RowsContainer from './RowsContainer';
 
 function Sidebar() {
   return (
-    <div className="max-w-[600px] xl:min-w-[300px] bg-white h-screen px-4 py-3 shadow-sm flex flex-col justify-between">
+    <div className="hidden lg:inline-flex max-w-[600px] xl:min-w-[300px] bg-white h-screen px-4 py-3 shadow-sm flex-col justify-between">
       <div className="flex flex-col flex-none">
         <SidebarLogo />
         <SideBarSearchBar />
