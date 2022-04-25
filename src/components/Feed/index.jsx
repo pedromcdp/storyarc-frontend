@@ -5,7 +5,6 @@ export default function Feed() {
     <div className="overflow-y-auto grow pb-44 h-screen xl:mr-40">
       <div className="mx-auto max-w-md md:max-w-lg lg:max-w-2xl">
         <PostsContainer />
-        <h1>dummy</h1>
       </div>
     </div>
   );
