@@ -9,15 +9,12 @@ import CommentInput from './CommentInput';
 import CommentsContainer from './CommentsContainer';
 
 export default function Post({ username, avatar, timestamp, description }) {
-  const [currentUser, setCurrentUser] = useState(false);
+  const [currentUser, setCurrentUser] = useState(true);
   const [showComments, setShowComments] = useState(false);
 
   return (
     <motion.article initial={false} layout className="flex flex-col">
-      <motion.div
-        layout
-        className="px-5 pt-5 mt-5 bg-white rounded-2xl shadow-sm"
-      >
+      <motion.div className="px-5 pt-5 mt-5 bg-white rounded-2xl shadow-sm">
         <PostHeader name={username} avatar={avatar} timestamp={timestamp} />
         <PostDescription description={description} />
         <PostImage />
