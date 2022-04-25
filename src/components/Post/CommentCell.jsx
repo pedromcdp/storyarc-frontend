@@ -7,6 +7,7 @@ export default function CommentCell() {
     <div className="flex items-start space-x-2 h-auto">
       <div className="relative flex-none w-10 h-10 rounded-full  shadow-sm">
         <Image
+          alt="user avatar"
           src="https://lh3.googleusercontent.com/a-/AOh14Gh6dfOfIa2bIeA9aMRA1ENG9A36mKbPZFMkr_CCww=s96-c"
           layout="fill"
           className="object-contain mask mask-squircle"
