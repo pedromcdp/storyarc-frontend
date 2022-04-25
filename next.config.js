@@ -7,6 +7,8 @@ const nextConfig = {
       'media-cdn.tripadvisor.com',
       'www.evasoes.pt',
       'lh3.googleusercontent.com',
+      'i.pinimg.com',
+      '3.bp.blogspot.com',
     ],
   },
 };
