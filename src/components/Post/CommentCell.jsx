@@ -14,7 +14,7 @@ export default function CommentCell() {
       </div>
       <div
         tabIndex={0}
-        className="pt-1 pr-4 pb-2 pl-2 max-w-full rounded-r-2xl border drop-shadow-sm"
+        className="pt-1 pr-4 pb-2 pl-2 max-w-full rounded-r-2xl rounded-bl-2xl border drop-shadow-sm"
       >
         <p className="text-sm font-medium">Pedro Miguel Pereira</p>
         <div className="flex items-center pb-1 space-x-1 text-[0.65rem] text-gray-600">
