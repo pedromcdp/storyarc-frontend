@@ -8,6 +8,7 @@
     "build": "next build",
     "start": "next start",
     "postinstall": "husky install",
+    "lint": "npx eslint \"**/*.{js,jsx}\" --fix",  
     "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\""
   },
   "dependencies": {
