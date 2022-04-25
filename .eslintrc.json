@@ -2,15 +2,14 @@
   "extends": [
     "next/core-web-vitals",
     "airbnb-base",
-    "unused-imports",
-    "tailwindcss"
+    "plugin:tailwindcss/recommended"
   ],
+  "plugins": ["unused-imports", "tailwindcss"],
   "rules": {
     "global-require": "off",
     "import/no-extraneous-dependencies": "off",
     "no-console": "off",
     "no-underscore-dangle": "off",
-    "linebreak-style": "unix",
     "no-unused-vars": "off",
     "unused-imports/no-unused-imports": "error",
     "unused-imports/no-unused-vars": [
@@ -21,6 +20,8 @@
         "args": "after-used",
         "argsIgnorePattern": "^_"
       }
-    ]
+    ],
+    "tailwindcss/no-custom-classname": "off",
+    "object-curly-newline": "off"
   }
 }
