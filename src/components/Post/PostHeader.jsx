@@ -5,6 +5,7 @@ import {
   DotsHorizontalIcon,
   LinkIcon,
   ExclamationCircleIcon,
+  DocumentDownloadIcon,
 } from '@heroicons/react/outline';
 import PropTypes from 'prop-types';
 
@@ -44,7 +45,14 @@ export default function PostHeader({ name, avatar, timestamp }) {
           </li>
           <li tabIndex={0}>
             <a className="text-sm">
-              <ExclamationCircleIcon className="w-5 h-5 text-red-500" />
+              <DocumentDownloadIcon className="w-5 h-5" />
+              Descarregar imagem
+            </a>
+          </li>
+          <div className="w-full h-[1.2px] bg-gray-100 rounded-2xl"></div>
+          <li tabIndex={0}>
+            <a className="text-sm">
+              <ExclamationCircleIcon className="w-5 h-5 text-red-500 " />
               Reportar publicação
             </a>
           </li>
