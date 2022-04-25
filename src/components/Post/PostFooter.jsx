@@ -7,7 +7,7 @@ export default function PostFooter({
 }) {
   return (
     <>
-      <div className="flex justify-end my-1 hover:underline">
+      <div className="flex justify-end my-1">
         <button
           className="py-[0.35rem] px-2 text-sm hover:bg-gray-100 rounded-xl"
           role="button"
