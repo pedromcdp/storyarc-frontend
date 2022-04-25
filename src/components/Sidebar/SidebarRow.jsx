@@ -7,7 +7,7 @@ export default function SidebarRow({ title, Icon, src }) {
       type="button"
       role="button"
       id={`${title}Button`}
-      className="flex w-full space-x-[0.35rem] p-2 rounded-xl hover:bg-gray-100 hover:scale-105 transition duration-105 ease-out cursor-pointer items-center"
+      className="flex items-center p-2 space-x-[0.35rem] w-full hover:bg-gray-100 rounded-xl transition ease-out hover:scale-105 cursor-pointer duration-105"
     >
       {src && (
         <Image
@@ -19,7 +19,7 @@ export default function SidebarRow({ title, Icon, src }) {
           className="mask mask-squircle"
         />
       )}
-      {Icon && <Icon className="h-6 w-6 text-verde" />}
+      {Icon && <Icon className="w-6 h-6 text-verde" />}
       <p>{title}</p>
     </button>
   );

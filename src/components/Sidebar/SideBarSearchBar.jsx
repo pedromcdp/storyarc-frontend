@@ -11,7 +11,7 @@ export default function SideBarSearchBar() {
   return (
     <div
       tabIndex={0}
-      className="h-12 w-full border rounded-xl flex items-center shadow-sm px-2 space-x-1 cursor-text"
+      className="flex items-center px-2 space-x-1 w-full h-12 rounded-xl border shadow-sm cursor-text"
       rolo="search"
       onFocus={setFocus}
     >
@@ -21,7 +21,7 @@ export default function SideBarSearchBar() {
         type="text"
         //   onChange={handleTyping}
         placeholder="Pesquisar por locais"
-        className="w-full h-full rounded-lg text-sm outline-none"
+        className="w-full h-full text-sm rounded-lg outline-none"
       />
     </div>
   );

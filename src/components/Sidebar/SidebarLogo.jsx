@@ -1,13 +1,13 @@
 export default function SidebarLogo() {
   return (
     <div
-      className="h-12 w-36 mb-1 cursor-pointer"
+      className="mb-1 w-36 h-12 cursor-pointer"
       tabIndex={0}
       aria-label="Storyarc"
       role="text"
     >
       <svg
-        className="h-full w-full"
+        className="w-full h-full"
         viewBox="0 0 1364 297"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

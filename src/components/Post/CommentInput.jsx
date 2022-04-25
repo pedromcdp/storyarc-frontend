@@ -6,23 +6,23 @@ export default function CommentInput({ avatar, username }) {
   const commentRef = useRef(null);
 
   return (
-    <div tabIndex={0} className="py-2 border-t flex space-x-2 items-center">
+    <div tabIndex={0} className="flex items-center py-2 space-x-2 border-t">
       <Image
         src={avatar}
         alt={username}
         width={40}
         height={45}
         layout="fixed"
-        className="mask mask-squircle shadow-sm flex-none object-contain"
+        className="object-contain flex-none shadow-sm mask mask-squircle"
       />
       <input
         ref={commentRef}
         type="text"
         //   onChange={handleTyping}
         placeholder="Insere o teu comentário"
-        className="flex-grow rounded-xl text-sm outline-none drop-shadow-sm border p-[0.60rem]"
+        className="grow p-[0.60rem] text-sm rounded-xl border outline-none drop-shadow-sm"
       />
-      <button className="rounded-full hover:scale-105 transition ease-out">
+      <button className="rounded-full transition ease-out hover:scale-105">
         <PaperAirplaneIcon className="w-6 h-6 rotate-90" />
       </button>
     </div>

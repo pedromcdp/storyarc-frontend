@@ -1,4 +1,6 @@
+import { motion, AnimateSharedLayout } from 'framer-motion';
 import Post from '../Post';
+
 const dummydata = {
   user: {
     username: 'Pedro Miguel Pereira',
@@ -18,13 +20,18 @@ const dummydata = {
 
 export default function PostsContainer() {
   return (
-    <div>
-      <Post
-        username={dummydata.user.username}
-        avatar={dummydata.user.avatar}
-        timestamp={dummydata.timestamp}
-        description={dummydata.description}
-      />
-    </div>
+    <AnimateSharedLayout>
+      <motion.div layout>
+        {[...Array(10)].map((_, i) => (
+          <Post
+            key={i}
+            username={dummydata.user.username}
+            avatar={dummydata.user.avatar}
+            timestamp={dummydata.timestamp}
+            description={dummydata.description}
+          />
+        ))}
+      </motion.div>
+    </AnimateSharedLayout>
   );
 }

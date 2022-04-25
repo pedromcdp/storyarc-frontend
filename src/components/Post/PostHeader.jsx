@@ -10,8 +10,8 @@ import PropTypes from 'prop-types';
 
 export default function PostHeader({ name, avatar, timestamp }) {
   return (
-    <div tabIndex={0} className="flex items-center justify-between">
-      <div className="flex space-x-2 items-center">
+    <div tabIndex={0} className="flex justify-between items-center">
+      <div className="flex items-center space-x-2">
         <Image
           src={avatar}
           width={45}
@@ -30,11 +30,11 @@ export default function PostHeader({ name, avatar, timestamp }) {
           </div>
         </div>
       </div>
-      <div className="hover:bg-gray-100 p-[0.45rem] rounded-full cursor-pointer dropdown dropdown-end">
+      <div className="p-[0.45rem] hover:bg-gray-100 rounded-full cursor-pointer dropdown dropdown-end">
         <DotsHorizontalIcon tabIndex={0} className="w-5 h-5" />
         <ul
-          tabindex="0"
-          class="dropdown-content menu p-2 drop-shadow-lg bg-white rounded-box w-60"
+          tabIndex="0"
+          className="p-2 w-60 bg-white drop-shadow-lg dropdown-content menu rounded-box"
         >
           <li tabIndex={0}>
             <a className="text-sm">

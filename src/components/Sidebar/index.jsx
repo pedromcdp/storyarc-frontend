@@ -12,12 +12,12 @@ import RowsContainer from './RowsContainer';
 
 function Sidebar() {
   return (
-    <div className="hidden lg:inline-flex max-w-[600px] xl:min-w-[300px] bg-white h-screen px-4 py-3 shadow-sm flex-col justify-between">
+    <div className="hidden flex-col justify-between py-3 px-4 max-w-[600px] h-screen bg-white shadow-sm md:inline-flex xl:min-w-[300px]">
       <div className="flex flex-col flex-none">
         <SidebarLogo />
         <SideBarSearchBar />
       </div>
-      <div className="flex flex-col flex-grow">
+      <div className="flex flex-col grow">
         <RowsContainer title="Feed" ariaText="Opções de filtragem do feed">
           <SidebarRow Icon={HashtagIcon} title="Recentes" />
           <SidebarRow Icon={TrendingUpIcon} title="Em Alta" />

@@ -6,7 +6,7 @@ export default function RowsContainer({ children, title, ariaText }) {
       <p className="text-gray-500" tabIndex={0} aria-label={ariaText}>
         {title}
       </p>
-      <div className="space-y-1 mt-2">{children}</div>
+      <div className="mt-2 space-y-1">{children}</div>
     </div>
   );
 }

@@ -1,17 +1,33 @@
 import { HeartIcon, BookmarkIcon } from '@heroicons/react/outline';
-import { HeartIcon as HeartIconOutline } from '@heroicons/react/solid';
 
-export default function PostFooter() {
+export default function PostFooter({
+  showComments,
+  setShowComments,
+  currentUser,
+}) {
   return (
-    <div className="border-t flex justify-evenly items-center">
-      <button className="postInputBtn">
-        <HeartIcon className="w-6 h-6" />
-        <span className="text-sm">Gostar da publicação</span>
-      </button>
-      <button className="postInputBtn">
-        <BookmarkIcon className="w-6 h-6" />
-        <span className="text-sm">Guardar publicação</span>
-      </button>
-    </div>
+    <>
+      <div className="flex justify-end my-1 hover:underline">
+        <button
+          className="py-[0.35rem] px-2 text-sm hover:bg-gray-100 rounded-xl"
+          role="button"
+          onClick={() => setShowComments(!showComments)}
+        >
+          {!showComments ? 'Ver comentários' : 'Fechar comentários'}
+        </button>
+      </div>
+      {currentUser && (
+        <div className="flex justify-evenly items-center border-t">
+          <button className="postInputBtn">
+            <HeartIcon className="w-6 h-6" />
+            <span className="text-sm">Gostar da publicação</span>
+          </button>
+          <button className="postInputBtn">
+            <BookmarkIcon className="w-6 h-6" />
+            <span className="text-sm">Guardar publicação</span>
+          </button>
+        </div>
+      )}
+    </>
   );
 }

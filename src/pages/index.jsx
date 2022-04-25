@@ -4,7 +4,7 @@ import Feed from '../components/Feed';
 
 export default function Home() {
   return (
-    <div className="h-screen bg-gray-100 overflow-hidden font-body">
+    <div className="overflow-hidden h-screen font-body bg-gray-100">
       <Head>
         <title>storyarc</title>
       </Head>

@@ -1,7 +1,7 @@
-export default function PostImage({ image }) {
+export default function PostImage() {
   return (
-    <div className="relative h-56 md:h-96 mb-5">
-      <div className="h-full w-full bg-red-100"></div>
+    <div className="relative h-56 md:h-96">
+      <div className="w-full h-full bg-red-100"></div>
     </div>
   );
 }
