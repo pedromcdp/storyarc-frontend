@@ -2,7 +2,7 @@ import PostHeader from './PostHeader';
 import PostDescription from './PostDescription';
 import PropTypes from 'prop-types';
 import PostImage from './PostImage';
-import PosterFooter from './PosterFooter';
+import PostFooter from './PostFooter';
 
 export default function Post({ username, avatar, timestamp, description }) {
   return (
@@ -11,7 +11,8 @@ export default function Post({ username, avatar, timestamp, description }) {
         <PostHeader name={username} avatar={avatar} timestamp={timestamp} />
         <PostDescription description={description} />
         <PostImage />
-        <PosterFooter />
+        <PostFooter />
+        {/* <CommentInput/> */}
       </div>
     </article>
   );

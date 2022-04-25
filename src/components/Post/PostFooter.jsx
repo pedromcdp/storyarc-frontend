@@ -1,5 +1,6 @@
 import { HeartIcon, BookmarkIcon } from '@heroicons/react/outline';
-export default function PosterFooter() {
+
+export default function PostFooter() {
   return (
     <div className="mt-2 border-y flex justify-evenly items-center">
       <button className="postInputBtn">
