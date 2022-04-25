@@ -3,16 +3,17 @@ import PostDescription from './PostDescription';
 import PropTypes from 'prop-types';
 import PostImage from './PostImage';
 import PostFooter from './PostFooter';
-
+import CommentInput from './CommentInput';
 export default function Post({ username, avatar, timestamp, description }) {
+  const currentUser = false;
   return (
     <article className="flex flex-col">
-      <div className="p-5 bg-white mt-5 rounded-2xl shadow-sm">
+      <div className="pt-5 px-5 bg-white mt-5 rounded-2xl shadow-sm">
         <PostHeader name={username} avatar={avatar} timestamp={timestamp} />
         <PostDescription description={description} />
         <PostImage />
         <PostFooter />
-        {/* <CommentInput/> */}
+        {currentUser && <CommentInput avatar={avatar} username={username} />}
       </div>
     </article>
   );
