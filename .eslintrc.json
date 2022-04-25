@@ -2,9 +2,10 @@
   "extends": [
     "next/core-web-vitals",
     "airbnb-base",
-    "plugin:tailwindcss/recommended"
+    "plugin:tailwindcss/recommended",
+    "prettier"
   ],
-  "plugins": ["unused-imports", "tailwindcss"],
+  "plugins": ["unused-imports", "tailwindcss", "prettier"],
   "rules": {
     "global-require": "off",
     "import/no-extraneous-dependencies": "off",
@@ -22,6 +23,7 @@
       }
     ],
     "tailwindcss/no-custom-classname": "off",
-    "object-curly-newline": "off"
+    "object-curly-newline": "off",
+    "prettier/prettier": "error"
   }
 }
