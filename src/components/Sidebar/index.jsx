@@ -6,7 +6,7 @@ import {
   UserCircleIcon,
 } from '@heroicons/react/outline';
 import SidebarLogo from './SidebarLogo';
-import SideBarSearchBar from './SideBarSearchBar';
+import SidebarSearchBar from './SidebarSearchBar';
 import SidebarRow from './SidebarRow';
 import RowsContainer from './RowsContainer';
 
@@ -15,7 +15,7 @@ function Sidebar() {
     <div className="hidden flex-col justify-between py-3 px-4 max-w-[600px] h-screen bg-white shadow-sm md:inline-flex xl:min-w-[300px]">
       <div className="flex flex-col flex-none">
         <SidebarLogo />
-        <SideBarSearchBar />
+        <SidebarSearchBar />
       </div>
       <div className="flex flex-col grow">
         <RowsContainer title="Feed" ariaText="Opções de filtragem do feed">
