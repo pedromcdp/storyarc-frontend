@@ -21,7 +21,7 @@ const dummydata = {
 export default function PostsContainer() {
   return (
     <AnimateSharedLayout>
-      <motion.div layout>
+      <motion.div layout className="pb-32">
         {[...Array(10)].map((_, i) => (
           <Post
             key={i}
