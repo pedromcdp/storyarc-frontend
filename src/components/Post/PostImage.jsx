@@ -43,7 +43,7 @@ export default function PostImage() {
     'https://3.bp.blogspot.com/-sAA0poxFWe4/Wt-7FJWcp1I/AAAAAAAAHOc/dqDLRKuaYbEsZMywCQlk7mdRzBLCR4beQCLcBGAs/s1600/IMG_20180421_174012.jpg';
 
   return (
-    <div className="h-56 md:h-96">
+    <div className="h-56 md:h-72 lg:h-96">
       <div
         ref={imageContainer}
         className="group relative w-full h-full select-none"
