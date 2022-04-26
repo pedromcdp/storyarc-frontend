@@ -32,3 +32,11 @@ yarn-error.log*
 .vercel
 
 .eslintcache
+
+#PWA Files
+**/public/sw.jsx
+**/public/workbox-*.js
+**/public/worker-*.js
+**/public/sw.js.map
+**/public/workbox-*.js.map
+**/public/worker-*.js.map

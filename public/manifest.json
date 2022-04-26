@@ -1,21 +1,32 @@
 {
-  "name": "storyarc",
-  "short_name": "storyarc",
-  "start_url": "/",
-  "icons": [
-    {
-      "src": "/android-chrome-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "/android-chrome-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
-  ],
-  "theme_color": "#000000",
-  "background_color": "#FFFFFF",
-  "display": "fullscreen",
-  "orientation": "portrait"
+    "theme_color": "#37B780",
+    "background_color": "#FFFFFF",
+    "display": "standalone",
+    "scope": "/",
+    "start_url": "/",
+    "name": "storyarc",
+    "short_name": "storyarc",
+    "description": "O storyarc \u00e9 uma plataforma de arquivo de conte\u00fados que pressup\u00f5e a partilha e consulta de informa\u00e7\u00f5es relativas a espa\u00e7os e \u00e0 sua evolu\u00e7\u00e3o ao longo dos anos, de modo a preservar a mem\u00f3ria patrimonial do distrito de Aveiro.",
+    "icons": [
+        {
+            "src": "/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-256x256.png",
+            "sizes": "256x256",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-384x384.png",
+            "sizes": "384x384",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
 }
