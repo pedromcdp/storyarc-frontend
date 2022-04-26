@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import Feed from '../components/Feed';
 
@@ -8,6 +9,7 @@ export default function Home() {
       <Head>
         <title>storyarc</title>
       </Head>
+      <Header />
       <main className="flex">
         <Sidebar />
         <Feed />
