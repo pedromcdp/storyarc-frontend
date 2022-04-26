@@ -7,3 +7,7 @@
 .postInputBtn {
   @apply flex items-center space-x-2 hover:bg-gray-100 flex-grow justify-center p-2 rounded-xl my-1;
 }
+
+.navbarIcon {
+  @apply flex items-center p-2 cursor-pointer space-x-1;
+}

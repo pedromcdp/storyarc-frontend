@@ -23,7 +23,7 @@ export default function PostHeader({ name, avatar, timestamp }) {
         />
         <div className="flex flex-col">
           <span>{name}</span>
-          <div className="flex space-x-1 text-gray-600">
+          <div className="flex space-x-1 text-gray-500">
             <ClockIcon className="w-4 h-4" />
             <span className="text-xs">
               {`Publicado ${dayjs(timestamp).fromNow()}`}

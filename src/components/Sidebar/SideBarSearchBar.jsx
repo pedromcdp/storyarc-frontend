@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { SearchIcon } from '@heroicons/react/outline';
 
-export default function SideBarSearchBar() {
+export default function SidebarSearchBar() {
   const searchRef = useRef(null);
 
   const setFocus = () => {
@@ -11,7 +11,7 @@ export default function SideBarSearchBar() {
   return (
     <div
       tabIndex={0}
-      className="flex items-center px-2 space-x-1 w-full h-12 rounded-xl border shadow-sm cursor-text"
+      className="flex items-center px-2 space-x-1 w-full max-w-[18rem] h-12 max-h-11 rounded-xl border shadow-sm cursor-text md:max-w-full md:max-h-full"
       rolo="search"
       onFocus={setFocus}
     >
