@@ -11,3 +11,7 @@
 .navbarIcon {
   @apply flex items-center p-2 cursor-pointer space-x-1;
 }
+
+.footerItem {
+  @apply after:mx-[0.25rem] after:content-['\00B7'] cursor-pointer;
+}
