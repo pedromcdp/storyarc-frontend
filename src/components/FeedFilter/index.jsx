@@ -1,9 +1,4 @@
-import {
-  HashtagIcon,
-  TrendingUpIcon,
-  CalendarIcon,
-  ClockIcon,
-} from '@heroicons/react/outline';
+import { feedFilters } from '../../utils/feedFilters';
 import RowsContainer from '../Sidebar/RowsContainer';
 import SidebarRow from '../Sidebar/SidebarRow';
 
@@ -14,10 +9,14 @@ export default function index() {
         title="Filtrar feed por"
         ariaText="Opções de filtragem do feed"
       >
-        <SidebarRow Icon={HashtagIcon} title="Recentes" />
-        <SidebarRow Icon={TrendingUpIcon} title="Em Alta" />
-        <SidebarRow Icon={CalendarIcon} title="Por Ano" />
-        <SidebarRow Icon={ClockIcon} title="Por Década" />
+        {feedFilters.map((filter) => (
+          <SidebarRow
+            key={filter.title}
+            title={filter.name}
+            Icon={filter.icon}
+            filter={filter}
+          />
+        ))}
       </RowsContainer>
     </div>
   );

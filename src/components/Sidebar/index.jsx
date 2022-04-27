@@ -1,14 +1,9 @@
-import {
-  ClockIcon,
-  TrendingUpIcon,
-  CalendarIcon,
-  HashtagIcon,
-  UserCircleIcon,
-} from '@heroicons/react/outline';
+import { UserCircleIcon } from '@heroicons/react/outline';
 import SidebarLogo from './SidebarLogo';
 import SidebarSearchBar from './SidebarSearchBar';
 import SidebarRow from './SidebarRow';
 import RowsContainer from './RowsContainer';
+import { feedFilters } from '../../utils/feedFilters';
 
 function Sidebar() {
   return (
@@ -19,10 +14,14 @@ function Sidebar() {
       </div>
       <div className="flex flex-col grow">
         <RowsContainer title="Feed" ariaText="Opções de filtragem do feed">
-          <SidebarRow Icon={HashtagIcon} title="Recentes" />
-          <SidebarRow Icon={TrendingUpIcon} title="Em Alta" />
-          <SidebarRow Icon={CalendarIcon} title="Por Ano" />
-          <SidebarRow Icon={ClockIcon} title="Por Década" />
+          {feedFilters.map((filter) => (
+            <SidebarRow
+              key={filter.title}
+              title={filter.name}
+              Icon={filter.icon}
+              filter={filter}
+            />
+          ))}
         </RowsContainer>
         <RowsContainer
           title="Principais localizações"
