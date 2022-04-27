@@ -3,7 +3,9 @@
     "next/core-web-vitals",
     "airbnb-base",
     "plugin:tailwindcss/recommended",
-    "prettier"
+    "prettier",
+    "eslint:recommended",
+    "plugin:import/recommended"
   ],
   "plugins": ["unused-imports", "tailwindcss", "prettier"],
   "rules": {
