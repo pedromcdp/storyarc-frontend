@@ -22,7 +22,7 @@ export const feedFilters = [
     icon: CalendarIcon,
   },
   {
-    name: 'Em década',
+    name: 'Por década',
     value: '/per-decade',
     icon: ClockIcon,
   },
