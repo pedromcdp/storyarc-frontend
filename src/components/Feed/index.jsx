@@ -1,5 +1,6 @@
 import FeedFilter from '../FeedFilter';
 import PostsContainer from './PostsContainer';
+import AddButton from '../AddButton';
 import Footer from '../Footer';
 
 export default function Feed() {
@@ -11,9 +12,7 @@ export default function Feed() {
       </div>
       <div className="hidden top-5 grow mt-5 max-w-xs xl:block xl:sticky">
         <div className="xl:max-w-xs">
-          <div className="p-5 bg-verde rounded-xl shadow-sm">
-            <h1 className="text-white">123</h1>
-          </div>
+          <AddButton />
           <Footer />
         </div>
       </div>
