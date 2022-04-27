@@ -31,30 +31,30 @@ export default function PostHeader({ name, avatar, timestamp }) {
           </div>
         </div>
       </div>
-      <div className="p-[0.45rem] hover:bg-gray-100 rounded-full cursor-pointer dropdown dropdown-end">
-        <DotsHorizontalIcon tabIndex={0} className="w-5 h-5" />
-        <ul
-          tabIndex="0"
-          className="p-2 w-60 bg-white drop-shadow-lg dropdown-content menu rounded-box"
-        >
+      <div
+        tabIndex={0}
+        className="p-[0.45rem] hover:bg-gray-100 rounded-full cursor-pointer dropdown dropdown-end"
+      >
+        <DotsHorizontalIcon className="w-5 h-5" />
+        <ul className="p-2 w-60 bg-white drop-shadow-lg dropdown-content menu rounded-box">
           <li tabIndex={0}>
-            <a className="text-sm">
+            <span className="text-sm">
               <LinkIcon className="w-5 h-5" />
               Copiar ligação
-            </a>
+            </span>
           </li>
           <li tabIndex={0}>
-            <a className="text-sm">
+            <span className="text-sm">
               <DocumentDownloadIcon className="w-5 h-5" />
               Descarregar imagem
-            </a>
+            </span>
           </li>
           <div className="w-full h-[1.2px] bg-gray-100 rounded-2xl"></div>
           <li tabIndex={0}>
-            <a className="text-sm">
+            <span className="text-sm">
               <ExclamationCircleIcon className="w-5 h-5 text-red-500 " />
               Reportar publicação
-            </a>
+            </span>
           </li>
         </ul>
       </div>

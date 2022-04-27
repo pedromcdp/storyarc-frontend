@@ -24,7 +24,7 @@ export default function HeaderRight() {
           <SearchIcon className="w-6 h-6" />
           {showSearch && (
             <input
-              aria-label="  caixa de pesquisa"
+              aria-label="caixa de pesquisa"
               type="text"
               //   onChange={handleTyping}
               placeholder="Pesquisar por locais"
@@ -32,7 +32,10 @@ export default function HeaderRight() {
             />
           )}
         </button>
-        <button className="hover:bg-gray-100 rounded-full navbarIcon">
+        <button
+          aria-label="Iniciar sessão"
+          className="hover:bg-gray-100 rounded-full navbarIcon"
+        >
           <UserCircleIcon className="w-6 h-6" />
         </button>
       </div>

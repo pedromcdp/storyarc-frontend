@@ -6,7 +6,6 @@ export default function SidebarRow({ title, Icon, src }) {
     <button
       type="button"
       role="button"
-      id={`${title}Button`}
       className="flex justify-center items-center p-[0.2rem] space-x-[0.11rem] w-full hover:bg-gray-100 rounded-xl transition ease-out hover:scale-105 cursor-pointer md:justify-start md:p-2 md:space-x-[0.35rem] duration-105"
     >
       {src && (
