@@ -4,9 +4,9 @@
   "private": true,
   "license": "MIT",
   "scripts": {
-    "dev": "next dev",
+    "dev": "set NODE_ENV=development&& next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "set NODE_ENV=production&& next start",
     "postinstall": "husky install",
     "lint": "npx eslint \"**/*.{js,jsx}\" --fix",
     "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
