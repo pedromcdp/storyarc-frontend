@@ -4,7 +4,7 @@ export default function RowsContainer({ children, title, ariaText }) {
   return (
     <div className="md:mt-4 w-max-full">
       <p
-        className="text-sm text-gray-500 md:text-base"
+        className="mb-1 text-sm tracking-wide text-gray-500 md:text-base"
         tabIndex={0}
         aria-label={ariaText}
       >
