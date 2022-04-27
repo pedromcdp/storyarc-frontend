@@ -1,4 +1,4 @@
-import SidebarSearch from '../Sidebar/SidebarSearchBar';
+import SidebarSearch from '../Sidebar/SidebarSearch';
 
 export default function HeaderCenter() {
   return (

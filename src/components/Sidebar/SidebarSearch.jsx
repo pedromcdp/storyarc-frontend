@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { SearchIcon } from '@heroicons/react/outline';
 
-export default function SidebarSearchBar() {
+export default function SidebarSearch() {
   const searchRef = useRef(null);
 
   const setFocus = () => {
