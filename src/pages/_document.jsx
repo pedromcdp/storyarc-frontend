@@ -31,6 +31,14 @@ export default function Document() {
         />
       </Head>
       <body>
+        {process.env.NODE_ENV === 'development' && (
+          <div className="flex fixed right-0 bottom-10 z-50 flex-col justify-center items-start px-3 w-80 h-40 bg-opacity-40  rounded-l-xl">
+            <h1 className="text-2xl font-semibold text-transparent uppercase bg-clip-text bg-gradient-to-br from-blue-400 to-fuchsia-700">
+              storyarc © {new Date().getFullYear()} | DEV MODE:
+              <span className="text-verde"> ON</span>
+            </h1>
+          </div>
+        )}
         <Main />
         <NextScript />
       </body>
