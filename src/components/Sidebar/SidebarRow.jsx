@@ -9,10 +9,8 @@ import {
 export default function SidebarRow({ title, Icon, src, filter }) {
   const dispatch = useDispatch();
   const feedFilter = useSelector(useFeedFilter);
-  console.log(`selected filter: ${feedFilter.name}`);
 
   const setFilter = () => {
-    console.log('here');
     dispatch(setSelectedFilter(filter));
   };
 
