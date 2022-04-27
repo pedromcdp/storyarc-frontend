@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
-    <footer className="">
-      <p className="mt-2 text-sm text-gray-500">
+    <footer className="pt-2 mt-3 border-t border-gray-200">
+      <p className="text-sm text-gray-500">
         Desenvolvido na{' '}
         <span className="text-verde">Universidade de Aveiro</span> com muito
         <span className="before:ml-[0.15rem] text-red-500">&#9829;</span>
