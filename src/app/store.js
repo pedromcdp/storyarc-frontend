@@ -1,8 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
+import { createWrapper } from 'next-redux-wrapper';
 import feedFilterReducer from '../features/feedFilter/feedFilterSlice';
 
-export const store = configureStore({
-  reducer: {
-    feedfilter: feedFilterReducer,
-  },
-});
+const makeStore = () =>
+  configureStore({
+    reducer: {
+      feedfilter: feedFilterReducer,
+    },
+  });
+
+export const wrapper = createWrapper(makeStore);

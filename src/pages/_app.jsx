@@ -2,18 +2,13 @@ import '../styles/globals.css';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/pt';
-import { Provider } from 'react-redux';
-import { store } from '../app/store';
+import { wrapper } from '../app/store';
 
-function MyApp({ Component, pageProps }) {
+function StoryArc({ Component, pageProps }) {
   dayjs.extend(relativeTime);
   dayjs.locale('pt');
 
-  return (
-    <Provider store={store}>
-      <Component {...pageProps} />
-    </Provider>
-  );
+  return <Component {...pageProps} />;
 }
 
-export default MyApp;
+export default wrapper.withRedux(StoryArc);
