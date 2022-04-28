@@ -11,6 +11,7 @@ export default function GoogleLoginButton() {
 
   return (
     <button
+      type="button"
       onClick={(e) => handleLoginWithGoogle(e)}
       aria-label="botão para iniciar sessão com o Google"
       className="flex justify-center py-3 px-4 space-x-2 w-full bg-white hover:bg-gray-100 rounded-md border shadow-sm  transition duration-100 ease-in-out"
