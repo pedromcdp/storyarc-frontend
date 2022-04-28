@@ -11,7 +11,7 @@ export default function index() {
       >
         {feedFilters.map((filter) => (
           <SidebarRow
-            key={filter.title}
+            key={`${filter.name}-mobile`}
             title={filter.name}
             Icon={filter.icon}
             filter={filter}

@@ -16,7 +16,7 @@ function Sidebar() {
         <RowsContainer title="Feed" ariaText="Opções de filtragem do feed">
           {feedFilters.map((filter) => (
             <SidebarRow
-              key={filter.title}
+              key={`${filter.name}-sidebar`}
               title={filter.name}
               Icon={filter.icon}
               filter={filter}
