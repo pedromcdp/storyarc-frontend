@@ -1,13 +1,21 @@
 import { useState } from 'react';
 import { useClickOutside } from '@mantine/hooks';
 import { SearchIcon, UserCircleIcon } from '@heroicons/react/outline';
+import { useRouter } from 'next/router';
 
 export default function HeaderRight() {
+  const router = useRouter();
   const [showSearch, setShowSearch] = useState(false);
   const searchBoxRef = useClickOutside(() => setShowSearch(false));
+
   const handleShowSearch = () => {
     setShowSearch(true);
   };
+
+  const handleUsrBtnClick = () => {
+    router.push('/login');
+  };
+
   return (
     <div id="navbarRight" className="flex basis-3/4 justify-end sm:basis-1/4">
       <div className="flex justify-between items-center space-x-1">
@@ -34,6 +42,7 @@ export default function HeaderRight() {
         </button>
         <button
           aria-label="Iniciar sessão"
+          onClick={handleUsrBtnClick}
           className="hover:bg-gray-100 rounded-full navbarIcon"
         >
           <UserCircleIcon className="w-6 h-6" />
