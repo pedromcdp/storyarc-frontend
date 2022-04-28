@@ -51,7 +51,7 @@ export default function SidebarRow({
       {Icon && (
         <Icon
           className={`w-6 h-6 ${
-            feedFilter.name === title ? 'text-white' : 'text-verde'
+            feedFilter === title ? 'text-white' : 'text-verde'
           }`}
         />
       )}
