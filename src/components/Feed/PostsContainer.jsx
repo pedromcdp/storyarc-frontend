@@ -25,6 +25,7 @@ export default function PostsContainer() {
         {[...Array(10)].map((_, i) => (
           <Post
             key={i}
+            id={i}
             username={dummydata.user.username}
             avatar={dummydata.user.avatar}
             timestamp={dummydata.timestamp}

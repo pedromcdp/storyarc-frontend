@@ -1,15 +1,16 @@
 import { useRef } from 'react';
 import Image from 'next/image';
 import { PaperAirplaneIcon } from '@heroicons/react/outline';
+import PropTypes from 'prop-types';
 
-export default function CommentInput({ avatar, username }) {
+export default function CommentInput({ user }) {
   const commentRef = useRef(null);
 
   return (
-    <div tabIndex={0} className="flex items-center py-2 space-x-2 border-t">
+    <form tabIndex={0} className="flex items-center py-2 space-x-2 border-t">
       <Image
-        src={avatar}
-        alt={username}
+        src={user.avatar}
+        alt={user.name}
         width={40}
         height={45}
         layout="fixed"
@@ -29,6 +30,10 @@ export default function CommentInput({ avatar, username }) {
       >
         <PaperAirplaneIcon className="w-6 h-6 rotate-90" />
       </button>
-    </div>
+    </form>
   );
 }
+
+CommentInput.propTypes = {
+  user: PropTypes.object.isRequired,
+};

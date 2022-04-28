@@ -7,9 +7,16 @@ import {
   ExclamationCircleIcon,
   DocumentDownloadIcon,
 } from '@heroicons/react/outline';
+import { useClipboard } from '@mantine/hooks';
 import PropTypes from 'prop-types';
+import { pageUrl } from '../../utils/pageUrl';
 
-export default function PostHeader({ name, avatar, timestamp }) {
+export default function PostHeader({ id, name, avatar, timestamp }) {
+  const clipboard = useClipboard();
+
+  const handleCopyToClipboard = () => {
+    clipboard.copy(`${pageUrl}/post/${id}`);
+  };
   return (
     <div tabIndex={0} className="flex justify-between items-center">
       <div className="flex items-center space-x-2">
@@ -37,7 +44,7 @@ export default function PostHeader({ name, avatar, timestamp }) {
       >
         <DotsHorizontalIcon className="w-5 h-5" />
         <ul className="p-2 w-60 bg-white drop-shadow-lg dropdown-content menu rounded-box">
-          <li tabIndex={0}>
+          <li tabIndex={0} onClick={handleCopyToClipboard}>
             <span className="text-sm">
               <LinkIcon className="w-5 h-5" />
               Copiar ligação

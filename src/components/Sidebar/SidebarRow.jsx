@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -6,21 +7,33 @@ import {
   setSelectedFilter,
 } from '../../features/feedFilter/feedFilterSlice';
 
-export default function SidebarRow({ title, Icon, src, filter }) {
+export default function SidebarRow({
+  title,
+  Icon,
+  src,
+  filter,
+  loginBtn,
+  href,
+}) {
   const dispatch = useDispatch();
   const feedFilter = useSelector(useFeedFilter);
+  const router = useRouter();
 
-  const setFilter = () => {
-    dispatch(setSelectedFilter(filter));
+  const handleButtonClick = () => {
+    if (filter) {
+      dispatch(setSelectedFilter(title));
+    } else if (loginBtn) {
+      router.push(href);
+    }
   };
 
   return (
     <button
       type="button"
       role="button"
-      onClick={() => setFilter()}
+      onClick={() => handleButtonClick()}
       className={`flex justify-center items-center p-[0.2rem] space-x-[0.11rem] w-full rounded-xl transition ease-out cursor-pointer md:justify-start md:p-2 md:space-x-[0.35rem] duration-105 ${
-        feedFilter.name === title
+        feedFilter === title
           ? 'bg-verde text-white scale-105'
           : 'hover:bg-gray-100 hover:md:scale-105'
       }`}
@@ -32,7 +45,7 @@ export default function SidebarRow({ title, Icon, src, filter }) {
           width={30}
           height={30}
           layout="fixed"
-          className="mask mask-squircle"
+          className="object-cover mask mask-squircle"
         />
       )}
       {Icon && (
@@ -52,4 +65,6 @@ SidebarRow.propTypes = {
   Icon: PropTypes.elementType,
   src: PropTypes.string,
   filter: PropTypes.object,
+  loginBtn: PropTypes.bool,
+  href: PropTypes.string,
 };

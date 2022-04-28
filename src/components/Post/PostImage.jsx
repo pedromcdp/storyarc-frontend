@@ -53,6 +53,7 @@ export default function PostImage() {
           alt="foto de c"
           layout="fill"
           className="grayscale pointer-events-none"
+          priority
         />
         <Image
           src={newImage}
@@ -64,6 +65,7 @@ export default function PostImage() {
             }% 100%, 0 100%)`,
           }}
           className="pointer-events-none"
+          priority
         />
         <div
           style={{ left: `${showPercentage * 100}%` }}

@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { feedFilters } from '../../utils/feedFilters';
 
 const initialState = {
-  selectedFilter: feedFilters[0],
+  selectedFilter: feedFilters[0].name,
 };
 
 const feedFilterSlice = createSlice({
