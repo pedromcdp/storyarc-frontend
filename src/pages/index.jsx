@@ -2,6 +2,8 @@ import Head from 'next/head';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import Feed from '../components/Feed';
+import { wrapper } from '../app/store';
+import { getAllPost, getRunningOperationPromises } from '../services/storyarc';
 
 export default function Home() {
   return (
@@ -17,3 +19,14 @@ export default function Home() {
     </div>
   );
 }
+
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) => async () => {
+    store.dispatch(getAllPost.initiate());
+    await Promise.all(getRunningOperationPromises());
+
+    return {
+      props: {},
+    };
+  },
+);

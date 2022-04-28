@@ -1,10 +1,16 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { HYDRATE } from 'next-redux-wrapper';
 
 export const StoryArcAPI = createApi({
   reducerPath: 'storyarc',
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://storyarc-fake-api.herokuapp.com/',
   }),
+  extractRehydrationInfo(action, { reducerPath }) {
+    if (action.type === HYDRATE) {
+      return action.payload[reducerPath];
+    }
+  },
   endpoints: (builder) => ({
     getAllPost: builder.query({
       query: () => `posts?_expand=user`,
@@ -16,8 +22,7 @@ export const StoryArcAPI = createApi({
       query: ({ postId }) => `posts/${postId}/comments`,
     }),
     getUserPosts: builder.query({
-      query: ({ uid }) =>
-        `posts?_expand=user&userId=vlBJfbmG6iNl86pQJhkNldJG0A52`,
+      query: () => `posts?_expand=user&userId=vlBJfbmG6iNl86pQJhkNldJG0A52`,
     }),
     getUserSavedPosts: builder.query({
       query: () => `/users/vlBJfbmG6iNl86pQJhkNldJG0A52/savedPosts/`,
@@ -59,4 +64,7 @@ export const {
   useGetLocationsQuery,
   useAddCommentMutation,
   useAddUserMutation,
+  util: { getRunningOperationPromises },
 } = StoryArcAPI;
+
+export const { getAllPost } = StoryArcAPI.endpoints;

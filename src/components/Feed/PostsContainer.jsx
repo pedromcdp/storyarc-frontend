@@ -1,5 +1,6 @@
 import { motion, AnimateSharedLayout } from 'framer-motion';
 import Post from '../Post';
+import { useGetAllPostQuery } from '../../services/storyarc';
 
 const dummydata = {
   user: {
@@ -19,6 +20,13 @@ const dummydata = {
 };
 
 export default function PostsContainer() {
+  const { data, error } = useGetAllPostQuery();
+  if (data) {
+    console.log(data);
+  } else {
+    console.log(error);
+  }
+
   return (
     <AnimateSharedLayout>
       <motion.div layout className="pb-32">
