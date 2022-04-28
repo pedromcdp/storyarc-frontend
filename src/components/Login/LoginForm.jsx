@@ -3,8 +3,8 @@ import GoogleLoginButton from './GoogleLoginButton';
 import LoginInput from './LoginInput';
 
 export default function LoginForm() {
-  const emailRef = useRef();
-  const passwordRef = useRef();
+  const emailRef = useRef('');
+  const passwordRef = useRef('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
