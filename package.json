@@ -9,8 +9,7 @@
     "start": "set NODE_ENV=production&& next start",
     "postinstall": "husky install",
     "lint": "npx eslint \"**/*.{js,jsx}\" --fix",
-    "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
-    "prepare": "husky install"
+    "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\""    
   },
   "dependencies": {
     "@heroicons/react": "^1.0.6",
@@ -18,9 +17,11 @@
     "@reduxjs/toolkit": "^1.8.1",
     "daisyui": "^2.14.2",
     "dayjs": "^1.11.1",
+    "firebase": "^9.6.11",
     "framer-motion": "^6.3.1",
     "next": "12.1.5",
     "next-pwa": "^5.5.2",
+    "next-redux-wrapper": "^7.0.5",
     "react": "18.0.0",
     "react-dom": "18.0.0",
     "react-redux": "^8.0.1",
