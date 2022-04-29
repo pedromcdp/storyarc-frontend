@@ -1,10 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { HYDRATE } from 'next-redux-wrapper';
+import { apiUrl } from '../utils/appUrls';
 
 export const StoryArcAPI = createApi({
   reducerPath: 'storyarc',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://storyarc-fake-api.herokuapp.com/',
+    baseUrl: apiUrl,
   }),
   extractRehydrationInfo(action, { reducerPath }) {
     if (action.type === HYDRATE) {
