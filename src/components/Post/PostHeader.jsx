@@ -9,7 +9,7 @@ import {
 } from '@heroicons/react/outline';
 import { useClipboard } from '@mantine/hooks';
 import PropTypes from 'prop-types';
-import { pageUrl } from '../../utils/pageUrl';
+import { pageUrl } from '../../utils/appUrls';
 
 export default function PostHeader({ id, name, avatar, timestamp }) {
   const clipboard = useClipboard();
