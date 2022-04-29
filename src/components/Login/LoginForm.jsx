@@ -12,7 +12,10 @@ export default function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="w-[25rem]">
+    <form
+      onSubmit={handleSubmit}
+      className="px-4 w-full min-w-[22rem] sm:w-[25rem]"
+    >
       <GoogleLoginButton />
       <div className="flex before:flex-1 after:flex-1 items-center my-4 before:mt-0.5 after:mt-0.5 before:border-t after:border-t before:border-gray-300 after:border-gray-300 select-none">
         <p className="mx-4 mb-0">Ou</p>
