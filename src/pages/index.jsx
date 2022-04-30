@@ -3,9 +3,15 @@ import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import Feed from '../components/Feed';
 import { wrapper } from '../app/store';
-import { getAllPost, getRunningOperationPromises } from '../services/storyarc';
+import {
+  getAllPost,
+  useGetAllPostQuery,
+  getRunningOperationPromises,
+} from '../services/storyarc';
 
 export default function Home() {
+  const { data } = useGetAllPostQuery();
+
   return (
     <div className="overflow-hidden h-screen font-body antialiased bg-gray-100">
       <Head>
@@ -14,7 +20,7 @@ export default function Home() {
       <Header />
       <main className="flex">
         <Sidebar />
-        <Feed />
+        <Feed data={data} />
       </main>
     </div>
   );

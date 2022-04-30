@@ -1,8 +1,8 @@
 import { motion, AnimateSharedLayout } from 'framer-motion';
 import Post from '../Post';
-import { useGetAllPostQuery } from '../../services/storyarc';
 
 const dummydata = {
+  id: 1,
   user: {
     username: 'Pedro Miguel Pereira',
     avatar:
@@ -19,27 +19,30 @@ const dummydata = {
   tags: ['tag1', 'tag2', 'tag3'],
 };
 
-export default function PostsContainer() {
-  const { data, error } = useGetAllPostQuery();
-  if (data) {
-    console.log(data);
-  } else {
-    console.log(error);
-  }
-
+export default function PostsContainer({ data }) {
   return (
     <AnimateSharedLayout>
       <motion.div layout className="pb-32">
-        {[...Array(10)].map((_, i) => (
+        {Array.isArray(data) ? (
+          data.map((item) => (
+            <Post
+              key={item.id}
+              id={item.id}
+              username={dummydata.user.username}
+              avatar={dummydata.user.avatar}
+              timestamp={dummydata.timestamp}
+              description={dummydata.description}
+            />
+          ))
+        ) : (
           <Post
-            key={i}
-            id={i}
+            id={dummydata.id}
             username={dummydata.user.username}
             avatar={dummydata.user.avatar}
             timestamp={dummydata.timestamp}
             description={dummydata.description}
           />
-        ))}
+        )}
       </motion.div>
     </AnimateSharedLayout>
   );
