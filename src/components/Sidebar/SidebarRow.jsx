@@ -30,7 +30,6 @@ export default function SidebarRow({
   return (
     <button
       type="button"
-      role="button"
       onClick={() => handleButtonClick()}
       className={`flex justify-center items-center p-[0.2rem] space-x-[0.11rem] w-full rounded-xl transition ease-out cursor-pointer md:justify-start md:p-2 md:space-x-[0.35rem] duration-105 ${
         feedFilter === title

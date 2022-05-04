@@ -4,7 +4,6 @@ export default function AddButton() {
   return (
     <button
       type="button"
-      role="button"
       aria-label="Criar uma publicação"
       className="flex p-5 space-x-1 w-full bg-white hover:bg-gray-100 rounded-xl shadow-sm"
     >

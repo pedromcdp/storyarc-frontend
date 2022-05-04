@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-noninteractive-tabindex */
 import CommentCell from './CommentCell';
 
 export default function CommentsContainer() {

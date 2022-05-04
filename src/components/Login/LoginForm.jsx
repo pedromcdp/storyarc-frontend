@@ -35,7 +35,6 @@ export default function LoginForm() {
       <div className="text-center">
         <button
           type="submit"
-          role="button"
           aria-label="Botão para iniciar sessão"
           className="py-3 px-7 w-full text-white bg-verde rounded-lg shadow-md"
         >

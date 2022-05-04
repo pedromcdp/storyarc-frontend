@@ -73,6 +73,9 @@ export default function PostImage() {
         >
           <div className="relative h-full opacity-50 hover:opacity-100">
             <div
+              role="slider"
+              aria-valuenow={showPercentage * 100}
+              tabIndex={0}
               style={{ touchAction: 'none' }}
               onMouseDown={handleMouseDown}
               onTouchMove={handleTouchMove}

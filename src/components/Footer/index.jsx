@@ -6,19 +6,19 @@ export default function Footer() {
         <span className="text-verde">Universidade de Aveiro</span> com muito
         <span className="before:ml-[0.15rem] text-red-500">&#9829;</span>
       </p>
-      <ul role="list" className="flex flex-wrap mt-2 text-sm text-gray-500">
+      <ul className="flex flex-wrap mt-2 text-sm text-gray-500">
         <li className="cursor-pointer footerItem">
-          <a href="#">
+          <a href="/cookies">
             <span className="hover:underline">Cookies</span>
           </a>
         </li>
         <li className="footerItem">
-          <a href="#">
+          <a href="/terms">
             <span className="hover:underline">Termos e condições</span>
           </a>
         </li>
         <li className="cursor-pointer">
-          <a href="#">
+          <a href="/privpolicy">
             <span className="hover:underline">Política de privacidade</span>
           </a>
         </li>

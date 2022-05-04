@@ -4,12 +4,12 @@ export default function SidebarLogo() {
   return (
     <div
       className="mb-1 w-36 h-12 cursor-pointer"
-      tabIndex={0}
       aria-label="Storyarc"
-      role="text"
+      role="link"
     >
       <Link href="/" passHref={true}>
         <svg
+          tabIndex={0}
           className="w-full h-full"
           viewBox="0 0 1364 297"
           fill="none"

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-noninteractive-tabindex */
 import Image from 'next/image';
 import dayjs from 'dayjs';
 import { ClockIcon } from '@heroicons/react/outline';

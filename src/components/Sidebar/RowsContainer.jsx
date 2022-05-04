@@ -1,8 +1,9 @@
+/* eslint-disable jsx-a11y/no-noninteractive-tabindex */
 import PropTypes from 'prop-types';
 
 export default function RowsContainer({ children, title, ariaText }) {
   return (
-    <div className="md:mt-4 w-max-full">
+    <section className="md:mt-4 w-max-full">
       <h1
         className="mb-1 text-sm tracking-wide text-gray-500 md:text-base"
         tabIndex={0}
@@ -13,7 +14,7 @@ export default function RowsContainer({ children, title, ariaText }) {
       <div className="flex justify-evenly md:block md:mt-2 md:space-y-1">
         {children}
       </div>
-    </div>
+    </section>
   );
 }
 

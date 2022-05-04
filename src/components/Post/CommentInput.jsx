@@ -7,6 +7,7 @@ export default function CommentInput({ user }) {
   const commentRef = useRef(null);
 
   return (
+    // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
     <form tabIndex={0} className="flex items-center py-2 space-x-2 border-t">
       <Image
         src={user.avatar}

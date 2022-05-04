@@ -6,6 +6,7 @@ import { auth } from '../../firebase/firebase';
 export default function SidebarAuthRow({ user, Icon }) {
   return (
     <div
+      role="button"
       tabIndex={0}
       className="group flex justify-center items-center p-[0.2rem] space-x-2 w-full hover:bg-gray-100 rounded-xl transition ease-in-out cursor-pointer md:justify-start md:p-2 md:duration-105"
     >
@@ -22,7 +23,7 @@ export default function SidebarAuthRow({ user, Icon }) {
       {!user && <Icon className="w-6 h-6" />}
       <div className="flex flex-col leading-none">
         <p className="">{user?.name}</p>
-        <a href="#" className="hidden group-hover:inline-block text-xs">
+        <a href="/perfil" className="hidden group-hover:inline-block text-xs">
           Ver perfil
         </a>
       </div>
