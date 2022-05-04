@@ -5,9 +5,10 @@
     "plugin:tailwindcss/recommended",
     "prettier",
     "eslint:recommended",
-    "plugin:import/recommended"
+    "plugin:import/recommended",
+    "plugin:jsx-a11y/recommended"
   ],
-  "plugins": ["unused-imports", "tailwindcss", "prettier"],
+  "plugins": ["unused-imports", "tailwindcss", "prettier", "jsx-a11y"],
   "rules": {
     "global-require": "off",
     "consistent-return": "off",
