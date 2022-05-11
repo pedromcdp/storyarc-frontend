@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Image from 'next/image';
 import Login from '../components/Login';
 
 export default function LoginPage() {
@@ -9,6 +10,16 @@ export default function LoginPage() {
       </Head>
       <main className="flex overflow-auto">
         <Login />
+        <div className="flex relative grow bg-white">
+          <Image
+            src="/images/banner.webp"
+            typeof="image/webp"
+            alt="google logo"
+            layout="fill"
+            className="object-cover"
+            priority
+          />
+        </div>
       </main>
     </div>
   );
