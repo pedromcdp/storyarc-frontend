@@ -1,5 +1,6 @@
 import { UserCircleIcon } from '@heroicons/react/outline';
 import { useSelector } from 'react-redux';
+import { PlusCircleIcon } from '@heroicons/react/solid';
 import SidebarLogo from './SidebarLogo';
 import SidebarSearch from './SidebarSearch';
 import SidebarRow from './SidebarRow';
@@ -18,6 +19,9 @@ function Sidebar() {
         <SidebarSearch />
       </div>
       <div className="flex flex-col grow">
+        <RowsContainer title="Nova publicação" moreClasses="xl:hidden">
+          <SidebarRow title="Criar uma publicação" Icon={PlusCircleIcon} />
+        </RowsContainer>
         <RowsContainer title="Feed" ariaText="Opções de filtragem do feed">
           {feedFilters.map((filter) => (
             <SidebarRow
