@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useClickOutside } from '@mantine/hooks';
-import { SearchIcon, UserCircleIcon } from '@heroicons/react/outline';
+import { SearchIcon, UserCircleIcon, PlusIcon } from '@heroicons/react/outline';
 import { useRouter } from 'next/router';
 
 export default function HeaderRight() {
@@ -39,6 +39,13 @@ export default function HeaderRight() {
               className="w-full h-full text-sm rounded-lg outline-none"
             />
           )}
+        </button>
+        <button
+          aria-label="Adicionar conteúdo"
+          onClick={handleUsrBtnClick}
+          className="hover:bg-gray-100 rounded-full navbarIcon"
+        >
+          <PlusIcon className="w-6 h-6" />
         </button>
         <button
           aria-label="Iniciar sessão"
