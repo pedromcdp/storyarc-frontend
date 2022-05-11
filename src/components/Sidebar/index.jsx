@@ -19,7 +19,11 @@ function Sidebar() {
         <SidebarSearch />
       </div>
       <div className="flex flex-col grow">
-        <RowsContainer title="Nova publicação" moreClasses="xl:hidden">
+        <RowsContainer
+          title="Nova publicação"
+          ariaText="Adicionar conteúdo ao storyarc"
+          moreClasses="xl:hidden"
+        >
           <SidebarRow title="Criar uma publicação" Icon={PlusCircleIcon} />
         </RowsContainer>
         <RowsContainer title="Feed" ariaText="Opções de filtragem do feed">
