@@ -6,6 +6,8 @@ import {
   useFeedFilter,
   setSelectedFilter,
 } from '../../features/feedFilter/feedFilterSlice';
+import { auth } from '../../firebase/firebase';
+import { openDialog } from '../../features/dialog/dialogSlice';
 
 export default function SidebarRow({
   title,
@@ -13,6 +15,7 @@ export default function SidebarRow({
   src,
   filter,
   loginBtn,
+  addBtn,
   href,
 }) {
   const dispatch = useDispatch();
@@ -24,6 +27,12 @@ export default function SidebarRow({
       dispatch(setSelectedFilter(title));
     } else if (loginBtn) {
       router.push(href);
+    } else if (addBtn) {
+      if (!auth.currentUser) {
+        dispatch(openDialog());
+      } else {
+        console.log('User logged in');
+      }
     }
   };
 
@@ -65,5 +74,6 @@ SidebarRow.propTypes = {
   src: PropTypes.string,
   filter: PropTypes.object,
   loginBtn: PropTypes.bool,
+  addBtn: PropTypes.bool,
   href: PropTypes.string,
 };

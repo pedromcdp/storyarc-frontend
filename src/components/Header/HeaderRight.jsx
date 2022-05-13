@@ -2,9 +2,13 @@ import { useState } from 'react';
 import { useClickOutside } from '@mantine/hooks';
 import { SearchIcon, UserCircleIcon, PlusIcon } from '@heroicons/react/outline';
 import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
+import { auth } from '../../firebase/firebase';
+import { openDialog } from '../../features/dialog/dialogSlice';
 
 export default function HeaderRight() {
   const router = useRouter();
+  const dispatch = useDispatch();
   const [showSearch, setShowSearch] = useState(false);
   const searchBoxRef = useClickOutside(() => setShowSearch(false));
 
@@ -14,6 +18,14 @@ export default function HeaderRight() {
 
   const handleUsrBtnClick = () => {
     router.push('/login');
+  };
+
+  const handleAddBtnClick = () => {
+    if (!auth.currentUser) {
+      dispatch(openDialog());
+    } else {
+      console.log('User logged in');
+    }
   };
 
   return (
@@ -42,17 +54,17 @@ export default function HeaderRight() {
         </button>
         <button
           aria-label="Adicionar conteúdo"
-          onClick={handleUsrBtnClick}
+          onClick={handleAddBtnClick}
           className="hover:bg-gray-100 rounded-full navbarIcon"
         >
-          <PlusIcon className="w-6 h-6" />
+          <PlusIcon className="w-5 h-5" />
         </button>
         <button
           aria-label="Iniciar sessão"
           onClick={handleUsrBtnClick}
           className="hover:bg-gray-100 rounded-full navbarIcon"
         >
-          <UserCircleIcon className="w-6 h-6" />
+          <UserCircleIcon className="w-6 h-6 text-verde" />
         </button>
       </div>
     </div>

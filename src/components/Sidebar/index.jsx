@@ -24,7 +24,11 @@ function Sidebar() {
           ariaText="Adicionar conteúdo ao storyarc"
           moreClasses="xl:hidden"
         >
-          <SidebarRow title="Criar uma publicação" Icon={PlusCircleIcon} />
+          <SidebarRow
+            title="Criar uma publicação"
+            Icon={PlusCircleIcon}
+            addBtn
+          />
         </RowsContainer>
         <RowsContainer title="Feed" ariaText="Opções de filtragem do feed">
           {feedFilters.map((filter) => (
