@@ -12,6 +12,7 @@
     "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\""
   },
   "dependencies": {
+    "@headlessui/react": "^1.6.1",
     "@heroicons/react": "^1.0.6",
     "@mantine/hooks": "^4.1.5",
     "@reduxjs/toolkit": "^1.8.1",
