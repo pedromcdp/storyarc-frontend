@@ -8,6 +8,7 @@ import {
   useGetAllPostQuery,
   getRunningOperationPromises,
 } from '../services/storyarc';
+import { AppDialog } from '../components/Dialog';
 
 export default function Home() {
   const { data } = useGetAllPostQuery();
@@ -21,6 +22,7 @@ export default function Home() {
       <main className="flex">
         <Sidebar />
         <Feed data={data} />
+        <AppDialog />
       </main>
     </div>
   );
