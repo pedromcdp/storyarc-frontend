@@ -14,7 +14,7 @@ export default function LoginPage() {
           <Image
             src="/images/banner.webp"
             typeof="image/webp"
-            alt="google logo"
+            alt="imagem banner do storyarc"
             layout="fill"
             className="object-cover"
             priority
