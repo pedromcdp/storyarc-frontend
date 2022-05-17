@@ -29,7 +29,7 @@ export default function CommentInput({ user }) {
         aria-label="submeter comentário"
         className="rounded-full transition ease-out"
       >
-        <PaperAirplaneIcon className="w-6 h-6 rotate-90" />
+        <PaperAirplaneIcon className="w-6 h-6 hover:text-verde transition-colors duration-100 ease-out rotate-90" />
       </button>
     </form>
   );
