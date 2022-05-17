@@ -43,7 +43,7 @@ export function AppDialog() {
                 <ShieldExclamationIcon className="p-1 mr-1 w-[1.8rem] h-[1.8rem] text-white bg-verde mask mask-squircle" />
                 Sem sessão iniciada
               </Dialog.Title>
-              <Dialog.Description className="my-2">
+              <Dialog.Description className="my-4">
                 Para criar uma publicação, é necessário iniciar uma sessão.
               </Dialog.Description>
               <button
