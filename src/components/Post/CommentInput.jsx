@@ -22,7 +22,7 @@ export default function CommentInput({ user }) {
         type="text"
         //   onChange={handleTyping}
         placeholder="Insere o teu comentário"
-        className="grow p-[0.60rem] text-sm rounded-xl border outline-none drop-shadow-sm"
+        className="grow p-[0.60rem] text-sm rounded-xl border focus:border-verde outline-none drop-shadow-sm transition-colors duration-100 ease-in"
       />
       <button
         type="submit"
