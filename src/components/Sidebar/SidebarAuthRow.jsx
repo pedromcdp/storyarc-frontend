@@ -29,7 +29,7 @@ export default function SidebarAuthRow({ user, Icon }) {
       </div>
       <button
         type="button"
-        aria-label="Botão para sair da conta"
+        aria-label="Botão para encerrar sessão"
         onClick={() => auth.signOut()}
         className="flex grow justify-end opacity-0 group-hover:opacity-100 hover:opacity-100"
       >
