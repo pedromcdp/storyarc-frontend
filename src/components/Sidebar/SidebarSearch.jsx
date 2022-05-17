@@ -1,15 +1,22 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { SearchIcon } from '@heroicons/react/outline';
+import SearchLoadingAnim from '../Search/SearchLoadingAnim';
+import SearchResultsContainer from '../Search/SearchResultsContainer';
 
 export default function SidebarSearch() {
   const searchRef = useRef(null);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   return (
     <div
-      className="grow max-w-[18rem] h-12 max-h-11 rounded-t-xl border shadow-sm cursor-text md:max-w-full md:max-h-full"
+      className="group z-10 grow max-w-[18rem] cursor-text md:max-w-full md:max-h-full"
       rolo="search"
     >
-      <div className="flex items-center px-2 space-x-1 w-full h-full">
+      <div
+        className={`flex items-center h-12 px-2 space-x-1 w-full shadow-sm border group-focus-within:border-verde transition-all duration-[50ms] ease-in ${
+          isExpanded ? 'rounded-t-xl' : 'rounded-xl'
+        }`}
+      >
         <SearchIcon className="w-6 h-6 text-verde" />
         <input
           ref={searchRef}
@@ -17,13 +24,15 @@ export default function SidebarSearch() {
           //   onChange={handleTyping}
           placeholder="Pesquisar por locais"
           className="w-full h-full text-sm rounded-lg outline-none"
+          onFocus={() => setIsExpanded(true)}
+          onBlur={() => setIsExpanded(false)}
         />
       </div>
-      {/* <div className="relative items-center w-full h-full">
-        <ul className="overflow-auto absolute w-full max-h-80 bg-white rounded-b-xl border shadow-sm">
-          <li className="py-2 px-3 hover:bg-gray-100 cursor-pointer">fdsfs</li>
-        </ul>
-      </div> */}
+      {isExpanded && (
+        <SearchResultsContainer>
+          <SearchLoadingAnim />
+        </SearchResultsContainer>
+      )}
     </div>
   );
 }
