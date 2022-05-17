@@ -16,7 +16,7 @@ export default function Post({ id, username, avatar, timestamp, description }) {
 
   return (
     <motion.article initial={false} layout className="flex flex-col">
-      <motion.div className="px-5 pt-5 mt-5 bg-white rounded-2xl shadow-sm">
+      <motion.div className="px-5 pt-5 mt-5 bg-white rounded-2xl border shadow-sm">
         <PostHeader
           name={username}
           avatar={avatar}

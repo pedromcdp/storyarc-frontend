@@ -8,7 +8,7 @@ export default function SidebarAuthRow({ user, Icon }) {
     <div
       role="button"
       tabIndex={0}
-      className="group flex justify-center items-center p-[0.2rem] space-x-2 w-full hover:bg-gray-100 rounded-xl transition ease-in-out cursor-pointer md:justify-start md:p-2 md:duration-105"
+      className="group flex justify-center items-center p-[0.2rem] space-x-2 w-full hover:bg-gray-100 rounded-xl transition-all ease-in-out cursor-pointer md:justify-start md:p-2 md:duration-105"
     >
       {user && (
         <Image

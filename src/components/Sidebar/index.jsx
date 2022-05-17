@@ -13,7 +13,7 @@ function Sidebar() {
   const user = useSelector(useUser);
 
   return (
-    <div className="hidden flex-col justify-between py-3 px-4 max-w-[600px] h-screen bg-white shadow-sm md:inline-flex xl:min-w-[300px]">
+    <div className="hidden flex-col justify-between py-3 px-4 max-w-[600px] h-screen bg-white border-r shadow-sm md:inline-flex xl:min-w-[300px]">
       <div className="flex flex-col flex-none">
         <SidebarLogo />
         <SidebarSearch />
