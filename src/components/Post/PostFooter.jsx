@@ -40,7 +40,7 @@ export default function PostFooter({
             {liked ? (
               <>
                 <SolidHeartIcon className="w-6 h-6 text-verde" />
-                <span className="text-sm">Liked</span>
+                <span className="text-sm">Gosto</span>
               </>
             ) : (
               <>
