@@ -29,7 +29,7 @@ export default function HeaderRight() {
 
   const handleUsrBtnClick = () => {
     if (!auth.currentUser) {
-      router.push('/login');
+      router.push('/auth/signin');
     }
   };
 

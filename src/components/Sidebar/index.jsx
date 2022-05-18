@@ -66,7 +66,7 @@ function Sidebar() {
             Icon={UserCircleIcon}
             title="Iniciar sessão/Criar conta"
             loginBtn
-            href="/login"
+            href="/auth/signin"
           />
         )}
       </div>
