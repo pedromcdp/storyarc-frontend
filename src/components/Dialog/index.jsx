@@ -47,7 +47,7 @@ export function AppDialog() {
                 Para criar uma publicação, é necessário iniciar uma sessão.
               </Dialog.Description>
               <button
-                className="py-[0.5rem] px-3 mr-2 rounded-lg border transition-all ease hover:scale-105 focus:scale-105"
+                className="py-[0.5rem] px-3 mr-3 rounded-lg border transition-all ease hover:scale-105 focus:scale-105"
                 onClick={() => {
                   router.push('/auth/signin');
                   dispatch(closeDialog());
