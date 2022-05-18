@@ -1,14 +1,27 @@
-import { useRef } from 'react';
+/* eslint-disable jsx-a11y/no-noninteractive-tabindex */
+import { useState } from 'react';
 import Image from 'next/image';
 import { PaperAirplaneIcon } from '@heroicons/react/outline';
 import PropTypes from 'prop-types';
 
 export default function CommentInput({ user }) {
-  const commentRef = useRef(null);
+  const [comment, setComment] = useState('');
+
+  const handleTyping = (e) => {
+    setComment(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('submitting comment');
+  };
 
   return (
-    // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-    <form tabIndex={0} className="flex items-center py-2 space-x-2 border-t">
+    <form
+      tabIndex={0}
+      className="flex items-center py-2 space-x-2 border-t"
+      onSubmit={handleSubmit}
+    >
       <Image
         src={user.avatar}
         alt={user.name}
@@ -18,18 +31,19 @@ export default function CommentInput({ user }) {
         className="object-contain flex-none shadow-sm mask mask-squircle"
       />
       <input
-        ref={commentRef}
         type="text"
-        //   onChange={handleTyping}
+        onChange={handleTyping}
+        value={comment}
         placeholder="Insere o teu comentário"
         className="grow p-[0.60rem] text-sm rounded-xl border focus:border-verde outline-none drop-shadow-sm transition-colors duration-100 ease-in"
       />
       <button
         type="submit"
         aria-label="submeter comentário"
-        className="rounded-full transition ease-out"
+        className="group rounded-full transition ease-out"
+        disabled={comment.length === 0}
       >
-        <PaperAirplaneIcon className="w-6 h-6 hover:text-verde transition-colors duration-100 ease-out rotate-90" />
+        <PaperAirplaneIcon className="w-6 h-6 hover:text-verde group-disabled:text-gray-100 disabled:opacity-0 transition-colors duration-100 ease-out rotate-90" />
       </button>
     </form>
   );
