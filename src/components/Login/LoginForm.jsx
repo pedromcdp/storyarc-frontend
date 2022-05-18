@@ -42,7 +42,7 @@ export default function LoginForm() {
         </button>
         <p className="mt-4">
           Não tens conta ?
-          <a href="#!" className="ml-1 text-verde">
+          <a href="/auth/signup" className="ml-1 text-verde">
             Criar conta
           </a>
         </p>
