@@ -83,7 +83,7 @@ export default function HeaderRight() {
               width={28}
               height={28}
               layout="fixed"
-              className="object-cover mask mask-squircle"
+              className="object-cover rounded-full"
             />
             <ul className="p-2 w-52 bg-white drop-shadow-lg dropdown-content menu rounded-box">
               <li tabIndex={0}>
