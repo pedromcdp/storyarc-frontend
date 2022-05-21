@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import AddButton from '../components/AddButton';
+import { AppDialog } from '../components/Dialog';
 import Footer from '../components/Footer';
 
 export default function MainLayout({ title, children }) {
@@ -25,6 +26,7 @@ export default function MainLayout({ title, children }) {
             </div>
           </div>
         </div>
+        <AppDialog />
       </main>
     </div>
   );
