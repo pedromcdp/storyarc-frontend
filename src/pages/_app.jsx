@@ -1,13 +1,12 @@
 import '../styles/globals.css';
+import '../config/firebaseConfig';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import 'dayjs/locale/pt';
 import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { wrapper } from '../app/store';
-import { auth } from '../firebase/firebase';
-import { setUser } from '../features/auth/authSlice';
+// import { auth } from '../firebase/firebase';
 
 function StoryArc({ Component, pageProps }) {
   const dispatch = useDispatch();
@@ -15,25 +14,25 @@ function StoryArc({ Component, pageProps }) {
   dayjs.extend(relativeTime);
   dayjs.locale('pt');
 
-  useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        dispatch(
-          setUser({
-            uid: user.uid,
-            avatar: user.photoURL,
-            name: user.displayName,
-            email: user.email,
-          }),
-        );
-        if (router.pathname === '/auth/signin') {
-          router.replace('/');
-        }
-      } else {
-        dispatch(setUser(user));
-      }
-    });
-  }, []);
+  // useEffect(() => {
+  //   auth.onAuthStateChanged((user) => {
+  //     if (user) {
+  //       dispatch(
+  //         setUser({
+  //           uid: user.uid,
+  //           avatar: user.photoURL,
+  //           name: user.displayName,
+  //           email: user.email,
+  //         }),
+  //       );
+  //       if (router.pathname === '/auth/signin') {
+  //         router.push('/');
+  //       }
+  //     } else {
+  //       dispatch(setUser(user));
+  //     }
+  //   });
+  // }, []);
 
   return <Component {...pageProps} />;
 }
