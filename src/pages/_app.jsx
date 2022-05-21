@@ -26,7 +26,9 @@ function StoryArc({ Component, pageProps }) {
             email: user.email,
           }),
         );
-        router.push('/');
+        if (router.pathname === '/auth/signin') {
+          router.replace('/');
+        }
       } else {
         dispatch(setUser(user));
       }
