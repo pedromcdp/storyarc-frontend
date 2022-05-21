@@ -27,7 +27,7 @@ export default function Page404() {
           Clica
           <button
             onClick={handleClick}
-            className="py-2 px-4 mx-2 text-white bg-verde rounded-md shadow-xl hover:shadow-sm transition duration-100 ease-out hover:scale-95 cursor-pointer"
+            className="py-2 px-4 mx-2 text-white hover:text-verde bg-verde hover:bg-white rounded-md border hover:border border-transparent hover:border-verde shadow-md transition-all duration-100 ease-in cursor-pointer"
           >
             aqui
           </button>
