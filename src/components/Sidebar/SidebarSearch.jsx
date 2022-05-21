@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { SearchIcon } from '@heroicons/react/outline';
 import SearchLoadingAnim from '../Search/SearchLoadingAnim';
 import SearchResultsContainer from '../Search/SearchResultsContainer';
@@ -6,6 +6,20 @@ import SearchResultsContainer from '../Search/SearchResultsContainer';
 export default function SidebarSearch() {
   const searchRef = useRef(null);
   const [isExpanded, setIsExpanded] = useState(false);
+
+  const onKeyDown = (e) => {
+    if (e.key === 'Escape') {
+      setIsExpanded(false);
+      searchRef.current.blur();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.removeEventListener('keydown', onKeyDown);
+    };
+  }, [isExpanded]);
 
   return (
     <div
