@@ -1,9 +1,10 @@
 import Image from 'next/image';
 import { LogoutIcon } from '@heroicons/react/outline';
 import PropTypes from 'prop-types';
-import { auth } from '../../firebase/firebase';
+import useAuth from '../../hooks/auth';
 
 export default function SidebarAuthRow({ user, Icon }) {
+  const { logout } = useAuth();
   return (
     <div
       role="button"
@@ -13,8 +14,8 @@ export default function SidebarAuthRow({ user, Icon }) {
       <a href="/perfil" className="group flex items-center space-x-2">
         {user && (
           <Image
-            src={user?.avatar}
-            alt={user?.name}
+            src={user?.photoURL}
+            alt={user?.displayName}
             width={35}
             height={35}
             layout="fixed"
@@ -23,7 +24,7 @@ export default function SidebarAuthRow({ user, Icon }) {
         )}
         {!user && <Icon className="w-6 h-6" />}
         <div className="flex flex-col leading-none">
-          <p className="">{user?.name}</p>
+          <p className="">{user?.displayName}</p>
           <p className="hidden group-hover:inline-block group-focus:inline-block text-xs">
             Ver perfil
           </p>
@@ -32,7 +33,7 @@ export default function SidebarAuthRow({ user, Icon }) {
       <button
         type="button"
         aria-label="Botão para encerrar sessão"
-        onClick={() => auth.signOut()}
+        onClick={() => logout()}
         className="flex grow justify-end opacity-0 group-hover:opacity-100 group-focus:opacity-100 hover:opacity-100 focus:opacity-100"
       >
         <LogoutIcon className="w-6 h-6 opacity-50 hover:opacity-100 focus:opacity-100 transition duration-75 ease-in-out" />

@@ -6,8 +6,8 @@ import {
   useFeedFilter,
   setSelectedFilter,
 } from '../../features/feedFilter/feedFilterSlice';
-import { auth } from '../../firebase/firebase';
 import { openDialog } from '../../features/dialog/dialogSlice';
+import useAuth from '../../hooks/auth';
 
 export default function SidebarRow({
   title,
@@ -21,6 +21,7 @@ export default function SidebarRow({
   const dispatch = useDispatch();
   const feedFilter = useSelector(useFeedFilter);
   const router = useRouter();
+  const { user } = useAuth();
 
   const handleButtonClick = () => {
     if (filter) {
@@ -28,7 +29,7 @@ export default function SidebarRow({
     } else if (loginBtn) {
       router.push(href);
     } else if (addBtn) {
-      if (!auth.currentUser) {
+      if (!user) {
         dispatch(openDialog());
       } else {
         console.log('User logged in');

@@ -1,18 +1,17 @@
 import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
 import PostHeader from './PostHeader';
 import PostDescription from './PostDescription';
 import PostImage from './PostImage';
 import PostFooter from './PostFooter';
 import CommentInput from './CommentInput';
 import CommentsContainer from './CommentsContainer';
-import { useUser } from '../../features/auth/authSlice';
+import useAuth from '../../hooks/auth';
 
 export default function Post({ id, username, avatar, timestamp, description }) {
   const [showComments, setShowComments] = useState(false);
-  const currentUser = useSelector(useUser);
+  const { user } = useAuth();
 
   return (
     <motion.article initial={false} layout className="flex flex-col">
@@ -28,11 +27,11 @@ export default function Post({ id, username, avatar, timestamp, description }) {
         <PostFooter
           setShowComments={setShowComments}
           showComments={showComments}
-          currentUser={currentUser}
+          currentUser={user}
         />
-        {currentUser && (
+        {user && (
           <>
-            <CommentInput user={currentUser} />
+            <CommentInput user={user} />
           </>
         )}
         {showComments && <CommentsContainer />}

@@ -1,16 +1,15 @@
 import { PlusCircleIcon } from '@heroicons/react/solid';
 import { useDispatch } from 'react-redux';
 import { openDialog } from '../../features/dialog/dialogSlice';
-import { auth } from '../../firebase/firebase';
+import useAuth from '../../hooks/auth';
 
 export default function AddButton() {
   const dispatch = useDispatch();
+  const { user } = useAuth();
 
   const handleClick = () => {
-    if (!auth.currentUser) {
+    if (!user) {
       dispatch(openDialog());
-    } else {
-      console.log('User logged in');
     }
   };
 

@@ -1,5 +1,4 @@
 import { UserCircleIcon } from '@heroicons/react/outline';
-import { useSelector } from 'react-redux';
 import { PlusCircleIcon } from '@heroicons/react/solid';
 import SidebarLogo from './SidebarLogo';
 import SidebarSearch from './SidebarSearch';
@@ -7,11 +6,10 @@ import SidebarRow from './SidebarRow';
 import RowsContainer from './RowsContainer';
 import { feedFilters } from '../../utils/feedFilters';
 import SidebarAuthRow from './SidebarAuthRow';
-import { useUser } from '../../features/auth/authSlice';
+import useAuth from '../../hooks/auth';
 
 function Sidebar() {
-  const user = useSelector(useUser);
-
+  const { user } = useAuth();
   return (
     <div className="hidden flex-col justify-between py-3 px-4 max-w-[600px] h-screen bg-white border-r shadow-sm md:inline-flex xl:min-w-[300px]">
       <div className="flex flex-col flex-none">

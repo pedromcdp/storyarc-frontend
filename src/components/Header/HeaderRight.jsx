@@ -10,31 +10,30 @@ import {
   LogoutIcon,
 } from '@heroicons/react/outline';
 import { useRouter } from 'next/router';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Image from 'next/image';
-import { auth } from '../../firebase/firebase';
 import { openDialog } from '../../features/dialog/dialogSlice';
-import { useUser } from '../../features/auth/authSlice';
+import useAuth from '../../hooks/auth';
 
 export default function HeaderRight() {
   const router = useRouter();
   const dispatch = useDispatch();
-  const user = useSelector(useUser);
   const [showSearch, setShowSearch] = useState(false);
   const searchBoxRef = useClickOutside(() => setShowSearch(false));
+  const { user, logout } = useAuth();
 
   const handleShowSearch = () => {
     setShowSearch(true);
   };
 
   const handleUsrBtnClick = () => {
-    if (!auth.currentUser) {
+    if (!user) {
       router.push('/auth/signin');
     }
   };
 
   const handleAddBtnClick = () => {
-    if (!auth.currentUser) {
+    if (!user) {
       dispatch(openDialog());
     } else {
       console.log('User logged in');
@@ -78,8 +77,8 @@ export default function HeaderRight() {
             className="justify-center items-center p-[0.45rem] w-10 h-10 hover:bg-gray-100 rounded-full cursor-pointer dropdown dropdown-end"
           >
             <Image
-              src={auth.currentUser.photoURL}
-              alt={auth.currentUser.displayName}
+              src={user.photoURL}
+              alt={user.displayName}
               width={28}
               height={28}
               layout="fixed"
@@ -94,7 +93,7 @@ export default function HeaderRight() {
               </li>
               <div className="w-full h-[1.2px] bg-gray-100 rounded-2xl"></div>
               <li tabIndex={0}>
-                <button className="text-sm" onClick={() => auth.signOut()}>
+                <button className="text-sm" onClick={() => logout()}>
                   <LogoutIcon className="w-6 h-6 text-red-500" />
                   Encerrar Sessão
                 </button>

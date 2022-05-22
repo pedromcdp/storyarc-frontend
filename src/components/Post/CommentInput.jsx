@@ -23,8 +23,8 @@ export default function CommentInput({ user }) {
       onSubmit={handleSubmit}
     >
       <Image
-        src={user.avatar}
-        alt={user.name}
+        src={user.photoURL}
+        alt={user.displayName}
         width={40}
         height={45}
         layout="fixed"

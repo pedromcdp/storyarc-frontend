@@ -1,12 +1,11 @@
 import Image from 'next/image';
-import { auth, googleProvider } from '../../firebase/firebase';
+import useAuth from '../../hooks/auth';
 
 export default function GoogleLoginButton() {
+  const { loginWithGoogle } = useAuth();
   const handleLoginWithGoogle = (e) => {
     e.preventDefault();
-    auth
-      .signInWithPopup(googleProvider)
-      .catch((error) => console.log(`Ocorreu um erro: ${error.message}`));
+    loginWithGoogle();
   };
 
   return (
