@@ -6,12 +6,16 @@ import PropTypes from 'prop-types';
 import useAuth from '../hooks/auth';
 
 export default function AuthState({ children }) {
-  const { setUser } = useAuth();
+  const { setUser, setToken } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    firebase.auth().onAuthStateChanged((user) => {
+    firebase.auth().onAuthStateChanged(async (user) => {
       setUser(user);
+      if (user) {
+        const token = await user.getIdToken();
+        setToken(token);
+      }
       setIsLoading(false);
     });
   }, []);

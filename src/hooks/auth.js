@@ -9,12 +9,17 @@ export default function useAuth() {
 
 export function AuthProvider(props) {
   const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
   const [error, setError] = useState(null);
 
   const loginWithGoogle = async () => {
-    const { error: authError, user: authUser } =
-      await AuthService.loginWithGoogle();
+    const {
+      error: authError,
+      user: authUser,
+      token: authToken,
+    } = await AuthService.loginWithGoogle();
     setUser(authUser ?? null);
+    setToken(authToken ?? null);
     setError(authError ?? '');
   };
 
@@ -28,6 +33,8 @@ export function AuthProvider(props) {
     setUser,
     loginWithGoogle,
     logout,
+    token,
+    setToken,
     error,
     setError,
   };
