@@ -23,10 +23,16 @@ export const StoryArcAPI = createApi({
       query: ({ postId }) => `posts/${postId}/comments`,
     }),
     getUserPosts: builder.query({
-      query: () => `posts?_expand=user&userId=vlBJfbmG6iNl86pQJhkNldJG0A52`,
+      query: (uid, token) => ({
+        url: `users/${uid}/posts`,
+        headers: { Authorization: `Bearer ${token}` },
+      }),
     }),
     getUserSavedPosts: builder.query({
-      query: () => `/users/vlBJfbmG6iNl86pQJhkNldJG0A52/savedPosts/`,
+      query: (uid, token) => ({
+        url: `users/${uid}/savedPosts`,
+        headers: { Authorization: `Bearer ${token}` },
+      }),
     }),
     getSearchResults: builder.query({
       query: ({ rua }) => `posts?streetName=${rua}&_expand=user`,
@@ -68,5 +74,9 @@ export const {
   util: { getRunningOperationPromises },
 } = StoryArcAPI;
 
-export const { getAllPost, getPostWithUserAndCommentsData } =
-  StoryArcAPI.endpoints;
+export const {
+  getAllPost,
+  getPostWithUserAndCommentsData,
+  getUserPosts,
+  getUserSavedPosts,
+} = StoryArcAPI.endpoints;

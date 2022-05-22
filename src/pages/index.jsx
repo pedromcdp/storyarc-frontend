@@ -1,30 +1,21 @@
-import Head from 'next/head';
-import Header from '../components/Header';
-import Sidebar from '../components/Sidebar';
-import Feed from '../components/Feed';
+import MainLayout from '../layouts/MainLayout';
+import FeedFilter from '../components/FeedFilter';
+import PostsContainer from '../components/Feed/PostsContainer';
 import { wrapper } from '../app/store';
 import {
   getAllPost,
   useGetAllPostQuery,
   getRunningOperationPromises,
 } from '../services/storyarc';
-import { AppDialog } from '../components/Dialog';
 
 export default function Home() {
   const { data } = useGetAllPostQuery();
 
   return (
-    <div className="overflow-hidden h-screen font-body antialiased bg-gray-100">
-      <Head>
-        <title>storyarc</title>
-      </Head>
-      <Header />
-      <main className="flex">
-        <Sidebar />
-        <Feed data={data} />
-        <AppDialog />
-      </main>
-    </div>
+    <MainLayout title="storyarc">
+      <FeedFilter />
+      <PostsContainer data={data} />
+    </MainLayout>
   );
 }
 

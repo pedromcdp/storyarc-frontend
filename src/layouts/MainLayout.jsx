@@ -10,7 +10,7 @@ export default function MainLayout({ title, children }) {
   return (
     <div className="overflow-hidden h-screen font-body antialiased bg-gray-100">
       <Head>
-        <title>{title}</title>
+        <title>{title || 'storyarc'}</title>
       </Head>
       <Header />
       <main className="flex">
@@ -33,6 +33,6 @@ export default function MainLayout({ title, children }) {
 }
 
 MainLayout.propTypes = {
-  title: PropTypes.string.isRequired,
+  title: PropTypes.string,
   children: PropTypes.node.isRequired,
 };

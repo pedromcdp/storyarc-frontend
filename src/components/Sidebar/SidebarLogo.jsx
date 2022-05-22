@@ -7,7 +7,7 @@ export default function SidebarLogo() {
       aria-label="Storyarc"
       role="link"
     >
-      <Link href="/" passHref={true}>
+      <Link href="/" passHref>
         <svg
           tabIndex={0}
           className="w-full h-full"

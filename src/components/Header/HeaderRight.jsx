@@ -12,6 +12,7 @@ import {
 import { useRouter } from 'next/router';
 import { useDispatch } from 'react-redux';
 import Image from 'next/image';
+import Link from 'next/link';
 import { openDialog } from '../../features/dialog/dialogSlice';
 import useAuth from '../../hooks/auth';
 
@@ -20,7 +21,7 @@ export default function HeaderRight() {
   const dispatch = useDispatch();
   const [showSearch, setShowSearch] = useState(false);
   const searchBoxRef = useClickOutside(() => setShowSearch(false));
-  const { user, logout } = useAuth();
+  const { user, logout, token } = useAuth();
 
   const handleShowSearch = () => {
     setShowSearch(true);
@@ -86,10 +87,19 @@ export default function HeaderRight() {
             />
             <ul className="p-2 w-52 bg-white drop-shadow-lg dropdown-content menu rounded-box">
               <li tabIndex={0}>
-                <a className="text-sm" href="/profile">
-                  <UserCircleIcon className="w-6 h-6" />
-                  Ver perfil
-                </a>
+                <Link
+                  href={{
+                    pathname: '/auth/profile',
+                    query: { uid: user.uid, token },
+                  }}
+                  as="/auth/profile"
+                  passHref
+                >
+                  <div className="flex text-sm">
+                    <UserCircleIcon className="w-6 h-6" />
+                    <p>Ver perfil</p>
+                  </div>
+                </Link>
               </li>
               <div className="w-full h-[1.2px] bg-gray-100 rounded-2xl"></div>
               <li tabIndex={0}>
