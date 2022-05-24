@@ -23,6 +23,17 @@ export function AuthProvider(props) {
     setError(authError ?? '');
   };
 
+  const loginWithEmail = async ({ email, password }) => {
+    const {
+      error: emailError,
+      user: emailUser,
+      token: emailToken,
+    } = await AuthService.signInWithEmailAndPassword(email, password);
+    setUser(emailUser ?? null);
+    setToken(emailToken ?? null);
+    setError(emailError ?? '');
+  };
+
   const logout = async () => {
     await AuthService.logout();
     setUser(null);
@@ -32,6 +43,7 @@ export function AuthProvider(props) {
     user,
     setUser,
     loginWithGoogle,
+    loginWithEmail,
     logout,
     token,
     setToken,

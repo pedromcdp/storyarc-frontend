@@ -20,4 +20,36 @@ export const AuthService = {
   logout: async () => {
     await firebase.auth().signOut();
   },
+  signInWithEmailAndPassword: async ({ email, password }) => {
+    try {
+      const userCred = await firebase
+        .auth()
+        .signInWithEmailAndPassword(email, password);
+      const token = await userCred.user.getIdToken();
+      return {
+        user: userCred.user,
+        token,
+      };
+    } catch (e) {
+      return {
+        error: e.message,
+      };
+    }
+  },
+  singUpWithEmailAndPassword: async ({ email, password }) => {
+    try {
+      const userCred = await firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password);
+      const token = await userCred.user.getIdToken();
+      return {
+        user: userCred.user,
+        token,
+      };
+    } catch (e) {
+      return {
+        error: e.message,
+      };
+    }
+  },
 };
