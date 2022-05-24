@@ -7,15 +7,16 @@ import {
   getUserPosts,
   getUserSavedPosts,
   getRunningOperationPromises,
-  //   useGetUserPostsQuery,
-  //   useGetUserSavedPostsQuery,
+  useGetUserPostsQuery,
+  useGetUserSavedPostsQuery,
 } from '../../services/storyarc';
 
 export default function Profile({ uid, token }) {
   const { user } = useAuth();
   const router = useRouter();
-  //   const { data: ownPosts } = useGetUserPostsQuery(user.uid, token);
-  //   const { data: savedPost } = useGetUserSavedPostsQuery(user.uid, token);
+  const { data: ownPosts } = useGetUserPostsQuery({ uid, token });
+  const { data: savedPost } = useGetUserSavedPostsQuery({ uid, token });
+  console.log(savedPost, ownPosts);
 
   if (!user) {
     router.replace('/404');
@@ -42,8 +43,8 @@ export const getServerSideProps = wrapper.getServerSideProps(
         return { props: {} };
       }
       store.dispatch(
-        getUserPosts.initiate(uid, token),
-        getUserSavedPosts.initiate(uid, token),
+        getUserPosts.initiate({ uid, token }),
+        getUserSavedPosts.initiate({ uid, token }),
       );
       await Promise.all(getRunningOperationPromises());
       return {
