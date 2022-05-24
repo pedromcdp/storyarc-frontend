@@ -23,13 +23,13 @@ export const StoryArcAPI = createApi({
       query: ({ postId }) => `posts/${postId}/comments`,
     }),
     getUserPosts: builder.query({
-      query: (uid, token) => ({
+      query: ({ uid, token }) => ({
         url: `users/${uid}/posts`,
         headers: { Authorization: `Bearer ${token}` },
       }),
     }),
     getUserSavedPosts: builder.query({
-      query: (uid, token) => ({
+      query: ({ uid, token }) => ({
         url: `users/${uid}/savedPosts`,
         headers: { Authorization: `Bearer ${token}` },
       }),
