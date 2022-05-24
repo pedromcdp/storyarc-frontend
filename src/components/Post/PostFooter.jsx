@@ -34,7 +34,7 @@ export default function PostFooter({
       {currentUser && (
         <div className="flex justify-evenly items-center border-t">
           <button
-            className="transition-all duration-75 ease-in-out postInputBtn"
+            className="group transition-all duration-75 ease-in-out postInputBtn"
             onClick={handleLike}
           >
             {liked ? (
@@ -44,13 +44,15 @@ export default function PostFooter({
               </>
             ) : (
               <>
-                <HeartIcon className="w-6 h-6" />
-                <span className="text-sm">Gostar da publicação</span>
+                <HeartIcon className="w-6 h-6 group-hover:text-verde" />
+                <span className="text-sm group-hover:text-verde">
+                  Gostar da publicação
+                </span>
               </>
             )}
           </button>
           <button
-            className="transition-all duration-75 ease-in-out postInputBtn"
+            className="group transition-all duration-75 ease-in-out postInputBtn"
             onClick={handleBookmark}
           >
             {bookmarked ? (
@@ -60,8 +62,10 @@ export default function PostFooter({
               </>
             ) : (
               <>
-                <BookmarkIcon className="w-6 h-6" />
-                <span className="text-sm">Guardar publicação</span>
+                <BookmarkIcon className="w-6 h-6 group-hover:text-verde" />
+                <span className="text-sm group-hover:text-verde">
+                  Guardar publicação
+                </span>
               </>
             )}
           </button>
