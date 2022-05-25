@@ -8,12 +8,15 @@ const addContentSlice = createSlice({
   name: 'content',
   initialState,
   reducers: {
-    setAddContent: (state, action) => {
-      state.show = action.payload;
+    openAddContent: (state) => {
+      state.show = true;
+    },
+    closeAddContent: (state) => {
+      state.show = false;
     },
   },
 });
 
-export const { setAddContent } = addContentSlice.actions;
-export const isShowingContentModal = (state) => state.content.show;
+export const { openAddContent, closeAddContent } = addContentSlice.actions;
+export const useAddContent = (state) => state.content.show;
 export default addContentSlice.reducer;
