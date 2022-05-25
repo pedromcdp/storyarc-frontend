@@ -17,9 +17,6 @@ export const AuthService = {
       };
     }
   },
-  logout: async () => {
-    await firebase.auth().signOut();
-  },
   signInWithEmailAndPassword: async ({ email, password }) => {
     try {
       const userCred = await firebase
@@ -51,5 +48,16 @@ export const AuthService = {
         error: e.message,
       };
     }
+  },
+  logout: async () => {
+    await firebase.auth().signOut();
+  },
+  getToken: async () => {
+    const user = firebase.auth().currentUser;
+    if (user) {
+      const token = await user.getIdToken();
+      return token;
+    }
+    return null;
   },
 };

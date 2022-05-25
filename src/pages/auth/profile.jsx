@@ -19,7 +19,7 @@ export default function Profile({ uid, token }) {
   console.log(savedPost, ownPosts);
 
   if (!user) {
-    router.replace('/404');
+    router.replace('/');
     return null;
   }
 
