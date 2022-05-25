@@ -1,12 +1,16 @@
 import Head from 'next/head';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import AddButton from '../components/AddButton';
 import { AppDialog } from '../components/Dialog';
 import Footer from '../components/Footer';
+import AddContent from '../components/AddContent/AddContent';
+import { isShowingContentModal } from '../features/addContent/addContentSlice';
 
 export default function MainLayout({ title, children }) {
+  const isShowing = useSelector(isShowingContentModal);
   return (
     <div className="overflow-hidden h-screen font-body antialiased bg-gray-100">
       <Head>
@@ -27,6 +31,7 @@ export default function MainLayout({ title, children }) {
           </div>
         </div>
         <AppDialog />
+        {isShowing && <AddContent />}
       </main>
     </div>
   );

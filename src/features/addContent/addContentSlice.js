@@ -15,5 +15,5 @@ const addContentSlice = createSlice({
 });
 
 export const { setAddContent } = addContentSlice.actions;
-export const isShowingContentModal = (state) => state.add.show;
+export const isShowingContentModal = (state) => state.content.show;
 export default addContentSlice.reducer;
