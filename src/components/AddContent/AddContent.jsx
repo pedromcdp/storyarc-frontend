@@ -1,108 +1,97 @@
-/* eslint-disable @next/next/no-img-element */
-import { useEffect } from 'react';
-import { useClickOutside } from '@mantine/hooks';
-import { useDispatch } from 'react-redux';
-import { setAddContent } from '../../features/addContent/addContentSlice';
+import { Fragment } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
+import { XIcon } from '@heroicons/react/solid';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  useAddContent,
+  closeAddContent,
+} from '../../features/addContent/addContentSlice';
 import PhotoDropzone from './PhotoDropzone';
 
 export default function AddContent() {
+  const isOpen = useSelector(useAddContent);
   const dispatch = useDispatch();
 
-  function onKeyDown(e) {
-    if (e.key === 'Escape') {
-      dispatch(setAddContent(false));
-    }
-  }
-
-  const clickedOutside = useClickOutside(
-    () => dispatch(setAddContent(false)),
-    ['mouseup', 'touchend'],
-  );
-
-  useEffect(() => {
-    document.addEventListener('keydown', onKeyDown);
-    return () => {
-      document.removeEventListener('keydown', onKeyDown);
-    };
-  }, []);
-
   return (
-    <>
-      <div
-        id="defaultModal"
-        aria-hidden="true"
-        className="flex overflow-x-hidden overflow-y-auto fixed inset-x-0 top-4 z-50 justify-center items-center md:inset-0 md:h-full h-modal"
+    <Transition show={isOpen} as={Fragment}>
+      <Dialog
+        open={isOpen}
+        onClose={() => dispatch(closeAddContent())}
+        className="relative z-50"
       >
-        <div
-          ref={clickedOutside}
-          className="relative px-4 w-full max-w-2xl h-full md:h-auto"
+        <Transition.Child
+          as={Fragment}
+          enter="ease-out duration-300"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
         >
-          <div className="relative bg-white rounded-lg shadow">
-            <div className="flex justify-between items-start p-5 rounded-t border-b">
-              <h3 className="text-xl font-semibold text-gray-900 lg:text-2xl">
-                Adicionar conteúdo
-              </h3>
-              <button
-                onClick={() => dispatch(setAddContent(false))}
-                type="button"
-                className="inline-flex items-center p-1.5 ml-auto text-sm text-gray-400 hover:text-gray-900 bg-transparent hover:bg-gray-200 rounded-lg"
-                data-modal-toggle="defaultModal"
-              >
-                <svg
-                  className="w-6 h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
+          <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
+        </Transition.Child>
+        <div className="flex fixed inset-0 justify-center items-center p-4">
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0 scale-95"
+            enterTo="opacity-100 scale-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100 scale-100"
+            leaveTo="opacity-0 scale-95"
+          >
+            <Dialog.Panel className="p-4 mx-auto w-full max-w-2xl bg-white rounded-xl">
+              <Dialog.Title className="flex justify-between items-center mx-4 font-medium border-b">
+                <h1 className="text-xl lg:text-xl">Adicionar conteúdo</h1>
+                <button
+                  className="p-1.5 text-gray-500 hover:text-black focus:text-black bg-transparent hover:bg-gray-100 focus:bg-gray-100 rounded-lg outline-verde"
+                  onClick={() => dispatch(closeAddContent())}
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M6 18L18 6M6 6l12 12"
-                  ></path>
-                </svg>
-              </button>
-            </div>
-
-            <form className="p-6 space-y-6">
-              <input
-                className="py-2 px-3 pb-12 w-full font-light tracking-wide leading-tight text-gray-700 rounded border focus:outline-none shadow appearance-none focus:shadow-outline"
-                type="text"
-                placeholder="Adiciona uma descrição"
-              ></input>
-              <input
-                className="py-2 px-3 w-full font-light tracking-wide leading-tight text-gray-700 rounded border focus:outline-none shadow appearance-none focus:shadow-outline"
-                type="text"
-                placeholder="Introduz a localização da fotografia"
-              ></input>
-              <input
-                className="py-2 px-3 w-full font-light tracking-wide leading-tight text-gray-700 rounded border focus:outline-none shadow appearance-none focus:shadow-outline"
-                type="date"
-                placeholder="Seleciona uma data"
-              ></input>
-              <PhotoDropzone />
-            </form>
-
-            <div className="flex items-center p-6 space-x-2 rounded-b border-t border-gray-200">
-              <button
-                type="button"
-                className="py-2.5 px-5 text-sm font-medium text-center text-white bg-verde rounded-lg focus:ring-4 focus:ring-blue-300"
-              >
-                Adicionar
-              </button>
-              <button
-                onClick={() => dispatch(setAddContent(false))}
-                type="button"
-                className="focus:z-10 py-2.5 px-5 text-sm font-medium text-gray-500 hover:text-gray-900 bg-white hover:bg-gray-100 rounded-lg border border-gray-200 focus:ring-4 focus:ring-gray-300"
-              >
-                Cancelar
-              </button>
-            </div>
-          </div>
+                  <XIcon className="w-6 h-6" />
+                </button>
+              </Dialog.Title>
+              <form className="p-4 space-y-5">
+                <input
+                  className="py-2 px-3 pb-12 w-full font-light tracking-wide leading-tight text-gray-700 rounded-md border focus:outline-none shadow appearance-none focus:shadow-outline"
+                  type="text"
+                  placeholder="Adiciona uma descrição"
+                />
+                <input
+                  className="py-2 px-3 w-full font-light tracking-wide leading-tight text-gray-700 rounded border focus:outline-none shadow appearance-none focus:shadow-outline"
+                  type="text"
+                  placeholder="Introduz a localização da fotografia"
+                />
+                <input
+                  className="py-2 px-3 w-full font-light tracking-wide leading-tight text-gray-700 rounded border focus:outline-none shadow appearance-none focus:shadow-outline"
+                  type="text"
+                  placeholder="Introduz a localização da fotografia"
+                />
+                <input
+                  className="py-2 px-3 w-full font-light tracking-wide leading-tight text-gray-700 rounded border focus:outline-none shadow appearance-none focus:shadow-outline"
+                  type="date"
+                  placeholder="Seleciona uma data"
+                />
+                <PhotoDropzone />
+                <div className="flex items-center pt-4 space-x-2 rounded-b border-t border-gray-200">
+                  <button
+                    type="submit"
+                    className="py-2.5 px-5 text-sm font-medium text-center text-white bg-verde rounded-lg focus:ring-4 focus:ring-blue-300"
+                  >
+                    Criar Publicação
+                  </button>
+                  <button
+                    onClick={() => dispatch(closeAddContent())}
+                    type="button"
+                    className="focus:z-10 py-2.5 px-5 text-sm font-medium text-gray-500 hover:text-gray-900 bg-white hover:bg-gray-100 rounded-lg border border-gray-200 focus:ring-4 focus:ring-gray-300"
+                  >
+                    Cancelar
+                  </button>
+                </div>
+              </form>
+            </Dialog.Panel>
+          </Transition.Child>
         </div>
-      </div>
-      <div className="fixed inset-0 z-40 bg-gray-900 bg-opacity-50 dark:bg-opacity-80"></div>
-    </>
+      </Dialog>
+    </Transition>
   );
 }
