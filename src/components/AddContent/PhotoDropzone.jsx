@@ -77,7 +77,7 @@ export default function PhotoDropzone() {
       {files.length === 0 ? (
         <div
           {...getRootProps({ className: 'dropzone', style })}
-          className="py-6 px-3 w-full font-light tracking-wide leading-tight text-gray-700 rounded border focus:outline-none shadow appearance-none focus:shadow-outline"
+          className="py-6 px-3 w-full font-light tracking-wide leading-tight text-gray-700 rounded border focus:outline-none shadow appearance-none cursor-pointer focus:shadow-outline"
         >
           <svg
             className="m-auto w-28 h-28 rotate-12"
@@ -93,8 +93,11 @@ export default function PhotoDropzone() {
               d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
             ></path>
           </svg>
-          <p className="flex justify-center mb-6 text-sm select-none">
+          <p className="flex justify-center text-sm select-none">
             Adiciona uma fotografia
+          </p>
+          <p className="mb-3 text-xs select-none">
+            (Arrasta ou clica para adicionares uma ou mais fotos)
           </p>
           <input
             {...getInputProps()}
@@ -119,7 +122,7 @@ export default function PhotoDropzone() {
                 backgroundRepeat: 'no-repeat',
               }}
             >
-              <div className="flex justify-center items-center w-full h-full bg-black bg-opacity-0 hover:bg-opacity-40 opacity-0 hover:opacity-100 transition duration-200 ease-out cursor-pointer">
+              <div className="flex justify-center items-center w-full h-full bg-black/0  hover:bg-black/40 opacity-0 hover:opacity-100 transition duration-200 ease-out cursor-pointer">
                 <TrashIcon className="w-8 h-8 text-white" />
               </div>
             </div>
