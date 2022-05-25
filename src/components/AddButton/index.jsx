@@ -1,7 +1,7 @@
 import { PlusCircleIcon } from '@heroicons/react/solid';
 import { useDispatch } from 'react-redux';
 import { openDialog } from '../../features/dialog/dialogSlice';
-import { setAddContent } from '../../features/addContent/addContentSlice';
+import { openAddContent } from '../../features/addContent/addContentSlice';
 import useAuth from '../../hooks/auth';
 
 export default function AddButton() {
@@ -12,7 +12,7 @@ export default function AddButton() {
     if (!user) {
       dispatch(openDialog());
     } else {
-      dispatch(setAddContent(true));
+      dispatch(openAddContent());
     }
   };
 

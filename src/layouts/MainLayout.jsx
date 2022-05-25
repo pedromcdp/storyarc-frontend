@@ -7,10 +7,10 @@ import AddButton from '../components/AddButton';
 import { AppDialog } from '../components/Dialog';
 import Footer from '../components/Footer';
 import AddContent from '../components/AddContent/AddContent';
-import { isShowingContentModal } from '../features/addContent/addContentSlice';
+import { useAddContent } from '../features/addContent/addContentSlice';
 
 export default function MainLayout({ title, children }) {
-  const isShowing = useSelector(isShowingContentModal);
+  const isShowing = useSelector(useAddContent);
   return (
     <div className="overflow-hidden h-screen font-body antialiased bg-gray-100">
       <Head>

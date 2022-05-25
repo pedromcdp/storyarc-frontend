@@ -14,6 +14,7 @@ import { useDispatch } from 'react-redux';
 import Image from 'next/image';
 import Link from 'next/link';
 import { openDialog } from '../../features/dialog/dialogSlice';
+import { openAddContent } from '../../features/addContent/addContentSlice';
 import useAuth from '../../hooks/auth';
 
 export default function HeaderRight() {
@@ -37,7 +38,7 @@ export default function HeaderRight() {
     if (!user) {
       dispatch(openDialog());
     } else {
-      console.log('User logged in');
+      dispatch(openAddContent());
     }
   };
 

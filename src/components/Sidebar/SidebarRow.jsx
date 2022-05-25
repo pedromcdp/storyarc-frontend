@@ -7,6 +7,7 @@ import {
   setSelectedFilter,
 } from '../../features/feedFilter/feedFilterSlice';
 import { openDialog } from '../../features/dialog/dialogSlice';
+import { openAddContent } from '../../features/addContent/addContentSlice';
 import useAuth from '../../hooks/auth';
 
 export default function SidebarRow({
@@ -32,7 +33,7 @@ export default function SidebarRow({
       if (!user) {
         dispatch(openDialog());
       } else {
-        console.log('User logged in');
+        dispatch(openAddContent());
       }
     }
   };
