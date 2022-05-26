@@ -1,7 +1,7 @@
 import { useMemo, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import Image from 'next/image';
-import { TrashIcon } from '@heroicons/react/solid';
+import { TrashIcon } from '@heroicons/react/outline';
 
 const baseStyle = {
   flex: 1,
@@ -70,7 +70,7 @@ export default function PhotoDropzone({ files, setFiles }) {
       {files.length === 0 ? (
         <div
           {...getRootProps({ className: 'dropzone', style })}
-          className="py-6 px-3 w-full font-light tracking-wide leading-tight text-gray-700 rounded border focus:outline-none shadow appearance-none focus:shadow-outline"
+          className="py-6 px-3 w-full font-light tracking-wide leading-tight text-gray-700 rounded border focus:outline-none shadow appearance-none cursor-pointer focus:shadow-outline"
         >
           <svg
             className="m-auto w-28 h-28 rotate-12"
