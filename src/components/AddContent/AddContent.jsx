@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XIcon } from '@heroicons/react/solid';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,7 +11,7 @@ import PhotoDropzone from './PhotoDropzone';
 export default function AddContent() {
   const isOpen = useSelector(useAddContent);
   const dispatch = useDispatch();
-
+  const [files, setFiles] = useState([]);
   return (
     <Transition show={isOpen} as={Fragment}>
       <Dialog
@@ -30,7 +30,7 @@ export default function AddContent() {
         >
           <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
         </Transition.Child>
-        <div className="flex fixed inset-0 justify-center items-center p-4">
+        <div className="flex overflow-y-auto fixed inset-0 justify-center items-center p-4">
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -41,7 +41,7 @@ export default function AddContent() {
             leaveTo="opacity-0 scale-95"
           >
             <Dialog.Panel className="p-4 mx-auto w-full max-w-2xl bg-white rounded-xl">
-              <Dialog.Title className="flex justify-between items-center mx-4 font-medium border-b">
+              <Dialog.Title className="flex justify-between items-center mx-4 font-medium">
                 <h1 className="text-xl lg:text-xl">Adicionar conteúdo</h1>
                 <button
                   className="p-1.5 text-gray-500 hover:text-black focus:text-black bg-transparent hover:bg-gray-100 focus:bg-gray-100 rounded-lg outline-verde"
@@ -63,15 +63,10 @@ export default function AddContent() {
                 />
                 <input
                   className="py-2 px-3 w-full font-light tracking-wide leading-tight text-gray-700 rounded border focus:outline-none shadow appearance-none focus:shadow-outline"
-                  type="text"
-                  placeholder="Introduz a localização da fotografia"
-                />
-                <input
-                  className="py-2 px-3 w-full font-light tracking-wide leading-tight text-gray-700 rounded border focus:outline-none shadow appearance-none focus:shadow-outline"
                   type="date"
                   placeholder="Seleciona uma data"
                 />
-                <PhotoDropzone />
+                <PhotoDropzone files={files} setFiles={setFiles} />
                 <div className="flex items-center pt-4 space-x-2 rounded-b border-t border-gray-200">
                   <button
                     type="submit"
@@ -82,7 +77,7 @@ export default function AddContent() {
                   <button
                     onClick={() => dispatch(closeAddContent())}
                     type="button"
-                    className="focus:z-10 py-2.5 px-5 text-sm font-medium text-gray-500 hover:text-gray-900 bg-white hover:bg-gray-100 rounded-lg border border-gray-200 focus:ring-4 focus:ring-gray-300"
+                    className="py-2.5 px-5 text-sm font-medium bg-white hover:bg-gray-100 rounded-lg border border-gray-200  focus:outline-verde"
                   >
                     Cancelar
                   </button>
