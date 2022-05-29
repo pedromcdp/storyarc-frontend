@@ -26,7 +26,12 @@ export default function SidebarRow({
 
   const handleButtonClick = () => {
     if (filter) {
-      dispatch(setSelectedFilter(title));
+      if (router.pathname !== '/') {
+        router.push('/');
+        dispatch(setSelectedFilter(title));
+      } else {
+        dispatch(setSelectedFilter(title));
+      }
     } else if (loginBtn) {
       router.push(href);
     } else if (addBtn) {
