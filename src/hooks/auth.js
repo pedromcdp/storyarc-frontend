@@ -39,11 +39,6 @@ export function AuthProvider(props) {
     setUser(null);
   };
 
-  const getToken = async () => {
-    const { token: authToken } = await AuthService.getToken();
-    setToken(authToken);
-  };
-
   const exportedContext = {
     user,
     setUser,
