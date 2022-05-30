@@ -9,11 +9,9 @@ export default function PostsTabs() {
           <Tab as={Fragment}>
             {({ selected }) => (
               <button
-                className={
-                  selected
-                    ? 'border-b-2 border-verde py-2 px-4 lg:text-base text-sm'
-                    : 'bg-white py-2 px-4 text-sm lg:text-base border-b-2 border-transparent'
-                }
+                className={`border-b-2 py-2 px-4 lg:text-base text-sm ${
+                  selected ? 'border-verde' : 'border-transparent'
+                }`}
               >
                 Publicações Próprias
               </button>
@@ -22,11 +20,9 @@ export default function PostsTabs() {
           <Tab as={Fragment}>
             {({ selected }) => (
               <button
-                className={
-                  selected
-                    ? ' border-b-2 border-verde py-2 px-4 text-sm lg:text-base'
-                    : ' py-2 px-4 text-sm lg:text-base border-b-2 border-transparent'
-                }
+                className={`border-b-2 py-2 px-4 lg:text-base text-sm ${
+                  selected ? 'border-verde' : 'border-transparent'
+                }`}
               >
                 Publicações Guardadas
               </button>
