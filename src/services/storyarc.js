@@ -57,6 +57,13 @@ export const StoryArcAPI = createApi({
         body: user,
       }),
     }),
+    removePost: builder.mutation({
+      query: ({ postId, token }) => ({
+        url: `posts/${postId}`,
+        method: 'DELETE',
+        headers: { Authorization: `Bearer ${token}` },
+      }),
+    }),
   }),
 });
 
@@ -71,6 +78,7 @@ export const {
   useGetLocationsQuery,
   useAddCommentMutation,
   useAddUserMutation,
+  useRemovePostMutation,
   util: { getRunningOperationPromises },
 } = StoryArcAPI;
 
