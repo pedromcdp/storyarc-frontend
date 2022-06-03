@@ -14,6 +14,7 @@ const nextConfig = withPWA({
   },
   images: {
     domains: [
+      'firebasestorage.googleapis.com',
       'api-assets.ua.pt',
       'media-cdn.tripadvisor.com',
       'www.evasoes.pt',
