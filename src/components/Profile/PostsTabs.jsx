@@ -1,11 +1,13 @@
 import { Tab } from '@headlessui/react';
 import { Fragment } from 'react';
+import CardView from '../Post/CardView';
+import NoPosts from './NoPosts';
 
-export default function PostsTabs() {
+export default function PostsTabs({ ownPosts, savedPosts }) {
   return (
     <div className="pt-5">
       <Tab.Group>
-        <Tab.List className="flex justify-center items-center space-x-4 bg-white rounded-md border">
+        <Tab.List className="flex justify-center items-center mb-2 space-x-4 bg-white rounded-md border">
           <Tab as={Fragment}>
             {({ selected }) => (
               <button
@@ -30,9 +32,20 @@ export default function PostsTabs() {
           </Tab>
         </Tab.List>
         <Tab.Panels>
-          <Tab.Panel>Content 1</Tab.Panel>
-          <Tab.Panel>Content 2</Tab.Panel>
-          <Tab.Panel>Content 3</Tab.Panel>
+          <Tab.Panel>
+            {ownPosts?.length ? (
+              <CardView />
+            ) : (
+              <NoPosts text="Sem Publicações" />
+            )}
+          </Tab.Panel>
+          <Tab.Panel>
+            {savedPosts?.savedPosts.length ? (
+              <CardView />
+            ) : (
+              <NoPosts text="Sem Publicações" />
+            )}
+          </Tab.Panel>
         </Tab.Panels>
       </Tab.Group>
     </div>

@@ -21,7 +21,6 @@ export default function Profile({ uid, token }) {
   const router = useRouter();
   const { data: ownPosts } = useGetUserPostsQuery({ uid, token });
   const { data: savedPost } = useGetUserSavedPostsQuery({ uid, token });
-  console.log('ownPosts', ownPosts, 'savedPost', savedPost);
 
   if (!user) {
     router.replace('/');
@@ -54,7 +53,7 @@ export default function Profile({ uid, token }) {
           </span>
         </div>
       </ProfileData>
-      <PostsTabs />
+      <PostsTabs ownPosts={ownPosts} savedPosts={savedPost} />
     </MainLayout>
   );
 }
