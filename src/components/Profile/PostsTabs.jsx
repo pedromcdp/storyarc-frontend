@@ -3,6 +3,7 @@ import { Tab } from '@headlessui/react';
 import { Fragment } from 'react';
 import CardView from '../Post/CardView';
 import NoPosts from './NoPosts';
+import HourGlassLoadingAnim from '../Loading';
 
 export default function PostsTabs({
   ownPosts,
@@ -41,9 +42,7 @@ export default function PostsTabs({
         <Tab.Panels>
           <Tab.Panel>
             {isLoading || isFetching ? (
-              <>
-                <h1>loading...</h1>
-              </>
+              <HourGlassLoadingAnim />
             ) : ownPosts.length > 0 ? (
               ownPosts.map((post) => (
                 <CardView key={post.id} post={post} ownPost refetch={refetch} />

@@ -42,7 +42,7 @@ export default function Post({
             <CommentInput user={user} />
           </>
         )}
-        {showComments && <CommentsContainer />}
+        {showComments && <CommentsContainer id={id} />}
       </motion.div>
     </motion.article>
   );
