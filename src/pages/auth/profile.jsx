@@ -19,7 +19,12 @@ import PostsTabs from '../../components/Profile/PostsTabs';
 export default function Profile({ uid, token }) {
   const { user } = useAuth();
   const router = useRouter();
-  const { data: ownPosts } = useGetUserPostsQuery({ uid, token });
+  const {
+    data: ownPosts,
+    isLoading,
+    isFetching,
+    refetch,
+  } = useGetUserPostsQuery({ uid, token });
   const { data: savedPost } = useGetUserSavedPostsQuery({ uid, token });
 
   if (!user) {
@@ -53,7 +58,13 @@ export default function Profile({ uid, token }) {
           </span>
         </div>
       </ProfileData>
-      <PostsTabs ownPosts={ownPosts} savedPosts={savedPost} />
+      <PostsTabs
+        ownPosts={ownPosts}
+        savedPosts={savedPost}
+        refetch={refetch}
+        isLoading={isLoading}
+        isFetching={isFetching}
+      />
     </MainLayout>
   );
 }

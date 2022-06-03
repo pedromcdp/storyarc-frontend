@@ -9,7 +9,15 @@ import CommentInput from './CommentInput';
 import CommentsContainer from './CommentsContainer';
 import useAuth from '../../hooks/auth';
 
-export default function Post({ id, username, avatar, timestamp, description }) {
+export default function Post({
+  id,
+  username,
+  avatar,
+  timestamp,
+  description,
+  image,
+  newImage,
+}) {
   const [showComments, setShowComments] = useState(false);
   const { user } = useAuth();
 
@@ -23,7 +31,7 @@ export default function Post({ id, username, avatar, timestamp, description }) {
           id={id}
         />
         <PostDescription description={description} />
-        <PostImage />
+        <PostImage image={image} newImage={newImage} />
         <PostFooter
           setShowComments={setShowComments}
           showComments={showComments}
@@ -45,4 +53,6 @@ Post.propTypes = {
   avatar: PropTypes.string.isRequired,
   timestamp: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+  newImage: PropTypes.string,
 };

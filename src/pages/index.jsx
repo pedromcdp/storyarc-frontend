@@ -10,11 +10,10 @@ import {
 
 export default function Home() {
   const { data } = useGetAllPostQuery();
-
   return (
     <MainLayout title="storyarc">
       <FeedFilter />
-      <PostsContainer data={data} />
+      <PostsContainer data={data.data} />
     </MainLayout>
   );
 }
