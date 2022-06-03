@@ -6,6 +6,6 @@ const pageUrl =
 const apiUrl =
   process.env.NODE_ENV === 'development'
     ? 'http://localhost:8080'
-    : 'https://storyarc-fake-api.herokuapp.com/';
+    : 'https://api.storyarc.pt';
 
 export { pageUrl, apiUrl };
