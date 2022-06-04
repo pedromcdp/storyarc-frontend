@@ -3,6 +3,7 @@
 import PropTypes from 'prop-types';
 import CommentCell from './CommentCell';
 import NoPosts from '../Profile/NoPosts';
+import HourGlassLoadingAnim from '../Loading';
 import { useGetPostCommentsQuery } from '../../services/storyarc';
 
 export default function CommentsContainer({ id }) {
@@ -21,9 +22,7 @@ export default function CommentsContainer({ id }) {
       </h1>
       <div className="flex overflow-y-auto flex-col mt-1 space-y-2 max-h-80">
         {isLoading || isFetching ? (
-          <>
-            <h1>loading...</h1>
-          </>
+          <HourGlassLoadingAnim />
         ) : comments.length > 0 ? (
           comments.map((comment) => (
             <CommentCell key={comment.id} comment={comment} />

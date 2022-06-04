@@ -53,7 +53,7 @@ export const StoryArcAPI = createApi({
     addUser: builder.mutation({
       query: (user) => ({
         url: `users`,
-        method: 'POST',
+        method: 'PUT',
         body: user,
       }),
     }),

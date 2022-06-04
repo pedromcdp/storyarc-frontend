@@ -39,7 +39,7 @@ export default function Post({
         />
         {user && (
           <>
-            <CommentInput user={user} />
+            <CommentInput user={user} id={id} />
           </>
         )}
         {showComments && <CommentsContainer id={id} />}

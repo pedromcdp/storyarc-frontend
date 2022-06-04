@@ -1,11 +1,27 @@
 /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { PaperAirplaneIcon } from '@heroicons/react/outline';
 import PropTypes from 'prop-types';
+import {
+  useAddCommentMutation,
+  useGetPostCommentsQuery,
+} from '../../services/storyarc';
 
-export default function CommentInput({ user }) {
+export default function CommentInput({ user, id }) {
   const [comment, setComment] = useState('');
+  const [addComment, addCommentResult] = useAddCommentMutation();
+  const { refetch } = useGetPostCommentsQuery({
+    postId: id,
+  });
+
+  useEffect(() => {
+    if (addCommentResult.status === 'fulfilled') {
+      setComment('');
+      refetch();
+    }
+    console.log(addCommentResult);
+  }, [addCommentResult, refetch]);
 
   const handleTyping = (e) => {
     setComment(e.target.value);
@@ -14,6 +30,14 @@ export default function CommentInput({ user }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('submitting comment');
+    addComment({
+      id,
+      comment: {
+        postId: id,
+        user: user.uid,
+        body: comment,
+      },
+    });
   };
 
   return (
