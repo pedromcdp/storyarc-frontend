@@ -44,8 +44,8 @@ export const StoryArcAPI = createApi({
       query: () => `locations`,
     }),
     addComment: builder.mutation({
-      query: (comment) => ({
-        url: `comments`,
+      query: ({ id, comment }) => ({
+        url: `posts/${id}/addComment`,
         method: 'POST',
         body: comment,
       }),
