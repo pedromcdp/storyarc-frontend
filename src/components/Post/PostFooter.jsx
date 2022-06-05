@@ -33,7 +33,7 @@ export default function PostFooter({
     token,
   });
 
-  const handleLike = () => {
+  const handleLike = async () => {
     if (!liked) {
       likePost({
         id: uid,
@@ -55,23 +55,35 @@ export default function PostFooter({
     setBookmarked(!bookmarked);
   };
 
+  // const checkIfBookmarked = () => {
+  //   if (userSavedPostsData) {
+  //     const isBookmarked = userSavedPostsData.find(
+  //       (post) => post._id.toString() === id.toString(),
+  //     );
+  //     return Boolean(isBookmarked);
+  //   }
+  //   return false;
+  // };
+
   useEffect(() => {
     // if (userSavedPostsData) {
     //   const { getUserSavedPosts } = userSavedPostsData;
     //   const isBookmarked = getUserSavedPosts.find((post) => post.id === id);
     //   setBookmarked(Boolean(isBookmarked));
     // }
-    if (likePostResult.status === 'fulfilled') {
+    if (likePostResult.isSuccess || dislikePostResult.isSuccess) {
       refetch();
     }
-    if (userLikedPostsData) {
-      const { likedPosts } = userLikedPostsData;
-      const isLiked = likedPosts.some(
-        (post) => post._id.toString() === id.toString(),
-      );
-      setLiked(Boolean(isLiked));
+    if (likePostResult.isUninitialized || dislikePostResult.isUninitialized) {
+      if (userLikedPostsData) {
+        const { likedPosts } = userLikedPostsData;
+        const isLiked = likedPosts.some(
+          (post) => post._id.toString() === id.toString(),
+        );
+        setLiked(Boolean(isLiked));
+      }
     }
-  }, [userLikedPostsData, likePostResult, refetch]);
+  }, [likePostResult, dislikePostResult, refetch, userLikedPostsData]);
 
   return (
     <>
