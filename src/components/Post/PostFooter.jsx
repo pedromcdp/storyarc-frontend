@@ -1,25 +1,77 @@
+import { useEffect, useState } from 'react';
 import { HeartIcon, BookmarkIcon } from '@heroicons/react/outline';
 import {
   HeartIcon as SolidHeartIcon,
   BookmarkIcon as SolidBookmarkIcon,
 } from '@heroicons/react/solid';
-import { useState } from 'react';
+import useAuth from '../../hooks/auth';
+import {
+  useLikePostMutation,
+  useDislikePostMutation,
+  useGetUserSavedPostsQuery,
+  useGetUserLikedPostsQuery,
+} from '../../services/storyarc';
 
 export default function PostFooter({
   showComments,
   setShowComments,
   currentUser,
+  id,
 }) {
+  const { uid } = currentUser;
+  const { token } = useAuth();
   const [liked, setLiked] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
+  const [likePost, likePostResult] = useLikePostMutation();
+  const [dislikePost, dislikePostResult] = useDislikePostMutation();
+  const { data: userSavedPostsData } = useGetUserSavedPostsQuery({
+    uid,
+    token,
+  });
+  const { data: userLikedPostsData, refetch } = useGetUserLikedPostsQuery({
+    uid,
+    token,
+  });
 
   const handleLike = () => {
-    setLiked(!liked);
+    if (!liked) {
+      likePost({
+        id: uid,
+        postId: id,
+        token,
+      });
+      setLiked(true);
+    } else {
+      dislikePost({
+        id: uid,
+        postId: id,
+        token,
+      });
+      setLiked(false);
+    }
   };
 
   const handleBookmark = () => {
     setBookmarked(!bookmarked);
   };
+
+  useEffect(() => {
+    // if (userSavedPostsData) {
+    //   const { getUserSavedPosts } = userSavedPostsData;
+    //   const isBookmarked = getUserSavedPosts.find((post) => post.id === id);
+    //   setBookmarked(Boolean(isBookmarked));
+    // }
+    if (likePostResult.status === 'fulfilled') {
+      refetch();
+    }
+    if (userLikedPostsData) {
+      const { likedPosts } = userLikedPostsData;
+      const isLiked = likedPosts.some(
+        (post) => post._id.toString() === id.toString(),
+      );
+      setLiked(Boolean(isLiked));
+    }
+  }, [userLikedPostsData, likePostResult, refetch]);
 
   return (
     <>
