@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
 import { HeartIcon, BookmarkIcon } from '@heroicons/react/outline';
 import {
@@ -8,6 +9,8 @@ import useAuth from '../../hooks/auth';
 import {
   useLikePostMutation,
   useDislikePostMutation,
+  useSavePostMutation,
+  useUnsavePostMutation,
   useGetUserSavedPostsQuery,
   useGetUserLikedPostsQuery,
 } from '../../services/storyarc';
@@ -22,18 +25,22 @@ export default function PostFooter({
   const { token } = useAuth();
   const [liked, setLiked] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
+  const [savePost, savePostResult] = useSavePostMutation();
+  const [unsavePost, unsavePostResult] = useUnsavePostMutation();
   const [likePost, likePostResult] = useLikePostMutation();
   const [dislikePost, dislikePostResult] = useDislikePostMutation();
-  const { data: userSavedPostsData } = useGetUserSavedPostsQuery({
-    uid,
-    token,
-  });
-  const { data: userLikedPostsData, refetch } = useGetUserLikedPostsQuery({
-    uid,
-    token,
-  });
-
-  const handleLike = async () => {
+  const { data: userSavedPostsData, refetch: revalidateSavedPosts } =
+    useGetUserSavedPostsQuery({
+      uid,
+      token,
+    });
+  const { data: userLikedPostsData, refetch: revalidateLikes } =
+    useGetUserLikedPostsQuery({
+      uid,
+      token,
+    });
+  console.log(userSavedPostsData);
+  const handleLike = () => {
     if (!liked) {
       likePost({
         id: uid,
@@ -52,27 +59,36 @@ export default function PostFooter({
   };
 
   const handleBookmark = () => {
-    setBookmarked(!bookmarked);
+    if (!bookmarked) {
+      savePost({
+        id: uid,
+        postId: id,
+        token,
+      });
+      setBookmarked(true);
+    } else {
+      unsavePost({
+        id: uid,
+        postId: id,
+        token,
+      });
+      setBookmarked(false);
+    }
   };
 
-  // const checkIfBookmarked = () => {
-  //   if (userSavedPostsData) {
-  //     const isBookmarked = userSavedPostsData.find(
-  //       (post) => post._id.toString() === id.toString(),
-  //     );
-  //     return Boolean(isBookmarked);
-  //   }
-  //   return false;
-  // };
-
   useEffect(() => {
-    // if (userSavedPostsData) {
-    //   const { getUserSavedPosts } = userSavedPostsData;
-    //   const isBookmarked = getUserSavedPosts.find((post) => post.id === id);
-    //   setBookmarked(Boolean(isBookmarked));
-    // }
+    if (savePostResult.isSuccess || unsavePostResult.isSuccess) {
+      revalidateSavedPosts();
+    }
+    if (savePostResult.isUninitialized || unsavePostResult.isUninitialized) {
+      if (userSavedPostsData) {
+        const { savedPosts } = userSavedPostsData;
+        const isBookmarked = savedPosts.some((post) => post._id === id);
+        setBookmarked(Boolean(isBookmarked));
+      }
+    }
     if (likePostResult.isSuccess || dislikePostResult.isSuccess) {
-      refetch();
+      revalidateLikes();
     }
     if (likePostResult.isUninitialized || dislikePostResult.isUninitialized) {
       if (userLikedPostsData) {
@@ -81,7 +97,16 @@ export default function PostFooter({
         setLiked(Boolean(isLiked));
       }
     }
-  }, [likePostResult, dislikePostResult, refetch, userLikedPostsData]);
+  }, [
+    likePostResult,
+    dislikePostResult,
+    revalidateLikes,
+    revalidateSavedPosts,
+    userLikedPostsData,
+    userSavedPostsData,
+    savePostResult,
+    unsavePostResult,
+  ]);
 
   return (
     <>
