@@ -121,6 +121,7 @@ export const {
   useLikePostMutation,
   useDislikePostMutation,
   useSavePostMutation,
+  useUnsavePostMutation,
   util: { getRunningOperationPromises },
 } = StoryArcAPI;
 
