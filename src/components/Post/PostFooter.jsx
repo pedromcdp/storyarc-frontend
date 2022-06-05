@@ -39,7 +39,7 @@ export default function PostFooter({
       uid,
       token,
     });
-  console.log(userSavedPostsData);
+
   const handleLike = () => {
     if (!liked) {
       likePost({
