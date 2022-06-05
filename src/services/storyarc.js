@@ -34,6 +34,12 @@ export const StoryArcAPI = createApi({
         headers: { Authorization: `Bearer ${token}` },
       }),
     }),
+    getUserLikedPosts: builder.query({
+      query: ({ uid, token }) => ({
+        url: `users/${uid}/likedPosts`,
+        headers: { Authorization: `Bearer ${token}` },
+      }),
+    }),
     getSearchResults: builder.query({
       query: ({ rua }) => `posts?streetName=${rua}&_expand=user`,
     }),
@@ -64,6 +70,30 @@ export const StoryArcAPI = createApi({
         headers: { Authorization: `Bearer ${token}` },
       }),
     }),
+    likePost: builder.mutation({
+      query: ({ id, postId, token }) => ({
+        url: `users/${id}/like`,
+        method: 'POST',
+        body: { postId },
+        headers: { Authorization: `Bearer ${token}` },
+      }),
+    }),
+    dislikePost: builder.mutation({
+      query: ({ id, postId, token }) => ({
+        url: `users/${id}/dislike`,
+        method: 'POST',
+        body: { postId },
+        headers: { Authorization: `Bearer ${token}` },
+      }),
+    }),
+    savePost: builder.mutation({
+      query: ({ id, postId, token }) => ({
+        url: `users/${id}/addSavedPost`,
+        method: 'POST',
+        body: { postId },
+        headers: { Authorization: `Bearer ${token}` },
+      }),
+    }),
   }),
 });
 
@@ -73,12 +103,16 @@ export const {
   useGetPostCommentsQuery,
   useGetUserPostsQuery,
   useGetUserSavedPostsQuery,
+  useGetUserLikedPostsQuery,
   useGetSearchResultsQuery,
   useGetCommentOwnerQuery,
   useGetLocationsQuery,
   useAddCommentMutation,
   useAddUserMutation,
   useRemovePostMutation,
+  useLikePostMutation,
+  useDislikePostMutation,
+  useSavePostMutation,
   util: { getRunningOperationPromises },
 } = StoryArcAPI;
 
