@@ -20,7 +20,6 @@ export default function CommentInput({ user, id }) {
       setComment('');
       refetch();
     }
-    console.log(addCommentResult);
   }, [addCommentResult, refetch]);
 
   const handleTyping = (e) => {
