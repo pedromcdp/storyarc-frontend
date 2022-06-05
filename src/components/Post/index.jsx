@@ -33,6 +33,7 @@ export default function Post({
         <PostDescription description={description} />
         <PostImage image={image} newImage={newImage} />
         <PostFooter
+          id={id}
           setShowComments={setShowComments}
           showComments={showComments}
           currentUser={user}
