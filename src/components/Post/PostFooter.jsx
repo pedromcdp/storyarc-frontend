@@ -77,9 +77,7 @@ export default function PostFooter({
     if (likePostResult.isUninitialized || dislikePostResult.isUninitialized) {
       if (userLikedPostsData) {
         const { likedPosts } = userLikedPostsData;
-        const isLiked = likedPosts.some(
-          (post) => post._id.toString() === id.toString(),
-        );
+        const isLiked = likedPosts.some((post) => post._id === id);
         setLiked(Boolean(isLiked));
       }
     }
