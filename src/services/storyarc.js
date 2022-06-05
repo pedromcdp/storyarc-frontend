@@ -94,6 +94,14 @@ export const StoryArcAPI = createApi({
         headers: { Authorization: `Bearer ${token}` },
       }),
     }),
+    unsavePost: builder.mutation({
+      query: ({ id, postId, token }) => ({
+        url: `users/${id}/removeSavedPost`,
+        method: 'POST',
+        body: { postId },
+        headers: { Authorization: `Bearer ${token}` },
+      }),
+    }),
   }),
 });
 
