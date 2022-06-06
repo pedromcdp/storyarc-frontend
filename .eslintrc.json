@@ -30,6 +30,6 @@
     ],
     "tailwindcss/no-custom-classname": "off",
     "object-curly-newline": "off",
-    "prettier/prettier": "error"
+    "prettier/prettier": ["error", { "endOfLine": "auto" }]
   }
 }
