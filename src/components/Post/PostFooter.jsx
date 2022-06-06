@@ -15,14 +15,8 @@ import {
   useGetUserLikedPostsQuery,
 } from '../../services/storyarc';
 
-export default function PostFooter({
-  showComments,
-  setShowComments,
-  currentUser,
-  id,
-}) {
-  const { uid } = currentUser;
-  const { token } = useAuth();
+export default function PostFooter({ showComments, setShowComments, id }) {
+  const { user, token } = useAuth();
   const [liked, setLiked] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
   const [savePost, savePostResult] = useSavePostMutation();
@@ -31,26 +25,26 @@ export default function PostFooter({
   const [dislikePost, dislikePostResult] = useDislikePostMutation();
   const { data: userSavedPostsData, refetch: revalidateSavedPosts } =
     useGetUserSavedPostsQuery({
-      uid,
+      uid: user?.uid,
       token,
     });
   const { data: userLikedPostsData, refetch: revalidateLikes } =
     useGetUserLikedPostsQuery({
-      uid,
+      uid: user?.uid,
       token,
     });
 
   const handleLike = () => {
     if (!liked) {
       likePost({
-        id: uid,
+        id: user.uid,
         postId: id,
         token,
       });
       setLiked(true);
     } else {
       dislikePost({
-        id: uid,
+        id: user.uid,
         postId: id,
         token,
       });
@@ -61,14 +55,14 @@ export default function PostFooter({
   const handleBookmark = () => {
     if (!bookmarked) {
       savePost({
-        id: uid,
+        id: user.uid,
         postId: id,
         token,
       });
       setBookmarked(true);
     } else {
       unsavePost({
-        id: uid,
+        id: user.uid,
         postId: id,
         token,
       });
@@ -118,7 +112,7 @@ export default function PostFooter({
           {!showComments ? 'Ver comentários' : 'Fechar comentários'}
         </button>
       </div>
-      {currentUser && (
+      {user && (
         <div className="flex justify-evenly items-center border-t">
           <button
             className="group transition-all duration-75 ease-in-out postInputBtn"

@@ -36,7 +36,6 @@ export default function Post({
           id={id}
           setShowComments={setShowComments}
           showComments={showComments}
-          currentUser={user}
         />
         {user && (
           <>
