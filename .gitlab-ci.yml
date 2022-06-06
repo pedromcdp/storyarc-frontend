@@ -1,0 +1,70 @@
+image: node:16
+
+stages:
+  - install
+  - lint
+  - build
+  - deploy
+
+variables:
+  FF_USE_FASTZIP: 'true'
+  ARTIFACT_COMPRESSION_LEVEL: fastest
+  CACHE_COMPRESSION_LEVEL: fastest
+  TRANSFER_METER_FREQUENCY: 5s
+
+Install:
+  stage: install
+  script:
+    - yarn
+  cache:
+    key:
+      files:
+        - yarn.lock
+    paths:
+      - node_modules/
+  artifacts:
+    expire_in: 1 week
+    when: on_success
+    paths:
+      - node_modules/
+
+Prettier:
+  stage: lint
+  dependencies:
+    - Install
+  script:
+    - yarn prettier
+  allow_failure: false
+
+Lint:
+  stage: lint
+  dependencies:
+    - Install
+  script:
+    - yarn lint
+  allow_failure: false
+
+Build:
+  stage: build
+  dependencies:
+    - Install
+  script:
+    - yarn build
+  artifacts:
+    expire_in: 2 hrs 20 min
+    paths:
+      - public
+    when: on_success
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+Deploy:
+  stage: deploy
+  dependencies:
+    - Build
+    - Install
+  script:
+    - npx vercel -t $VERCEL_TOKEN --prod -c
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: manual

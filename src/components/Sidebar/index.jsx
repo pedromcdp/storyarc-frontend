@@ -1,28 +1,42 @@
-import {
-  ClockIcon,
-  TrendingUpIcon,
-  CalendarIcon,
-  HashtagIcon,
-  UserCircleIcon,
-} from '@heroicons/react/outline';
+import { UserCircleIcon } from '@heroicons/react/outline';
+import { PlusCircleIcon } from '@heroicons/react/solid';
 import SidebarLogo from './SidebarLogo';
-import SideBarSearchBar from './SideBarSearchBar';
+import SidebarSearch from './SidebarSearch';
 import SidebarRow from './SidebarRow';
 import RowsContainer from './RowsContainer';
+import { feedFilters } from '../../utils/feedFilters';
+import SidebarAuthRow from './SidebarAuthRow';
+import useAuth from '../../hooks/auth';
 
 function Sidebar() {
+  const { user } = useAuth();
   return (
-    <div className="max-w-[600px] xl:min-w-[300px] bg-white h-screen px-4 py-3 shadow-sm flex flex-col justify-between">
+    <div className="hidden flex-col justify-between py-3 px-4 max-w-[600px] h-screen bg-white border-r shadow-sm md:inline-flex xl:min-w-[300px]">
       <div className="flex flex-col flex-none">
         <SidebarLogo />
-        <SideBarSearchBar />
+        <SidebarSearch />
       </div>
-      <div className="flex flex-col flex-grow">
+      <div className="flex flex-col grow">
+        <RowsContainer
+          title="Nova publicação"
+          ariaText="Adicionar conteúdo ao storyarc"
+          moreClasses="xl:hidden"
+        >
+          <SidebarRow
+            title="Criar uma publicação"
+            Icon={PlusCircleIcon}
+            addBtn
+          />
+        </RowsContainer>
         <RowsContainer title="Feed" ariaText="Opções de filtragem do feed">
-          <SidebarRow Icon={HashtagIcon} title="Recentes" />
-          <SidebarRow Icon={TrendingUpIcon} title="Em Alta" />
-          <SidebarRow Icon={CalendarIcon} title="Por Ano" />
-          <SidebarRow Icon={ClockIcon} title="Por Década" />
+          {feedFilters.map((filter) => (
+            <SidebarRow
+              key={`${filter.name}-sidebar`}
+              title={filter.name}
+              Icon={filter.icon}
+              filter={filter}
+            />
+          ))}
         </RowsContainer>
         <RowsContainer
           title="Principais localizações"
@@ -43,7 +57,16 @@ function Sidebar() {
         </RowsContainer>
       </div>
       <div className="flex flex-none">
-        <SidebarRow Icon={UserCircleIcon} title="Iniciar Sessão/Criar Conta" />
+        {user ? (
+          <SidebarAuthRow Icon={UserCircleIcon} user={user} />
+        ) : (
+          <SidebarRow
+            Icon={UserCircleIcon}
+            title="Iniciar sessão/Criar conta"
+            loginBtn
+            href="/auth/signin"
+          />
+        )}
       </div>
     </div>
   );

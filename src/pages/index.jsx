@@ -1,18 +1,30 @@
-import Head from 'next/head';
-import Sidebar from '../components/Sidebar';
+import MainLayout from '../layouts/MainLayout';
+import FeedFilter from '../components/FeedFilter';
+import PostsContainer from '../components/Feed/PostsContainer';
+import { wrapper } from '../app/store';
+import {
+  getAllPost,
+  useGetAllPostQuery,
+  getRunningOperationPromises,
+} from '../services/storyarc';
 
 export default function Home() {
+  const { data } = useGetAllPostQuery();
   return (
-    <div className="h-screen bg-gray-100 overflow-hidden font-body">
-      <Head>
-        <title>storyarc</title>
-      </Head>
-      <main className="flex">
-        <Sidebar />
-        <div className="mx-auto">
-          <h1 className=" text-2xl font-light">Hello World</h1>
-        </div>
-      </main>
-    </div>
+    <MainLayout title="storyarc">
+      <FeedFilter />
+      <PostsContainer data={data.data} />
+    </MainLayout>
   );
 }
+
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) => async () => {
+    store.dispatch(getAllPost.initiate());
+    await Promise.all(getRunningOperationPromises());
+
+    return {
+      props: {},
+    };
+  },
+);
