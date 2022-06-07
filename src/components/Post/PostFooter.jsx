@@ -93,7 +93,7 @@ export default function PostFooter({ showComments, setShowComments, id }) {
       const isLiked = likedPosts.some((post) => post._id === id);
       setLiked(Boolean(isLiked));
     }
-  }, []);
+  }, [userSavedPostsData, userLikedPostsData]);
 
   return (
     <>
