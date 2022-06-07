@@ -19,10 +19,10 @@ export default function PostFooter({ showComments, setShowComments, id }) {
   const { user, token } = useAuth();
   const [liked, setLiked] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
-  const [savePost, savePostResult] = useSavePostMutation();
-  const [unsavePost, unsavePostResult] = useUnsavePostMutation();
-  const [likePost, likePostResult] = useLikePostMutation();
-  const [dislikePost, dislikePostResult] = useDislikePostMutation();
+  const [savePost] = useSavePostMutation();
+  const [unsavePost] = useUnsavePostMutation();
+  const [likePost] = useLikePostMutation();
+  const [dislikePost] = useDislikePostMutation();
   const { data: userSavedPostsData, refetch: revalidateSavedPosts } =
     useGetUserSavedPostsQuery({
       uid: user?.uid,
@@ -34,73 +34,66 @@ export default function PostFooter({ showComments, setShowComments, id }) {
       token,
     });
 
-  const handleLike = () => {
+  const handleLike = async () => {
     if (!liked) {
-      likePost({
-        id: user.uid,
-        postId: id,
-        token,
-      });
       setLiked(true);
-    } else {
-      dislikePost({
+      const { data } = await likePost({
         id: user.uid,
         postId: id,
         token,
       });
+      if (data) {
+        revalidateLikes();
+      }
+    } else {
       setLiked(false);
+      const { data } = await dislikePost({
+        id: user.uid,
+        postId: id,
+        token,
+      });
+      if (data) {
+        revalidateLikes();
+      }
     }
   };
 
-  const handleBookmark = () => {
+  const handleBookmark = async () => {
     if (!bookmarked) {
-      savePost({
-        id: user.uid,
-        postId: id,
-        token,
-      });
       setBookmarked(true);
-    } else {
-      unsavePost({
+      const { data } = await savePost({
         id: user.uid,
         postId: id,
         token,
       });
+      if (data) {
+        revalidateSavedPosts();
+      }
+    } else {
       setBookmarked(false);
+      const { data } = await unsavePost({
+        id: user.uid,
+        postId: id,
+        token,
+      });
+      if (data) {
+        revalidateSavedPosts();
+      }
     }
   };
 
   useEffect(() => {
-    if (savePostResult.isSuccess || unsavePostResult.isSuccess) {
-      revalidateSavedPosts();
+    if (userSavedPostsData) {
+      const { savedPosts } = userSavedPostsData;
+      const isBookmarked = savedPosts.some((post) => post._id === id);
+      setBookmarked(Boolean(isBookmarked));
     }
-    if (savePostResult.isUninitialized || unsavePostResult.isUninitialized) {
-      if (userSavedPostsData) {
-        const { savedPosts } = userSavedPostsData;
-        const isBookmarked = savedPosts.some((post) => post._id === id);
-        setBookmarked(Boolean(isBookmarked));
-      }
+    if (userLikedPostsData) {
+      const { likedPosts } = userLikedPostsData;
+      const isLiked = likedPosts.some((post) => post._id === id);
+      setLiked(Boolean(isLiked));
     }
-    if (likePostResult.isSuccess || dislikePostResult.isSuccess) {
-      revalidateLikes();
-    }
-    if (likePostResult.isUninitialized || dislikePostResult.isUninitialized) {
-      if (userLikedPostsData) {
-        const { likedPosts } = userLikedPostsData;
-        const isLiked = likedPosts.some((post) => post._id === id);
-        setLiked(Boolean(isLiked));
-      }
-    }
-  }, [
-    likePostResult,
-    dislikePostResult,
-    revalidateLikes,
-    revalidateSavedPosts,
-    userLikedPostsData,
-    userSavedPostsData,
-    savePostResult,
-    unsavePostResult,
-  ]);
+  }, []);
 
   return (
     <>
