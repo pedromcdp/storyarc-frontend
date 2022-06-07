@@ -25,7 +25,7 @@ export default function CommentsContainer({ id }) {
           <HourGlassLoadingAnim />
         ) : comments.length > 0 ? (
           comments.map((comment) => (
-            <CommentCell key={comment.id} comment={comment} />
+            <CommentCell key={comment.id} comment={comment} postId={id} />
           ))
         ) : (
           <NoPosts text="Sem comentários" />
