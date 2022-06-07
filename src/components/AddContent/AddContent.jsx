@@ -17,7 +17,7 @@ export default function AddContent() {
       <Dialog
         open={isOpen}
         onClose={() => dispatch(closeAddContent())}
-        className="relative z-50"
+        className="relative z-50 font-body"
       >
         <Transition.Child
           as={Fragment}
@@ -52,17 +52,17 @@ export default function AddContent() {
               </Dialog.Title>
               <form className="p-4 space-y-5">
                 <input
-                  className="py-2 px-3 pb-12 w-full font-light tracking-wide leading-tight text-gray-700 rounded-md border focus:outline-none shadow appearance-none focus:shadow-outline"
+                  className="py-2 px-3 pb-12 w-full font-light tracking-wide leading-tight text-gray-700 rounded-md border focus:border-verde focus:outline-none shadow appearance-none focus:shadow-outline"
                   type="text"
                   placeholder="Adiciona uma descrição"
                 />
                 <input
-                  className="py-2 px-3 w-full font-light tracking-wide leading-tight text-gray-700 rounded border focus:outline-none shadow appearance-none focus:shadow-outline"
+                  className="py-2 px-3 w-full font-light tracking-wide leading-tight text-gray-700 rounded border focus:border-verde focus:outline-none shadow appearance-none focus:shadow-outline"
                   type="text"
                   placeholder="Introduz a localização da fotografia"
                 />
                 <input
-                  className="py-2 px-3 w-full font-light tracking-wide leading-tight text-gray-700 rounded border focus:outline-none shadow appearance-none focus:shadow-outline"
+                  className="py-2 px-3 w-full font-light tracking-wide leading-tight text-gray-700 rounded border focus:border-verde   focus:outline-none shadow appearance-none focus:shadow-outline"
                   type="date"
                   placeholder="Seleciona uma data"
                 />
