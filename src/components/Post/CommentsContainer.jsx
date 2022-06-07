@@ -9,6 +9,7 @@ import { useGetPostCommentsQuery } from '../../services/storyarc';
 export default function CommentsContainer({ id }) {
   const {
     data: comments,
+    currentData,
     isLoading,
     isFetching,
   } = useGetPostCommentsQuery({
@@ -22,7 +23,13 @@ export default function CommentsContainer({ id }) {
       </h1>
       <div className="flex overflow-y-auto flex-col mt-1 space-y-2 max-h-80">
         {isLoading || isFetching ? (
-          <HourGlassLoadingAnim />
+          currentData.length === 0 ? (
+            <HourGlassLoadingAnim />
+          ) : (
+            currentData.map((comment) => (
+              <CommentCell key={comment.id} comment={comment} postId={id} />
+            ))
+          )
         ) : comments.length > 0 ? (
           comments.map((comment) => (
             <CommentCell key={comment.id} comment={comment} postId={id} />
