@@ -28,7 +28,6 @@ export default function CommentInput({ user, id }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('submitting comment');
     addComment({
       id,
       comment: {
