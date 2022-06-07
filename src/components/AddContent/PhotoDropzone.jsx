@@ -11,7 +11,6 @@ const baseStyle = {
   padding: '20px',
   borderWidth: 2,
   borderRadius: 2,
-  borderColor: '#eeeeee',
   borderStyle: 'dashed',
   backgroundColor: '#fafafa',
   color: '#bdbdbd',
@@ -70,7 +69,7 @@ export default function PhotoDropzone({ files, setFiles }) {
       {files.length === 0 ? (
         <div
           {...getRootProps({ className: 'dropzone', style })}
-          className="py-6 px-3 w-full font-light tracking-wide leading-tight text-gray-700 rounded border focus:outline-none shadow appearance-none cursor-pointer focus:shadow-outline"
+          className="py-6 px-3 w-full font-light tracking-wide leading-tight text-gray-700 rounded border focus:border-verde focus:outline-none shadow appearance-none cursor-pointer focus:shadow-outline"
         >
           <svg
             className="m-auto w-28 h-28 rotate-12"
