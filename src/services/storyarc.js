@@ -102,6 +102,12 @@ export const StoryArcAPI = createApi({
         headers: { Authorization: `Bearer ${token}` },
       }),
     }),
+    deleteComment: builder.mutation({
+      query: (id) => ({
+        url: `comments/${id}`,
+        method: 'DELETE',
+      }),
+    }),
   }),
 });
 
@@ -122,6 +128,7 @@ export const {
   useDislikePostMutation,
   useSavePostMutation,
   useUnsavePostMutation,
+  useDeleteCommentMutation,
   util: { getRunningOperationPromises },
 } = StoryArcAPI;
 
