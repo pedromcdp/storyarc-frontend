@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
-import { useState } from 'react';
 import PostHeader from './PostHeader';
 import PostDescription from './PostDescription';
 import PostImage from './PostImage';
@@ -18,7 +17,6 @@ export default function Post({
   image,
   newImage,
 }) {
-  const [showComments, setShowComments] = useState(false);
   const { user } = useAuth();
 
   return (
@@ -32,17 +30,13 @@ export default function Post({
         />
         <PostDescription description={description} />
         <PostImage image={image} newImage={newImage} />
-        <PostFooter
-          id={id}
-          setShowComments={setShowComments}
-          showComments={showComments}
-        />
+        <PostFooter id={id} />
         {user && (
           <>
             <CommentInput user={user} id={id} />
           </>
         )}
-        {showComments && <CommentsContainer id={id} />}
+        <CommentsContainer id={id} />
       </motion.div>
     </motion.article>
   );

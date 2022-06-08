@@ -23,10 +23,10 @@ export default function CommentsContainer({ id }) {
       </h1>
       <div className="flex overflow-y-auto flex-col mt-1 space-y-2 max-h-80">
         {isLoading || isFetching ? (
-          currentData.length === 0 ? (
+          currentData?.length === 0 ? (
             <HourGlassLoadingAnim />
           ) : (
-            currentData.map((comment) => (
+            currentData?.map((comment) => (
               <CommentCell key={comment.id} comment={comment} postId={id} />
             ))
           )

@@ -97,14 +97,6 @@ export default function PostFooter({ showComments, setShowComments, id }) {
 
   return (
     <>
-      <div className="flex justify-end my-1">
-        <button
-          className="py-[0.35rem] px-2 text-sm hover:bg-gray-100 rounded-xl"
-          onClick={() => setShowComments(!showComments)}
-        >
-          {!showComments ? 'Ver comentários' : 'Fechar comentários'}
-        </button>
-      </div>
       {user && (
         <div className="flex justify-evenly items-center border-t">
           <button
