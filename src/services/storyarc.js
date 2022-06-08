@@ -103,9 +103,10 @@ export const StoryArcAPI = createApi({
       }),
     }),
     deleteComment: builder.mutation({
-      query: (id) => ({
+      query: ({ id, postId }) => ({
         url: `comments/${id}`,
-        method: 'DELETE',
+        method: 'POST',
+        body: { postId },
       }),
     }),
   }),

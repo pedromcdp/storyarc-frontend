@@ -16,7 +16,7 @@ export default function CommentCell({ comment, postId }) {
   });
 
   const handleDelete = async () => {
-    const { data } = await deleteComment(comment._id);
+    const { data } = await deleteComment({ id: comment._id, postId });
     if (data) {
       refetch();
     }
