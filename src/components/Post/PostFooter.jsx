@@ -96,7 +96,7 @@ export default function PostFooter({ showComments, setShowComments, id }) {
   }, [userSavedPostsData, userLikedPostsData]);
 
   return (
-    <>
+    <div className="mt-2">
       {user && (
         <div className="flex justify-evenly items-center border-t">
           <button
@@ -137,6 +137,6 @@ export default function PostFooter({ showComments, setShowComments, id }) {
           </button>
         </div>
       )}
-    </>
+    </div>
   );
 }
