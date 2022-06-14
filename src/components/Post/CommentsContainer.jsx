@@ -27,7 +27,11 @@ export default function CommentsContainer({ id }) {
             <HourGlassLoadingAnim />
           ) : (
             currentData?.map((comment) => (
-              <CommentCell key={comment.id} comment={comment} postId={id} />
+              <CommentCell
+                key={`${comment.id}-old`}
+                comment={comment}
+                postId={id}
+              />
             ))
           )
         ) : comments.length > 0 ? (

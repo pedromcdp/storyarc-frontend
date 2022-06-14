@@ -14,7 +14,7 @@ export const StoryArcAPI = createApi({
   },
   endpoints: (builder) => ({
     getAllPost: builder.query({
-      query: () => `posts?_expand=user`,
+      query: (query) => `posts/${query}`,
     }),
     getPostWithUserAndCommentsData: builder.query({
       query: (postId) => `posts/${postId}?_expand=user&_embed=comments`,
