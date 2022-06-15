@@ -5,6 +5,7 @@ import 'firebase/compat/auth';
 import PropTypes from 'prop-types';
 import useAuth from '../hooks/auth';
 import { useAddUserMutation } from '../services/storyarc';
+import { SplashScreen } from '../components/SplashScreen';
 
 export default function AuthState({ children }) {
   const { setUser, setToken } = useAuth();
@@ -29,7 +30,7 @@ export default function AuthState({ children }) {
   }, []);
 
   if (isLoading) {
-    return null;
+    return <SplashScreen />;
   }
   return children;
 }
