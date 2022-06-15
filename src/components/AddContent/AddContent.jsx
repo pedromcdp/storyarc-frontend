@@ -42,7 +42,7 @@ export default function AddContent() {
           >
             <Dialog.Panel className="p-4 mx-auto w-full max-w-2xl bg-white rounded-xl">
               <Dialog.Title className="flex justify-between items-center mx-4 font-medium">
-                <h1 className="text-xl lg:text-xl">Adicionar conteúdo</h1>
+                <p className="text-xl lg:text-xl">Adicionar conteúdo</p>
                 <button
                   className="p-1.5 text-gray-500 hover:text-black focus:text-black bg-transparent hover:bg-gray-100 focus:bg-gray-100 rounded-lg outline-verde"
                   onClick={() => dispatch(closeAddContent())}
