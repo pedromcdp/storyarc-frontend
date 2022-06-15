@@ -4,29 +4,30 @@ import PostsContainer from '../../components/Feed/PostsContainer';
 import Loading from '../../components/Loading';
 import { wrapper } from '../../app/store';
 import {
-  getPostWithUserAndCommentsData,
+  getSearch,
+  useGetSearchQuery,
   getRunningOperationPromises,
-  useGetPostWithUserAndCommentsDataQuery,
 } from '../../services/storyarc';
 
-export default function PostPage({ postId }) {
-  const { data } = useGetPostWithUserAndCommentsDataQuery(postId);
+export default function PostPage({ searchTerm }) {
+  const { data, isFetching, isLoading } = useGetSearchQuery(searchTerm);
   return (
     <MainLayout title="storyarc">
       <FeedFilter />
-      {data ? <PostsContainer data={data} /> : <Loading size="xs" />}
+      {isFetching || (isLoading && <Loading size="xs" />)}
+      {data ? <PostsContainer data={data.data} /> : <Loading size="xs" />}
     </MainLayout>
   );
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
-    const id = context.params?.id;
-    store.dispatch(getPostWithUserAndCommentsData.initiate(id));
+    const q = context.params?.q;
+    store.dispatch(getSearch.initiate(q));
     await Promise.all(getRunningOperationPromises());
     return {
       props: {
-        postId: id,
+        searchTerm: q,
       },
     };
   },

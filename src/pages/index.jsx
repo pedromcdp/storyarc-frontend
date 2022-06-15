@@ -12,13 +12,14 @@ import {
 } from '../services/storyarc';
 
 export default function Home() {
-  const { data } = useGetAllPostQuery(
+  const { data, isFetching, isLoading } = useGetAllPostQuery(
     JSON.parse(useSelector(useFeedFilter)).value,
   );
 
   return (
     <MainLayout title="storyarc">
       <FeedFilter />
+      {isFetching || (isLoading && <Loading size="xs" />)}
       {data ? <PostsContainer data={data.data} /> : <Loading size="xs" />}
     </MainLayout>
   );
