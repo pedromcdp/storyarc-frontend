@@ -47,7 +47,13 @@ export default function PostHeader({ id, name, avatar, timestamp }) {
       >
         <DotsHorizontalIcon className="w-5 h-5" />
         <ul className="p-2 w-60 bg-white drop-shadow-lg dropdown-content menu rounded-box">
-          <li tabIndex={0} onClick={handleCopyToClipboard}>
+          <li
+            tabIndex={0}
+            onClick={handleCopyToClipboard}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') handleCopyToClipboard();
+            }}
+          >
             <span className="text-sm">
               <LinkIcon className="w-5 h-5" />
               Copiar ligação
