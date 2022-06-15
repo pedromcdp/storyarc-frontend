@@ -15,6 +15,10 @@ export default function MainLayout({ title, children }) {
     <div className="overflow-hidden h-screen font-body antialiased bg-gray-100">
       <Head>
         <title>{title || 'storyarc'}</title>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1"
+        />
       </Head>
       <Header />
       <main className="flex">
