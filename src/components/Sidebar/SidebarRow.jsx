@@ -40,6 +40,8 @@ export default function SidebarRow({
       } else {
         dispatch(openAddContent());
       }
+    } else {
+      router.push(`/search/${title}`);
     }
   };
 

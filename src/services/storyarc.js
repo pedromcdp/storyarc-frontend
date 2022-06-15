@@ -16,6 +16,9 @@ export const StoryArcAPI = createApi({
     getAllPost: builder.query({
       query: (query) => `posts/${query}`,
     }),
+    getSearch: builder.query({
+      query: (query) => `/posts/search?q=${query}`,
+    }),
     getPostWithUserAndCommentsData: builder.query({
       query: (postId) => `posts/${postId}?_expand=user&_embed=comments`,
     }),
@@ -39,9 +42,6 @@ export const StoryArcAPI = createApi({
         url: `users/${uid}/likedPosts`,
         headers: { Authorization: `Bearer ${token}` },
       }),
-    }),
-    getSearchResults: builder.query({
-      query: ({ rua }) => `posts?streetName=${rua}&_expand=user`,
     }),
     getCommentOwner: builder.query({
       query: ({ uid }) => `users?id=${uid}`,
@@ -119,7 +119,7 @@ export const {
   useGetUserPostsQuery,
   useGetUserSavedPostsQuery,
   useGetUserLikedPostsQuery,
-  useGetSearchResultsQuery,
+  useGetSearchQuery,
   useGetCommentOwnerQuery,
   useGetLocationsQuery,
   useAddCommentMutation,
@@ -136,6 +136,7 @@ export const {
 export const {
   getAllPost,
   getPostWithUserAndCommentsData,
+  getSearch,
   getUserPosts,
   getUserSavedPosts,
 } = StoryArcAPI.endpoints;
