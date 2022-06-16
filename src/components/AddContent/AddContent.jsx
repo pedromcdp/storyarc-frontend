@@ -77,7 +77,7 @@ export default function AddContent() {
     <Transition show={isOpen} as={Fragment}>
       <Dialog
         open={isOpen}
-        onClose={() => disabled && dispatch(closeAddContent())}
+        onClose={() => !disabled && dispatch(closeAddContent())}
         className="relative z-40 font-body"
       >
         <Transition.Child
@@ -107,7 +107,7 @@ export default function AddContent() {
                 <button
                   disabled={disabled}
                   className="p-1.5 text-gray-500 hover:text-black focus:text-black bg-transparent hover:bg-gray-100 focus:bg-gray-100 disabled:bg-gray-100 rounded-lg outline-verde disabled:cursor-not-allowed"
-                  onClick={() => disabled && dispatch(closeAddContent())}
+                  onClick={() => !disabled && dispatch(closeAddContent())}
                 >
                   <XIcon className="w-6 h-6" />
                 </button>
