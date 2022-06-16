@@ -27,7 +27,7 @@ export default function SidebarRow({
   const handleButtonClick = () => {
     if (filter) {
       if (router.pathname !== '/') {
-        router.push('/');
+        router.push('/', undefined, { shallow: true });
         dispatch(setSelectedFilter(JSON.stringify(filter)));
       } else {
         dispatch(setSelectedFilter(JSON.stringify(filter)));
@@ -41,7 +41,7 @@ export default function SidebarRow({
         dispatch(openAddContent());
       }
     } else {
-      router.push(`/search/${title}`);
+      router.push(`/search/${title}`, undefined, { shallow: true });
     }
   };
 
