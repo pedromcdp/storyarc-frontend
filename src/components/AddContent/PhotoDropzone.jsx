@@ -26,7 +26,7 @@ const rejectStyle = {
   borderColor: '#ff1744',
 };
 
-export default function PhotoDropzone({ files, setFiles }) {
+export default function PhotoDropzone({ files, setFiles, disabled }) {
   const { getRootProps, getInputProps, isDragAccept, isDragReject } =
     useDropzone({
       accept: {
@@ -93,6 +93,7 @@ export default function PhotoDropzone({ files, setFiles }) {
           </p>
           <input
             {...getInputProps()}
+            disabled={disabled}
             type="file"
             id="myfile"
             name="myfile"
