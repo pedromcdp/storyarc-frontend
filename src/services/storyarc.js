@@ -63,6 +63,13 @@ export const StoryArcAPI = createApi({
         body: user,
       }),
     }),
+    uploadPost: builder.mutation({
+      query: (post) => ({
+        url: `posts/addPost`,
+        method: 'POST',
+        body: post,
+      }),
+    }),
     removePost: builder.mutation({
       query: ({ postId, token }) => ({
         url: `posts/${postId}`,
@@ -124,6 +131,7 @@ export const {
   useGetLocationsQuery,
   useAddCommentMutation,
   useAddUserMutation,
+  useUploadPostMutation,
   useRemovePostMutation,
   useLikePostMutation,
   useDislikePostMutation,
