@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   useAddContent,
   closeAddContent,
+  showLoading,
+  hideLoading,
 } from '../../features/addContent/addContentSlice';
 import PhotoDropzone from './PhotoDropzone';
 import { UploadService } from '../../services/uploadService';
@@ -23,7 +25,6 @@ export default function AddContent() {
   const locationRef = useRef(null);
   const dateRef = useRef(null);
   const [files, setFiles] = useState([]);
-  const [progress, setProgress] = useState('');
   const [disabled, setDisabled] = useState(false);
   const [uploadPost] = useUploadPostMutation();
   const { refetch } = useGetAllPostQuery('latest');
@@ -31,6 +32,7 @@ export default function AddContent() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     inputs.map((input) => {
       if (input.current.value === '' || files.length === 0) {
         alert('É necessário preencher todos os campos');
@@ -39,9 +41,8 @@ export default function AddContent() {
     });
     if (inputs.every((input) => input.current.value !== '')) {
       setDisabled(true);
-      const promises = files.map((file) =>
-        UploadService.uploadFile(file, setProgress),
-      );
+      dispatch(showLoading());
+      const promises = files.map((file) => UploadService.uploadFile(file));
       Promise.all(promises)
         .then(async (photoUrls) => {
           uploadPost({
@@ -55,19 +56,17 @@ export default function AddContent() {
           })
             .then(() => {
               refetch();
-              setProgress('');
               setDisabled(false);
               setFiles([]);
               dispatch(closeAddContent());
+              dispatch(hideLoading());
             })
             .catch((err) => {
-              setProgress('');
               setDisabled(false);
               alert(err.message);
             });
         })
         .catch((err) => {
-          setProgress('');
           setDisabled(false);
           console.log(err);
         });
@@ -78,7 +77,7 @@ export default function AddContent() {
     <Transition show={isOpen} as={Fragment}>
       <Dialog
         open={isOpen}
-        onClose={() => dispatch(closeAddContent())}
+        onClose={() => disabled && dispatch(closeAddContent())}
         className="relative z-40 font-body"
       >
         <Transition.Child
@@ -106,8 +105,9 @@ export default function AddContent() {
               <Dialog.Title className="flex justify-between items-center mx-4 font-medium">
                 <p className="text-xl lg:text-xl">Adicionar conteúdo</p>
                 <button
-                  className="p-1.5 text-gray-500 hover:text-black focus:text-black bg-transparent hover:bg-gray-100 focus:bg-gray-100 rounded-lg outline-verde"
-                  onClick={() => dispatch(closeAddContent())}
+                  disabled={disabled}
+                  className="p-1.5 text-gray-500 hover:text-black focus:text-black bg-transparent hover:bg-gray-100 focus:bg-gray-100 disabled:bg-gray-100 rounded-lg outline-verde disabled:cursor-not-allowed"
+                  onClick={() => disabled && dispatch(closeAddContent())}
                 >
                   <XIcon className="w-6 h-6" />
                 </button>
@@ -143,7 +143,7 @@ export default function AddContent() {
                   <button
                     disabled={disabled}
                     type="submit"
-                    className="py-2.5 px-5 text-sm font-medium text-center text-white bg-verde rounded-lg focus:ring-4 focus:ring-blue-300"
+                    className="py-2.5 px-5 text-sm font-medium text-center text-white bg-verde disabled:bg-gray-100 rounded-lg disabled:cursor-not-allowed"
                   >
                     Criar Publicação
                   </button>
@@ -151,7 +151,7 @@ export default function AddContent() {
                     disabled={disabled}
                     onClick={() => dispatch(closeAddContent())}
                     type="button"
-                    className="py-2.5 px-5 text-sm font-medium bg-white hover:bg-gray-100 rounded-lg border border-gray-200  focus:outline-verde"
+                    className="py-2.5 px-5 text-sm font-medium bg-white hover:bg-gray-100 disabled:bg-gray-100 rounded-lg border  border-gray-200 focus:outline-verde disabled:cursor-not-allowed"
                   >
                     Cancelar
                   </button>

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useMemo, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import Image from 'next/image';
