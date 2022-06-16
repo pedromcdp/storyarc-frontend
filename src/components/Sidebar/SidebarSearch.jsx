@@ -46,7 +46,6 @@ export default function SidebarSearch() {
         <input
           ref={searchRef}
           type="text"
-          //   onChange={handleTyping}
           placeholder="Pesquisar por locais"
           className="w-full h-full text-sm rounded-lg outline-none"
           onFocus={() => setIsExpanded(true)}
