@@ -15,7 +15,7 @@ import {
   useGetUserLikedPostsQuery,
 } from '../../services/storyarc';
 
-export default function PostFooter({ showComments, setShowComments, id }) {
+export default function PostFooter({ id }) {
   const { user, token } = useAuth();
   const [liked, setLiked] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
