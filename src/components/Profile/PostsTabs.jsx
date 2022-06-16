@@ -13,7 +13,7 @@ export default function PostsTabs({
   isFetching,
 }) {
   return (
-    <div className="overflow-auto py-5 scroll-smooth">
+    <div className="overflow-auto pt-5 pb-32 scroll-smooth">
       <Tab.Group>
         <Tab.List className="flex justify-center items-center mb-2 space-x-4 bg-white rounded-md border">
           <Tab as={Fragment}>
