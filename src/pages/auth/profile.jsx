@@ -16,9 +16,10 @@ import Avatar from '../../components/Profile/Avatar';
 import ProfileData from '../../components/Profile/ProfileData';
 import PostsTabs from '../../components/Profile/PostsTabs';
 
-export default function Profile({ uid, token }) {
+export default function Profile() {
   const { user } = useAuth();
   const router = useRouter();
+  const { uid, token } = router.query;
   const {
     data: ownPosts,
     isLoading,
