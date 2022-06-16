@@ -3,7 +3,7 @@ import 'firebase/compat/storage';
 import { nanoid } from 'nanoid';
 
 export const UploadService = {
-  uploadFile: (file, setProgress) =>
+  uploadFile: (file) =>
     new Promise((resolve, reject) => {
       const storageRef = firebase.storage().ref(`images/${nanoid()}`);
       const uploadTask = storageRef.put(file);
@@ -12,7 +12,7 @@ export const UploadService = {
         (snapshot) => {
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          setProgress(progress);
+          console.log(`Upload is ${progress}% done`);
         },
         (error) => {
           reject(error);
