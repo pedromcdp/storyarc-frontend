@@ -5,16 +5,21 @@ import Image from 'next/image';
 import dayjs from 'dayjs';
 import { TrashIcon } from '@heroicons/react/outline';
 import propTypes from 'prop-types';
-import { useRemovePostMutation } from '../../services/storyarc';
+import {
+  useRemovePostMutation,
+  useGetAllPostQuery,
+} from '../../services/storyarc';
 import useAuth from '../../hooks/auth';
 
 export default function CardView({ post, ownPost, refetch }) {
   const [removePost, removePostResponse] = useRemovePostMutation();
+  const { refetch: revalidateRecentPosts } = useGetAllPostQuery('latest');
   const { token } = useAuth();
 
   useEffect(() => {
     if (removePostResponse.status === 'fulfilled') {
       refetch();
+      revalidateRecentPosts();
     }
   }, [removePostResponse]);
 
