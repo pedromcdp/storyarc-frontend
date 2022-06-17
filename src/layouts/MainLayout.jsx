@@ -12,10 +12,13 @@ import {
   useAddContent,
   useShowLoading,
 } from '../features/addContent/addContentSlice';
+import { useSearch } from '../features/search/searchSlice';
+import MobileSearch from '../components/Search/MobileSearch';
 
 export default function MainLayout({ title, children }) {
   const isShowing = useSelector(useAddContent);
   const showLoading = useSelector(useShowLoading);
+  const showMobileSearch = useSelector(useSearch);
   return (
     <div className="overflow-hidden h-screen font-body antialiased bg-gray-100">
       <Head>
@@ -28,6 +31,7 @@ export default function MainLayout({ title, children }) {
       <Header />
       <main className="flex relative">
         <Sidebar />
+        {showMobileSearch && <MobileSearch />}
         <div className="overflow-y-auto grow scroll-smooth xl:flex xl:flex-row xl:justify-center xl:mx-auto xl:space-x-4 xl:w-full">
           <div className="grow mx-auto max-w-md h-screen md:max-w-lg lg:max-w-2xl xl:mx-0">
             {children}

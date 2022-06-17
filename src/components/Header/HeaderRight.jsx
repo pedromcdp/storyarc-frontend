@@ -1,8 +1,6 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
-import { useState } from 'react';
-import { useClickOutside } from '@mantine/hooks';
 import {
   SearchIcon,
   UserCircleIcon,
@@ -15,18 +13,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { openDialog } from '../../features/dialog/dialogSlice';
 import { openAddContent } from '../../features/addContent/addContentSlice';
+import { showSearch } from '../../features/search/searchSlice';
 import useAuth from '../../hooks/auth';
 
 export default function HeaderRight() {
   const router = useRouter();
   const dispatch = useDispatch();
-  const [showSearch, setShowSearch] = useState(false);
-  const searchBoxRef = useClickOutside(() => setShowSearch(false));
-  const { user, logout, token } = useAuth();
 
-  const handleShowSearch = () => {
-    setShowSearch(true);
-  };
+  const { user, logout, token } = useAuth();
 
   const handleUsrBtnClick = () => {
     if (!user) {
@@ -47,24 +41,10 @@ export default function HeaderRight() {
       <div className="flex justify-between items-center space-x-1">
         <button
           aria-label="abrir caixa de pesquisa"
-          ref={searchBoxRef}
-          onClick={handleShowSearch}
-          className={`sm:hidden navbarIcon ${
-            showSearch
-              ? 'shadow border rounded-2xl'
-              : 'hover:bg-gray-100 rounded-full'
-          }`}
+          onClick={() => dispatch(showSearch())}
+          className="hover:bg-gray-100 rounded-full sm:hidden navbarIcon"
         >
           <SearchIcon className="w-6 h-6" />
-          {showSearch && (
-            <input
-              aria-label="caixa de pesquisa"
-              type="text"
-              //   onChange={handleTyping}
-              placeholder="Pesquisar por locais"
-              className="w-full h-full text-sm rounded-lg outline-none"
-            />
-          )}
         </button>
         <button
           aria-label="Adicionar conteúdo"

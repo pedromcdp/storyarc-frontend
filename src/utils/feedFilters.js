@@ -1,7 +1,7 @@
 import {
-  ClockIcon,
+  // ClockIcon,
   TrendingUpIcon,
-  CalendarIcon,
+  // CalendarIcon,
   HashtagIcon,
 } from '@heroicons/react/outline';
 
@@ -16,14 +16,14 @@ export const feedFilters = [
     value: 'trending',
     icon: TrendingUpIcon,
   },
-  {
-    name: 'Por ano',
-    value: 'per-year',
-    icon: CalendarIcon,
-  },
-  {
-    name: 'Por década',
-    value: 'per-decade',
-    icon: ClockIcon,
-  },
+  // {
+  //   name: 'Por ano',
+  //   value: 'per-year',
+  //   icon: CalendarIcon,
+  // },
+  // {
+  //   name: 'Por década',
+  //   value: 'per-decade',
+  //   icon: ClockIcon,
+  // },
 ];

@@ -4,6 +4,7 @@ import { StoryArcAPI } from '../services/storyarc';
 import feedFilterReducer from '../features/feedFilter/feedFilterSlice';
 import dialogReducer from '../features/dialog/dialogSlice';
 import contentReducer from '../features/addContent/addContentSlice';
+import searchReducer from '../features/search/searchSlice';
 
 const makeStore = () =>
   configureStore({
@@ -11,6 +12,7 @@ const makeStore = () =>
       feedfilter: feedFilterReducer,
       dialog: dialogReducer,
       content: contentReducer,
+      search: searchReducer,
       [StoryArcAPI.reducerPath]: StoryArcAPI.reducer,
     },
     middleware: (gDM) => gDM().concat(StoryArcAPI.middleware),
