@@ -1,34 +1,23 @@
 /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import { PaperAirplaneIcon } from '@heroicons/react/outline';
 import PropTypes from 'prop-types';
-import {
-  useAddCommentMutation,
-  useGetPostCommentsQuery,
-} from '../../services/storyarc';
+import { useAddCommentMutation } from '../../services/storyarc';
+import { useGetPostComments } from '../../hooks/useLatest';
 
 export default function CommentInput({ user, id }) {
   const [comment, setComment] = useState('');
-  const [addComment, addCommentResult] = useAddCommentMutation();
-  const { refetch } = useGetPostCommentsQuery({
-    postId: id,
-  });
-
-  useEffect(() => {
-    if (addCommentResult.status === 'fulfilled') {
-      setComment('');
-      refetch();
-    }
-  }, [addCommentResult, refetch]);
+  const [addComment] = useAddCommentMutation();
+  const { refetch } = useGetPostComments(id);
 
   const handleTyping = (e) => {
     setComment(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    addComment({
+    const { data } = await addComment({
       id,
       comment: {
         postId: id,
@@ -36,6 +25,10 @@ export default function CommentInput({ user, id }) {
         body: comment,
       },
     });
+    if (data) {
+      setComment('');
+      refetch();
+    }
   };
 
   return (

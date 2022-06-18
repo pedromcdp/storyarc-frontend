@@ -4,17 +4,10 @@ import PropTypes from 'prop-types';
 import CommentCell from './CommentCell';
 import NoPosts from '../Profile/NoPosts';
 import HourGlassLoadingAnim from '../Loading';
-import { useGetPostCommentsQuery } from '../../services/storyarc';
+import { useGetPostComments } from '../../hooks/useLatest';
 
 export default function CommentsContainer({ id }) {
-  const {
-    data: comments,
-    currentData,
-    isLoading,
-    isFetching,
-  } = useGetPostCommentsQuery({
-    postId: id,
-  });
+  const { data, isLoading, isFetching } = useGetPostComments(id);
 
   return (
     <div className="pt-1 pb-4 w-full h-auto border-t">
@@ -23,15 +16,15 @@ export default function CommentsContainer({ id }) {
       </h1>
       <div className="flex overflow-y-auto flex-col mt-1 space-y-2 max-h-80">
         {isLoading || isFetching ? (
-          currentData?.length === 0 ? (
+          data?.length === 0 ? (
             <HourGlassLoadingAnim />
           ) : (
-            currentData?.map((comment) => (
+            data?.map((comment) => (
               <CommentCell key={comment.id} comment={comment} postId={id} />
             ))
           )
-        ) : comments.length > 0 ? (
-          comments.map((comment) => (
+        ) : data.length > 0 ? (
+          data.map((comment) => (
             <CommentCell key={comment.id} comment={comment} postId={id} />
           ))
         ) : (

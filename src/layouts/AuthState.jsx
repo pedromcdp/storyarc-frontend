@@ -14,8 +14,10 @@ export default function AuthState({ children }) {
   const [addUser] = useAddUserMutation();
   const [job] = useState(
     new cron.CronJob('0 */15 * * * *', async () => {
-      const token = await firebase.auth().currentUser.getIdToken();
-      setToken(token);
+      if (firebase.auth().currentUser) {
+        const token = await firebase.auth().currentUser.getIdToken();
+        setToken(token);
+      }
     }),
   );
 

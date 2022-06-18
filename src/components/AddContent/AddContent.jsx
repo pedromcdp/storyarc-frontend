@@ -11,11 +11,9 @@ import {
 } from '../../features/addContent/addContentSlice';
 import PhotoDropzone from './PhotoDropzone';
 import { UploadService } from '../../services/uploadService';
-import {
-  useUploadPostMutation,
-  useGetAllPostQuery,
-} from '../../services/storyarc';
+import { useUploadPostMutation } from '../../services/storyarc';
 import useAuth from '../../hooks/auth';
+import { useGetLatest } from '../../hooks/useLatest';
 
 export default function AddContent() {
   const { user } = useAuth();
@@ -27,7 +25,7 @@ export default function AddContent() {
   const [files, setFiles] = useState([]);
   const [disabled, setDisabled] = useState(false);
   const [uploadPost] = useUploadPostMutation();
-  const { refetch } = useGetAllPostQuery('latest');
+  const { refetch } = useGetLatest();
   const inputs = [descRef, locationRef, dateRef];
 
   const handleSubmit = (e) => {

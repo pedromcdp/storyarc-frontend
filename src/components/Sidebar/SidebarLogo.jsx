@@ -2,11 +2,7 @@ import Link from 'next/link';
 
 export default function SidebarLogo() {
   return (
-    <div
-      className="mb-1 w-36 h-12 cursor-pointer"
-      aria-label="Storyarc"
-      role="link"
-    >
+    <div className="mb-1 w-36 h-12 cursor-pointer" aria-label="Storyarc">
       <Link href="/" passHref>
         <svg
           tabIndex={0}

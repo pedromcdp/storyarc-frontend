@@ -14,7 +14,7 @@ export const StoryArcAPI = createApi({
   },
   endpoints: (builder) => ({
     getAllPost: builder.query({
-      query: (query) => `posts/${query}`,
+      query: ({ query, page }) => `posts/${query}?p=${page}`,
     }),
     getSearch: builder.query({
       query: (query) => `/posts/search?q=${query}`,
