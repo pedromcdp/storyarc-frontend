@@ -13,42 +13,6 @@ export const StoryArcAPI = createApi({
     }
   },
   endpoints: (builder) => ({
-    getAllPost: builder.query({
-      query: ({ query, page }) => `posts/${query}?p=${page}`,
-    }),
-    getSearch: builder.query({
-      query: (query) => `/posts/search?q=${query}`,
-    }),
-    getPostWithUserAndCommentsData: builder.query({
-      query: (postId) => `posts/${postId}?_expand=user&_embed=comments`,
-    }),
-    getPostComments: builder.query({
-      query: ({ postId }) => `posts/${postId}/comments`,
-    }),
-    getUserPosts: builder.query({
-      query: ({ uid, token }) => ({
-        url: `users/${uid}/posts`,
-        headers: { Authorization: `Bearer ${token}` },
-      }),
-    }),
-    getUserSavedPosts: builder.query({
-      query: ({ uid, token }) => ({
-        url: `users/${uid}/savedPosts`,
-        headers: { Authorization: `Bearer ${token}` },
-      }),
-    }),
-    getUserLikedPosts: builder.query({
-      query: ({ uid, token }) => ({
-        url: `users/${uid}/likedPosts`,
-        headers: { Authorization: `Bearer ${token}` },
-      }),
-    }),
-    getCommentOwner: builder.query({
-      query: ({ uid }) => `users?id=${uid}`,
-    }),
-    getLocations: builder.query({
-      query: () => `locations`,
-    }),
     addComment: builder.mutation({
       query: ({ id, comment }) => ({
         url: `posts/${id}/addComment`,
@@ -120,15 +84,6 @@ export const StoryArcAPI = createApi({
 });
 
 export const {
-  useGetAllPostQuery,
-  useGetPostWithUserAndCommentsDataQuery,
-  useGetPostCommentsQuery,
-  useGetUserPostsQuery,
-  useGetUserSavedPostsQuery,
-  useGetUserLikedPostsQuery,
-  useGetSearchQuery,
-  useGetCommentOwnerQuery,
-  useGetLocationsQuery,
   useAddCommentMutation,
   useAddUserMutation,
   useUploadPostMutation,
@@ -138,13 +93,4 @@ export const {
   useSavePostMutation,
   useUnsavePostMutation,
   useDeleteCommentMutation,
-  util: { getRunningOperationPromises },
 } = StoryArcAPI;
-
-export const {
-  getAllPost,
-  getPostWithUserAndCommentsData,
-  getSearch,
-  getUserPosts,
-  getUserSavedPosts,
-} = StoryArcAPI.endpoints;

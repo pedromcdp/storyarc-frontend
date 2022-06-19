@@ -11,9 +11,8 @@ import {
   useDislikePostMutation,
   useSavePostMutation,
   useUnsavePostMutation,
-  useGetUserSavedPostsQuery,
-  useGetUserLikedPostsQuery,
 } from '../../services/storyarc';
+import { useGetUserLikedPosts, useGetUserSavedPosts } from '../../hooks/useAPI';
 
 export default function PostFooter({ id }) {
   const { user, token } = useAuth();
@@ -24,15 +23,9 @@ export default function PostFooter({ id }) {
   const [likePost] = useLikePostMutation();
   const [dislikePost] = useDislikePostMutation();
   const { data: userSavedPostsData, refetch: revalidateSavedPosts } =
-    useGetUserSavedPostsQuery({
-      uid: user?.uid,
-      token,
-    });
+    useGetUserSavedPosts(user?.uid, token);
   const { data: userLikedPostsData, refetch: revalidateLikes } =
-    useGetUserLikedPostsQuery({
-      uid: user?.uid,
-      token,
-    });
+    useGetUserLikedPosts(user?.uid, token);
 
   const handleLike = async () => {
     if (!liked) {

@@ -15,8 +15,8 @@ export default function PostsContainer({ data, hasNextPage, fetchNextPage }) {
         threshold={450}
         getScrollParent={() => document.getElementById('scrollparent')}
       >
-        {data.pages.map((page) =>
-          page.data.map((post) => (
+        {data?.pages.map((page) =>
+          page?.data.map((post) => (
             <Post
               key={post._id}
               id={post._id}

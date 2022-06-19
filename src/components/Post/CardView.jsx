@@ -1,33 +1,26 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import dayjs from 'dayjs';
 import { TrashIcon } from '@heroicons/react/outline';
 import propTypes from 'prop-types';
-import {
-  useRemovePostMutation,
-  useGetAllPostQuery,
-} from '../../services/storyarc';
+import { useRemovePostMutation } from '../../services/storyarc';
 import useAuth from '../../hooks/auth';
+import { useGetLatest } from '../../hooks/useAPI';
 
 export default function CardView({ post, ownPost, refetch }) {
-  const [removePost, removePostResponse] = useRemovePostMutation();
-  const { refetch: revalidateRecentPosts } = useGetAllPostQuery('latest');
+  const [removePost] = useRemovePostMutation();
+  const { refetch: revalidateRecentPosts } = useGetLatest();
   const { token } = useAuth();
 
-  useEffect(() => {
-    if (removePostResponse.status === 'fulfilled') {
-      refetch();
-      revalidateRecentPosts();
-    }
-  }, [removePostResponse]);
-
-  const handlePostDelete = () => {
-    removePost({
+  const handlePostDelete = async () => {
+    const { data } = await removePost({
       postId: post._id,
       token,
     });
+    if (data) {
+      refetch();
+      revalidateRecentPosts();
+    }
   };
 
   return (
