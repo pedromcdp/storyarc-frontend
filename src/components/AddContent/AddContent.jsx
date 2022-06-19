@@ -128,7 +128,7 @@ export default function AddContent() {
                 <input
                   ref={dateRef}
                   disabled={disabled}
-                  className="py-2 px-3 w-full font-light tracking-wide leading-tight text-gray-700 rounded border focus:border-verde   focus:outline-none shadow appearance-none focus:shadow-outline"
+                  className="py-2 px-3 w-full font-light tracking-wide leading-tight text-gray-700 rounded border focus:border-verde focus:outline-none shadow appearance-none min-h-10 focus:shadow-outline"
                   type="date"
                   placeholder="Seleciona uma data"
                 />
