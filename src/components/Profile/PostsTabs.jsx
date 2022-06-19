@@ -10,6 +10,7 @@ export default function PostsTabs({
   savedPosts,
   refetch,
   isLoading,
+  isFetching,
 }) {
   return (
     <div className="overflow-auto pt-5 pb-32 scroll-smooth">
@@ -40,7 +41,7 @@ export default function PostsTabs({
         </Tab.List>
         <Tab.Panels>
           <Tab.Panel>
-            {isLoading ? (
+            {isLoading || isFetching ? (
               <HourGlassLoadingAnim />
             ) : ownPosts.length > 0 ? (
               ownPosts.map((post) => (

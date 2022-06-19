@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { PaperAirplaneIcon } from '@heroicons/react/outline';
 import PropTypes from 'prop-types';
 import { useAddCommentMutation } from '../../services/storyarc';
-import { useGetPostComments } from '../../hooks/useAPI';
+import { useGetPostComments } from '../../hooks/useLatest';
 
 export default function CommentInput({ user, id }) {
   const [comment, setComment] = useState('');

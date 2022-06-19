@@ -1,4 +1,3 @@
-/* eslint-disable no-return-assign */
 import Head from 'next/head';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
@@ -33,10 +32,7 @@ export default function MainLayout({ title, children }) {
       <main className="flex relative">
         <Sidebar />
         {showMobileSearch && <MobileSearch />}
-        <div
-          id="scrollparent"
-          className="overflow-y-auto grow scroll-smooth xl:flex xl:flex-row xl:justify-center xl:mx-auto xl:space-x-4 xl:w-full"
-        >
+        <div className="overflow-y-auto grow scroll-smooth xl:flex xl:flex-row xl:justify-center xl:mx-auto xl:space-x-4 xl:w-full">
           <div className="grow mx-auto max-w-md h-screen md:max-w-lg lg:max-w-2xl xl:mx-0">
             {children}
           </div>

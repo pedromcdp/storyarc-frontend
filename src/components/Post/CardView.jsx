@@ -58,7 +58,7 @@ export default function CardView({ post, ownPost, refetch }) {
           {ownPost && (
             <button
               aria-label="Apagar publicação"
-              className="p-1 hover:text-red-500 hover:bg-gray-100 rounded-full transition-colors duration-75 ease-in-out"
+              className="p-1 hover:bg-gray-100 rounded-full"
               onClick={handlePostDelete}
             >
               <TrashIcon className="w-6 h-6" />

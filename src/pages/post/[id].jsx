@@ -1,17 +1,19 @@
 import { dehydrate, QueryClient } from 'react-query';
 import MainLayout from '../../layouts/MainLayout';
-
+// import FeedFilter from '../../components/FeedFilter';
 import Loading from '../../components/Loading';
 import { fetchPost } from '../../utils/apiCalls';
-import { useGetPost } from '../../hooks/useAPI';
+import { useGetPost } from '../../hooks/useLatest';
 import Post from '../../components/Post';
 
 export default function PostPage({ postId }) {
-  const { data: post, isLoading } = useGetPost(postId);
+  // const { data } = useGetPostWithUserAndCommentsDataQuery(postId);
+  const { data: post, isFetching } = useGetPost(postId);
 
   return (
     <MainLayout title="storyarc">
-      {isLoading && <Loading size="xs" />}
+      {/* <FeedFilter /> */}
+      {isFetching && <Loading size="xs" />}
       <div className="pb-10">
         <Post
           id={post._id}
