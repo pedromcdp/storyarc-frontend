@@ -4,29 +4,23 @@ import ShowSearchTerm from '../../components/Search/ShowSearchTerm';
 import PostsContainer from '../../components/Feed/PostsContainer';
 import Loading from '../../components/Loading';
 import NoPosts from '../../components/Profile/NoPosts';
-import { useGetSearch } from '../../hooks/useLatest';
+import { useGetSearch } from '../../hooks/useAPI';
 import { fetchSearch } from '../../utils/apiCalls';
 
 export default function PostPage({ q }) {
-  const { data, isFetching, hasNextPage, fetchNextPage } = useGetSearch(q);
+  const { data, isLoading, hasNextPage, fetchNextPage } = useGetSearch(q);
 
   return (
     <MainLayout title="storyarc">
-      {isFetching && <Loading size="xs" />}
-      {data?.pages[0].results === 0 && (
-        <>
-          <ShowSearchTerm term={q} />
-          <NoPosts text="Sem Publicações" />
-        </>
-      )}
+      <ShowSearchTerm term={q} />
+      {isLoading && <Loading size="xs" />}
+      {data?.pages[0].results === 0 && <NoPosts text="Sem Publicações" />}
       {data?.pages[0].results > 0 && (
         <PostsContainer
           data={data}
           hasNextPage={hasNextPage}
           fetchNextPage={fetchNextPage}
-        >
-          <ShowSearchTerm term={q} />
-        </PostsContainer>
+        />
       )}
     </MainLayout>
   );

@@ -13,7 +13,7 @@ import PhotoDropzone from './PhotoDropzone';
 import { UploadService } from '../../services/uploadService';
 import { useUploadPostMutation } from '../../services/storyarc';
 import useAuth from '../../hooks/auth';
-import { useGetLatest } from '../../hooks/useLatest';
+import { useGetLatest } from '../../hooks/useAPI';
 
 export default function AddContent() {
   const { user } = useAuth();

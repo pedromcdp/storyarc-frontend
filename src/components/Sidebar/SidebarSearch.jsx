@@ -33,6 +33,7 @@ export default function SidebarSearch({ focus }) {
       searchRef.current.blur();
       router.push(`/search/${searchRef.current.value}`);
     }
+    searchRef.current.value = '';
   };
 
   return (
