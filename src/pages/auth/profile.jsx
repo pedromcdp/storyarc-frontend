@@ -1,32 +1,21 @@
 import dayjs from 'dayjs';
 import { useRouter } from 'next/router';
 import { CakeIcon } from '@heroicons/react/solid';
+import { QueryClient, dehydrate } from 'react-query';
 import MainLayout from '../../layouts/MainLayout';
 import useAuth from '../../hooks/auth';
 import ProfileHeader from '../../components/Profile/ProfileHeader';
-import { wrapper } from '../../app/store';
-import {
-  getUserPosts,
-  getUserSavedPosts,
-  getRunningOperationPromises,
-  useGetUserPostsQuery,
-  useGetUserSavedPostsQuery,
-} from '../../services/storyarc';
 import Avatar from '../../components/Profile/Avatar';
 import ProfileData from '../../components/Profile/ProfileData';
 import PostsTabs from '../../components/Profile/PostsTabs';
+import { fetchUserPosts, fetchUserSavedPosts } from '../../utils/apiCalls';
+import { useGetUserPosts, useGetUserSavedPosts } from '../../hooks/useAPI';
 
-export default function Profile() {
+export default function Profile({ uid, token }) {
   const { user } = useAuth();
   const router = useRouter();
-  const { uid, token } = router.query;
-  const {
-    data: ownPosts,
-    isLoading,
-    isFetching,
-    refetch,
-  } = useGetUserPostsQuery({ uid, token });
-  const { data: savedPost } = useGetUserSavedPostsQuery({ uid, token });
+  const { data: ownPosts, isLoading, refetch } = useGetUserPosts(uid, token);
+  const { data: savedPosts } = useGetUserSavedPosts(uid, token);
 
   if (!user) {
     router.replace('/');
@@ -53,7 +42,7 @@ export default function Profile() {
           </span>
           <span className="pl-2 text-sm text-gray-500">
             <strong className="mr-1">
-              {savedPost?.savedPosts.length || 0}
+              {savedPosts?.savedPosts.length || 0}
             </strong>
             Publicações Guardadas
           </span>
@@ -61,33 +50,32 @@ export default function Profile() {
       </ProfileData>
       <PostsTabs
         ownPosts={ownPosts}
-        savedPosts={savedPost}
+        savedPosts={savedPosts}
         refetch={refetch}
         isLoading={isLoading}
-        isFetching={isFetching}
       />
     </MainLayout>
   );
 }
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  (store) =>
-    async ({ query, res }) => {
-      const { uid, token } = query;
-      if (!uid || !token) {
-        res.writeHead(302, {
-          Location: '/',
-        });
-        res.end();
-        return { props: {} };
-      }
-      store.dispatch(
-        getUserPosts.initiate({ uid, token }),
-        getUserSavedPosts.initiate({ uid, token }),
-      );
-      await Promise.all(getRunningOperationPromises());
-      return {
-        props: { uid, token },
-      };
-    },
-);
+export async function getServerSideProps(context) {
+  const { uid, token } = context.query;
+  if (!uid || !token) {
+    context.res.writeHead(302, {
+      Location: '/',
+    });
+    context.res.end();
+    return { props: {} };
+  }
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery('userPosts', () =>
+    fetchUserPosts(uid, token),
+  );
+  await queryClient.prefetchQuery('userSavedPosts', () =>
+    fetchUserSavedPosts(uid, token),
+  );
+
+  return {
+    props: { uid, token, preloadedState: dehydrate(queryClient) },
+  };
+}

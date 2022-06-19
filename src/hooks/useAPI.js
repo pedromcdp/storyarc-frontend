@@ -5,6 +5,9 @@ import {
   fetchPost,
   fetchPostComments,
   fetchSearch,
+  fetchUserPosts,
+  fetchUserSavedPosts,
+  fetchUserLikedPosts,
 } from '../utils/apiCalls';
 
 export function useGetLatest() {
@@ -12,7 +15,8 @@ export function useGetLatest() {
     'latest',
     ({ pageParam = 0 }) => fetchLatest(pageParam),
     {
-      getNextPageParam: (lastPage, pages) => {
+      keepPreviousData: true,
+      getNextPageParam: (lastPage) => {
         if (lastPage.nextPage < lastPage.totalPages) return lastPage.nextPage;
         return undefined;
       },
@@ -25,7 +29,8 @@ export function useGetTrending() {
     'trending',
     ({ pageParam = 0 }) => fetchTrending(pageParam),
     {
-      getNextPageParam: (lastPage, pages) => {
+      keepPreviousData: true,
+      getNextPageParam: (lastPage) => {
         if (lastPage.nextPage < lastPage.totalPages) return lastPage.nextPage;
         return undefined;
       },
@@ -38,7 +43,8 @@ export function useGetSearch(query) {
     ['search', query],
     ({ pageParam = 0 }) => fetchSearch(pageParam, query),
     {
-      getNextPageParam: (lastPage, pages) => {
+      keepPreviousData: true,
+      getNextPageParam: (lastPage) => {
         if (lastPage.nextPage < lastPage.totalPages) return lastPage.nextPage;
         return undefined;
       },
@@ -52,4 +58,16 @@ export function useGetPost(postId) {
 
 export function useGetPostComments(postId) {
   return useQuery(['comments', postId], () => fetchPostComments(postId));
+}
+
+export function useGetUserPosts(uid, token) {
+  return useQuery('userPosts', () => fetchUserPosts(uid, token));
+}
+
+export function useGetUserSavedPosts(uid, token) {
+  return useQuery('userSavedPosts', () => fetchUserSavedPosts(uid, token));
+}
+
+export function useGetUserLikedPosts(uid, token) {
+  return useQuery('userLikedPosts', () => fetchUserLikedPosts(uid, token));
 }

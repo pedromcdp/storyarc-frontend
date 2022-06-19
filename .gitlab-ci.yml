@@ -64,7 +64,7 @@ Deploy:
     - Build
     - Install
   script:
-    - npx vercel -t $VERCEL_TOKEN -e NODE_ENV=production --prod -c
+    - npx vercel -t $VERCEL_TOKEN -e NODE_ENV=production --prod -c --force
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
       when: manual

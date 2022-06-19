@@ -1,4 +1,3 @@
-/* eslint-disable no-nested-ternary */
 import { QueryClient, dehydrate } from 'react-query';
 import { useSelector } from 'react-redux';
 import MainLayout from '../layouts/MainLayout';
@@ -6,41 +5,34 @@ import PostsContainer from '../components/Feed/PostsContainer';
 import Loading from '../components/Loading';
 import FeedFilter from '../components/FeedFilter';
 import { useFeedFilter } from '../features/feedFilter/feedFilterSlice';
-import { useGetLatest, useGetTrending } from '../hooks/useLatest';
+import { useGetLatest, useGetTrending } from '../hooks/useAPI';
 import { fetchLatest } from '../utils/apiCalls';
 
 export default function Home() {
-  const { data, hasNextPage, fetchNextPage } = useGetLatest();
+  const { data, isFetching, hasNextPage, fetchNextPage } = useGetLatest();
   const {
     data: trendingData,
+    isFetching: trendingIsFetching,
     hasNextPage: trendingHasNextPage,
     fetchNextPage: trendingFetchNextPage,
   } = useGetTrending();
 
   return (
     <MainLayout title="storyarc">
+      <FeedFilter />
+      {isFetching || (trendingIsFetching && <Loading size="xs" />)}
       {JSON.parse(useSelector(useFeedFilter)).value === 'latest' ? (
-        data ? (
-          <PostsContainer
-            data={data}
-            hasNextPage={hasNextPage}
-            fetchNextPage={fetchNextPage}
-          >
-            <FeedFilter />
-          </PostsContainer>
-        ) : (
-          <Loading size="xs" />
-        )
-      ) : data ? (
+        <PostsContainer
+          data={data}
+          hasNextPage={hasNextPage}
+          fetchNextPage={fetchNextPage}
+        />
+      ) : (
         <PostsContainer
           data={trendingData}
           hasNextPage={trendingHasNextPage}
           fetchNextPage={trendingFetchNextPage}
-        >
-          <FeedFilter />
-        </PostsContainer>
-      ) : (
-        <Loading size="xs" />
+        />
       )}
     </MainLayout>
   );
