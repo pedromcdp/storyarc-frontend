@@ -1,12 +1,22 @@
-import { motion, AnimateSharedLayout } from 'framer-motion';
+import { motion } from 'framer-motion';
+import InfiniteScroll from 'react-infinite-scroller';
 import Post from '../Post';
+import Loading from '../Loading';
 
-export default function PostsContainer({ data }) {
+export default function PostsContainer({ data, hasNextPage, fetchNextPage }) {
   return (
-    <AnimateSharedLayout>
-      <motion.div layout className="pb-32">
-        {Array.isArray(data) ? (
-          data.map((post) => (
+    <motion.div layout className="">
+      <InfiniteScroll
+        pageStart={0}
+        loadMore={fetchNextPage}
+        hasMore={hasNextPage}
+        loader={<Loading size={'xs'} />}
+        useWindow={false}
+        threshold={450}
+        getScrollParent={() => document.getElementById('scrollparent')}
+      >
+        {data?.pages.map((page) =>
+          page?.data.map((post) => (
             <Post
               key={post._id}
               id={post._id}
@@ -17,19 +27,14 @@ export default function PostsContainer({ data }) {
               image={post.photo}
               newImage={post.newPhoto}
             />
-          ))
-        ) : (
-          <Post
-            id={data._id}
-            username={data.user.name}
-            avatar={data.user.avatar}
-            timestamp={data.createdAt}
-            description={data.description}
-            image={data.photo}
-            newImage={data.newPhoto}
-          />
+          )),
         )}
-      </motion.div>
-    </AnimateSharedLayout>
+      </InfiniteScroll>
+      {!hasNextPage && (
+        <div className="flex justify-center py-5 mb-20 text-sm text-verde md:mb-5 md:text-normal">
+          <p>Não temos mais publicações de momento para mostrar.</p>
+        </div>
+      )}
+    </motion.div>
   );
 }

@@ -1,35 +1,41 @@
-import { useRouter } from 'next/router';
+import { QueryClient, dehydrate } from 'react-query';
 import MainLayout from '../../layouts/MainLayout';
 import ShowSearchTerm from '../../components/Search/ShowSearchTerm';
 import PostsContainer from '../../components/Feed/PostsContainer';
 import Loading from '../../components/Loading';
 import NoPosts from '../../components/Profile/NoPosts';
-import { wrapper } from '../../app/store';
-import {
-  getSearch,
-  useGetSearchQuery,
-  getRunningOperationPromises,
-} from '../../services/storyarc';
+import { useGetSearch } from '../../hooks/useAPI';
+import { fetchSearch } from '../../utils/apiCalls';
 
-export default function PostPage() {
-  const router = useRouter();
-  const { q } = router.query;
-  const { data, isFetching, isLoading } = useGetSearchQuery(q);
+export default function PostPage({ q }) {
+  const { data, isLoading, hasNextPage, fetchNextPage } = useGetSearch(q);
+
   return (
     <MainLayout title="storyarc">
       <ShowSearchTerm term={q} />
-      {isFetching || (isLoading && <Loading size="xs" />)}
-      {data?.results > 0 && <PostsContainer data={data.data} />}
-      {data?.results === 0 && <NoPosts text="Sem Publicações" />}
+      {isLoading && <Loading size="xs" />}
+      {data?.pages[0].results === 0 && <NoPosts text="Sem Publicações" />}
+      {data?.pages[0].results > 0 && (
+        <PostsContainer
+          data={data}
+          hasNextPage={hasNextPage}
+          fetchNextPage={fetchNextPage}
+        />
+      )}
     </MainLayout>
   );
 }
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  (store) => async (context) => {
-    const q = context.params?.q;
-    store.dispatch(getSearch.initiate(q));
-    await Promise.all(getRunningOperationPromises());
-    return {};
-  },
-);
+export async function getServerSideProps(context) {
+  const { q } = context.query;
+  const queryClient = new QueryClient();
+  await queryClient.prefetchInfiniteQuery(['search', q], () =>
+    fetchSearch(0, q),
+  );
+  return {
+    props: {
+      q,
+      preloadedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+    },
+  };
+}

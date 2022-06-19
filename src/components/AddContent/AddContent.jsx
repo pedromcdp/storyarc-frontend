@@ -11,11 +11,9 @@ import {
 } from '../../features/addContent/addContentSlice';
 import PhotoDropzone from './PhotoDropzone';
 import { UploadService } from '../../services/uploadService';
-import {
-  useUploadPostMutation,
-  useGetAllPostQuery,
-} from '../../services/storyarc';
+import { useUploadPostMutation } from '../../services/storyarc';
 import useAuth from '../../hooks/auth';
+import { useGetLatest } from '../../hooks/useAPI';
 
 export default function AddContent() {
   const { user } = useAuth();
@@ -27,7 +25,7 @@ export default function AddContent() {
   const [files, setFiles] = useState([]);
   const [disabled, setDisabled] = useState(false);
   const [uploadPost] = useUploadPostMutation();
-  const { refetch } = useGetAllPostQuery('latest');
+  const { refetch } = useGetLatest();
   const inputs = [descRef, locationRef, dateRef];
 
   const handleSubmit = (e) => {
@@ -130,7 +128,7 @@ export default function AddContent() {
                 <input
                   ref={dateRef}
                   disabled={disabled}
-                  className="py-2 px-3 w-full font-light tracking-wide leading-tight text-gray-700 rounded border focus:border-verde   focus:outline-none shadow appearance-none focus:shadow-outline"
+                  className="py-2 px-3 w-full font-light tracking-wide leading-tight text-gray-700 rounded border focus:border-verde focus:outline-none  shadow appearance-none min-h-10 focus:shadow-outline"
                   type="date"
                   placeholder="Seleciona uma data"
                 />

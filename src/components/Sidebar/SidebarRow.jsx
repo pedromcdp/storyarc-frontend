@@ -41,7 +41,7 @@ export default function SidebarRow({
         dispatch(openAddContent());
       }
     } else {
-      router.push(`/search/${title}`, undefined, { shallow: true });
+      router.push(`/search/${title}`);
     }
   };
 
