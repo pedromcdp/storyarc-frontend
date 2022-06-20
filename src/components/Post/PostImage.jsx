@@ -66,9 +66,9 @@ export default function PostImage({ image, newImage }) {
             />
             <div
               style={{ left: `${showPercentage * 100}%` }}
-              className="absolute inset-y-0 group-hover:opacity-100 sm:opacity-0"
+              className="absolute inset-y-0 group-hover:opacity-100 lg:opacity-0"
             >
-              <div className="relative h-full opacity-50 hover:opacity-100">
+              <div className="relative h-full opacity-100 hover:opacity-100 lg:opacity-50">
                 <div
                   role="slider"
                   aria-valuenow={showPercentage * 100}
