@@ -76,7 +76,7 @@ export default function PostImage({ image, newImage }) {
                   style={{ touchAction: 'none' }}
                   onMouseDown={handleMouseDown}
                   onTouchMove={handleTouchMove}
-                  className="absolute inset-y-0 ml-[-0.5] w-1 bg-verde drop-shadow-md cursor-move"
+                  className="absolute inset-y-0 ml-[-1] w-2 bg-verde drop-shadow-md cursor-move lg:ml-[-0.5] lg:w-1"
                 ></div>
               </div>
             </div>{' '}
