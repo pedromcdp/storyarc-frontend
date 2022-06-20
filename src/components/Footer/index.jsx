@@ -5,8 +5,11 @@ export default function Footer() {
   return (
     <footer className="pt-2 mt-3 border-t border-gray-200">
       <p className="text-sm text-gray-500">
-        Desenvolvido na
-        <span className="text-verde">Universidade de Aveiro</span> com muito
+        Desenvolvido na{' '}
+        <a href="https://www.ua.pt/" className="text-verde">
+          Universidade de Aveiro
+        </a>{' '}
+        com muito
         <span className="before:ml-[0.15rem] text-red-500">&#9829;</span>
       </p>
       <ul className="flex flex-wrap mt-2 text-sm text-gray-500">
