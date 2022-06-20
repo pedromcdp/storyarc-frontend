@@ -7,7 +7,7 @@ import HourGlassLoadingAnim from '../Loading';
 import { useGetPostComments } from '../../hooks/useAPI';
 
 export default function CommentsContainer({ id }) {
-  const { data, isLoading, isFetching } = useGetPostComments(id);
+  const { data, isLoading } = useGetPostComments(id);
 
   return (
     <div className="pt-1 pb-4 w-full h-auto border-t">
@@ -15,7 +15,7 @@ export default function CommentsContainer({ id }) {
         Comentários
       </h1>
       <div className="flex overflow-y-auto flex-col mt-1 space-y-2 max-h-80">
-        {isLoading || isFetching ? (
+        {isLoading ? (
           data?.length === 0 ? (
             <HourGlassLoadingAnim />
           ) : (
