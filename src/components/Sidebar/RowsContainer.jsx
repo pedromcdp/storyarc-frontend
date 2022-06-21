@@ -16,7 +16,7 @@ export default function RowsContainer({
       >
         {title}
       </h1>
-      <div className="flex justify-evenly md:block md:mt-2 md:space-y-1">
+      <div className="flex gap-2 justify-evenly md:block md:mt-2 md:space-y-1">
         {children}
       </div>
     </section>

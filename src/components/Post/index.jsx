@@ -21,18 +21,20 @@ export default function Post({
 
   return (
     <motion.article initial={false} layout className="flex flex-col">
-      <motion.div className="px-5 pt-5 mt-5 bg-white rounded-2xl border shadow-sm">
+      <motion.div className="px-5 pt-5 mt-5 bg-white rounded-2xl border drop-shadow-xl">
         <PostHeader
           name={username}
           avatar={avatar}
           timestamp={timestamp}
           id={id}
+          newImage={newImage}
         />
         <PostDescription description={description} />
         <PostImage image={image} newImage={newImage} />
-        <PostFooter id={id} />
+        <div className="mt-2" />
         {user && (
           <>
+            <PostFooter id={id} />
             <CommentInput user={user} id={id} />
           </>
         )}

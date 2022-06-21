@@ -89,47 +89,43 @@ export default function PostFooter({ id }) {
   }, [userSavedPostsData, userLikedPostsData]);
 
   return (
-    <div className="mt-2">
-      {user && (
-        <div className="flex justify-evenly items-center border-t">
-          <button
-            className="group transition-all duration-75 ease-in-out postInputBtn"
-            onClick={handleLike}
-          >
-            {liked ? (
-              <>
-                <SolidHeartIcon className="w-6 h-6 text-verde" />
-                <span className="text-sm">Gosto</span>
-              </>
-            ) : (
-              <>
-                <HeartIcon className="w-6 h-6 group-hover:text-verde" />
-                <span className="text-sm group-hover:text-verde">
-                  Gostar da publicação
-                </span>
-              </>
-            )}
-          </button>
-          <button
-            className="group transition-all duration-75 ease-in-out postInputBtn"
-            onClick={handleBookmark}
-          >
-            {bookmarked ? (
-              <>
-                <SolidBookmarkIcon className="w-6 h-6 text-verde" />
-                <span className="text-sm">Publicação Guardada</span>
-              </>
-            ) : (
-              <>
-                <BookmarkIcon className="w-6 h-6 group-hover:text-verde" />
-                <span className="text-sm group-hover:text-verde">
-                  Guardar publicação
-                </span>
-              </>
-            )}
-          </button>
-        </div>
-      )}
+    <div className="flex justify-evenly items-center border-t">
+      <button
+        className="group transition-all duration-75 ease-in-out postInputBtn"
+        onClick={handleLike}
+      >
+        {liked ? (
+          <>
+            <SolidHeartIcon className="w-6 h-6 text-verde" />
+            <span className="text-sm">Gosto</span>
+          </>
+        ) : (
+          <>
+            <HeartIcon className="w-6 h-6 group-hover:text-verde" />
+            <span className="text-sm group-hover:text-verde">
+              Gostar da publicação
+            </span>
+          </>
+        )}
+      </button>
+      <button
+        className="group transition-all duration-75 ease-in-out postInputBtn"
+        onClick={handleBookmark}
+      >
+        {bookmarked ? (
+          <>
+            <SolidBookmarkIcon className="w-6 h-6 text-verde" />
+            <span className="text-sm">Publicação Guardada</span>
+          </>
+        ) : (
+          <>
+            <BookmarkIcon className="w-6 h-6 group-hover:text-verde" />
+            <span className="text-sm group-hover:text-verde">
+              Guardar publicação
+            </span>
+          </>
+        )}
+      </button>
     </div>
   );
 }

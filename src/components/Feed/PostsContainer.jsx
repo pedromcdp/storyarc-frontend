@@ -10,7 +10,7 @@ export default function PostsContainer({ data, hasNextPage, fetchNextPage }) {
         pageStart={0}
         loadMore={fetchNextPage}
         hasMore={hasNextPage}
-        loader={<Loading size={'xs'} />}
+        loader={<Loading key={0} size={'xs'} />}
         useWindow={false}
         threshold={450}
         getScrollParent={() => document.getElementById('scrollparent')}

@@ -79,7 +79,7 @@ export default function PostImage({ image, newImage }) {
                   className="absolute inset-y-0 ml-[-1] w-2 bg-verde drop-shadow-md cursor-move lg:ml-[-0.5] lg:w-1"
                 ></div>
               </div>
-            </div>{' '}
+            </div>
           </>
         )}
       </div>

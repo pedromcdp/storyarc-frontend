@@ -7,6 +7,7 @@ import { AuthProvider } from '../hooks/auth';
 import 'dayjs/locale/pt';
 import { wrapper } from '../app/store';
 import AuthState from '../layouts/AuthState';
+import CookieBox from '../components/CookieBox';
 
 function StoryArc({ Component, pageProps }) {
   dayjs.extend(relativeTime);
@@ -20,6 +21,7 @@ function StoryArc({ Component, pageProps }) {
         <AuthProvider>
           <AuthState>
             <Component {...pageProps} />
+            <CookieBox />
           </AuthState>
         </AuthProvider>
       </Hydrate>

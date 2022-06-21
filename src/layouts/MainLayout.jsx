@@ -1,3 +1,4 @@
+import React from 'react';
 import Head from 'next/head';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
@@ -19,6 +20,7 @@ export default function MainLayout({ title, children }) {
   const isShowing = useSelector(useAddContent);
   const showLoading = useSelector(useShowLoading);
   const showMobileSearch = useSelector(useSearch);
+
   return (
     <div className="overflow-hidden h-screen font-body antialiased bg-gray-100">
       <Head>
@@ -56,5 +58,5 @@ export default function MainLayout({ title, children }) {
 
 MainLayout.propTypes = {
   title: PropTypes.string,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.any.isRequired,
 };

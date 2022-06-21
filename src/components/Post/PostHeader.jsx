@@ -14,7 +14,7 @@ import { useClipboard } from '@mantine/hooks';
 import PropTypes from 'prop-types';
 import { pageUrl } from '../../utils/appUrls';
 
-export default function PostHeader({ id, name, avatar, timestamp }) {
+export default function PostHeader({ id, name, avatar, timestamp, newImage }) {
   const clipboard = useClipboard();
 
   const handleCopyToClipboard = () => {
@@ -62,7 +62,7 @@ export default function PostHeader({ id, name, avatar, timestamp }) {
           <li tabIndex={0}>
             <span className="text-sm">
               <DocumentDownloadIcon className="w-5 h-5" />
-              Descarregar imagem
+              Descarregar {newImage ? 'imagens' : 'imagem'}
             </span>
           </li>
           <div className="w-full h-[1.2px] bg-gray-100 rounded-2xl"></div>

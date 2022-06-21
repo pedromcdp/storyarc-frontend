@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import Link from 'next/link';
 import { useRef } from 'react';
 import GoogleLoginButton from './GoogleLoginButton';
 import LoginInput from './LoginInput';
@@ -24,7 +26,7 @@ export default function LoginForm() {
         refProp={emailRef}
         placeholder="Email"
         id="emailInput"
-        type="text"
+        type="email"
       />
       <LoginInput
         refProp={passwordRef}
@@ -36,15 +38,15 @@ export default function LoginForm() {
         <button
           type="submit"
           aria-label="Botão para iniciar sessão"
-          className="py-3 px-7 w-full text-white bg-verde rounded-lg shadow-md"
+          className="py-3 px-7 w-full text-white hover:text-verde focus:text-verde bg-verde hover:bg-white focus:bg-white rounded-lg border border-verde focus:outline-verde shadow-md transition-all duration-100 ease-in-out"
         >
           Iniciar Sessão
         </button>
         <p className="mt-4">
           Não tens conta ?
-          <a href="/auth/signup" className="ml-1 text-verde">
-            Criar conta
-          </a>
+          <Link href="/auth/signup" passHref>
+            <a className="ml-1 text-verde">Criar conta</a>
+          </Link>
         </p>
       </div>
     </form>
