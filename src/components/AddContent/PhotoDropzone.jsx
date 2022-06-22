@@ -34,6 +34,7 @@ export default function PhotoDropzone({ files, setFiles, disabled }) {
         'image/*': [],
       },
       maxFiles: 2,
+      maxSize: 3 * 1048576,
       onDrop: (acceptedFiles) => {
         setFiles(
           acceptedFiles.map((file) =>
