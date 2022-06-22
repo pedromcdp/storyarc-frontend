@@ -1,3 +1,5 @@
+const defaultTheme = require('tailwindcss/defaultTheme');
+
 module.exports = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx}',
@@ -19,7 +21,7 @@ module.exports = {
         branco: '#FFFFFF',
       },
       fontFamily: {
-        body: ['Poppins'],
+        sans: ['Poppins', ...defaultTheme.fontFamily.sans],
       },
     },
   },

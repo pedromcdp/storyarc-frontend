@@ -22,7 +22,7 @@ export default function MainLayout({ title, children }) {
   const showMobileSearch = useSelector(useSearch);
 
   return (
-    <div className="overflow-hidden h-screen font-body antialiased bg-gray-100">
+    <div className="overflow-hidden h-screen antialiased bg-gray-100">
       <Head>
         <title>{title || 'storyarc'}</title>
         <meta

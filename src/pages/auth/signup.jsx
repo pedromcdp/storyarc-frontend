@@ -4,7 +4,7 @@ import SignUp from '../../components/SignUp';
 
 export default function signup() {
   return (
-    <div className="overflow-hidden h-screen font-body antialiased bg-red-100">
+    <div className="overflow-hidden h-screen antialiased bg-red-100">
       <Head>
         <title>storyarc | login</title>
       </Head>

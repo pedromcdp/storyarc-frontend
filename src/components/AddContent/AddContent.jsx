@@ -76,7 +76,7 @@ export default function AddContent() {
       <Dialog
         open={isOpen}
         onClose={() => !disabled && dispatch(closeAddContent())}
-        className="relative z-40 font-body"
+        className="relative z-40"
       >
         <Transition.Child
           as={Fragment}

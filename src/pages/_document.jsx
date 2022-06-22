@@ -23,6 +23,16 @@ export default function Document() {
         />
         <link rel="manifest" href="/manifest.json" />
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#37b780" />
+        <link
+          rel="preconnect"
+          href="https://fonts.googleapis.com"
+          crossOrigin="true"
+        />
+        <link
+          rel="preconnect"
+          href="https://firebase.googleapis.com"
+          crossOrigin="true"
+        />
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff" />
         <meta
