@@ -27,6 +27,11 @@ export default function PostPage({ q }) {
 }
 
 export async function getServerSideProps(context) {
+  const { res } = context;
+  res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=10, stale-while-revalidate=59',
+  );
   const { q } = context.query;
   const queryClient = new QueryClient();
   await queryClient.prefetchInfiniteQuery(['search', q], () =>

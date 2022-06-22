@@ -28,6 +28,11 @@ export default function PostPage({ postId }) {
 }
 
 export async function getServerSideProps(context) {
+  const { res } = context;
+  res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=10, stale-while-revalidate=59',
+  );
   const { id } = context.params;
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery(['posts', id], () => fetchPost(id));
