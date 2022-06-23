@@ -1,10 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
-import { HeartIcon, BookmarkIcon } from '@heroicons/react/outline';
 import {
-  HeartIcon as SolidHeartIcon,
-  BookmarkIcon as SolidBookmarkIcon,
-} from '@heroicons/react/solid';
+  Bookmark24Filled,
+  Bookmark24Regular,
+  ThumbLike24Filled,
+  ThumbLike24Regular,
+} from '@fluentui/react-icons';
+
 import useAuth from '../../hooks/auth';
 import {
   useLikePostMutation,
@@ -96,12 +98,12 @@ export default function PostFooter({ id }) {
       >
         {liked ? (
           <>
-            <SolidHeartIcon className="w-6 h-6 text-verde" />
+            <ThumbLike24Filled className="text-verde" />
             <span className="text-sm">Gosto</span>
           </>
         ) : (
           <>
-            <HeartIcon className="w-6 h-6 group-hover:text-verde" />
+            <ThumbLike24Regular className="group-hover:text-verde" />
             <span className="text-sm group-hover:text-verde">
               Gostar da publicação
             </span>
@@ -114,12 +116,12 @@ export default function PostFooter({ id }) {
       >
         {bookmarked ? (
           <>
-            <SolidBookmarkIcon className="w-6 h-6 text-verde" />
+            <Bookmark24Filled className="text-verde" />
             <span className="text-sm">Publicação Guardada</span>
           </>
         ) : (
           <>
-            <BookmarkIcon className="w-6 h-6 group-hover:text-verde" />
+            <Bookmark24Regular className="group-hover:text-verde" />
             <span className="text-sm group-hover:text-verde">
               Guardar publicação
             </span>

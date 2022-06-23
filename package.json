@@ -12,6 +12,8 @@
     "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\""
   },
   "dependencies": {
+    "@fluentui/react-icons": "^2.0.173-rc.9",
+    "@griffel/react": "^1.1.0",
     "@headlessui/react": "^1.6.1",
     "@heroicons/react": "^1.0.6",
     "@mantine/hooks": "^4.1.5",

@@ -44,7 +44,12 @@ export default function PostsTabs({
               <HourGlassLoadingAnim />
             ) : ownPosts.length > 0 ? (
               ownPosts.map((post) => (
-                <CardView key={post.id} post={post} ownPost refetch={refetch} />
+                <CardView
+                  key={post._id}
+                  post={post}
+                  ownPost
+                  refetch={refetch}
+                />
               ))
             ) : (
               <NoPosts text="Sem Publicações" />
@@ -53,7 +58,7 @@ export default function PostsTabs({
           <Tab.Panel>
             {savedPosts?.savedPosts.length ? (
               savedPosts.savedPosts.map((post) => (
-                <CardView key={post.id} post={post} />
+                <CardView key={post._id} post={post} />
               ))
             ) : (
               <NoPosts text="Sem Publicações" />

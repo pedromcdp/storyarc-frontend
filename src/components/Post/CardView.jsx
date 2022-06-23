@@ -28,7 +28,7 @@ export default function CardView({ post, ownPost, refetch }) {
       <div className="relative w-4/12 min-w-[8rem] h-full rounded-l-md">
         <Image
           src={post.photo}
-          alt={`foto de ${post.username}`}
+          alt={`foto de ${post.description}`}
           layout="fill"
           className="object-cover pointer-events-none"
           priority
