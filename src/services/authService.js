@@ -1,5 +1,6 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
+import { pageUrl } from '../utils/appUrls';
 
 export const AuthService = {
   loginWithGoogle: async () => {
@@ -17,7 +18,7 @@ export const AuthService = {
       };
     }
   },
-  signInWithEmailAndPassword: async ({ email, password }) => {
+  signInWithEmailAndPassword: async (email, password) => {
     try {
       const userCred = await firebase
         .auth()
@@ -33,12 +34,19 @@ export const AuthService = {
       };
     }
   },
-  singUpWithEmailAndPassword: async ({ email, password }) => {
+  singUpWithEmailAndPassword: async (email, password, name, photoUrl) => {
     try {
       const userCred = await firebase
         .auth()
         .createUserWithEmailAndPassword(email, password);
       const token = await userCred.user.getIdToken();
+      await userCred.user.updateProfile({
+        displayName: name,
+        photoURL: photoUrl,
+      });
+      await userCred.user.sendEmailVerification({
+        url: pageUrl,
+      });
       return {
         user: userCred.user,
         token,

@@ -1,6 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import Link from 'next/link';
+import Image from 'next/image';
 import { useState, useRef } from 'react';
+import useAuth from '../../hooks/auth';
+import { UploadService } from '../../services/uploadService';
 import GoogleLoginButton from '../Login/GoogleLoginButton';
 import LoginInput from '../Login/LoginInput';
 
@@ -11,9 +14,22 @@ export default function SignUpForm() {
   const confirmPasswordRef = useRef('');
   const [image, setImage] = useState(null);
 
+  const { createUserWithEmailAndPassword } = useAuth();
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(nameRef.current.value);
+    UploadService.uploadUserImage(image)
+      .then((url) => {
+        createUserWithEmailAndPassword(
+          emailRef.current.value,
+          passwordRef.current.value,
+          nameRef.current.value,
+          url,
+        );
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -34,15 +50,14 @@ export default function SignUpForm() {
             );
           }}
         />
-        <label htmlFor="file">
-          <img
-            src={
-              image
-                ? image.preview
-                : 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp'
-            }
+        <label htmlFor="file" className="relative w-20 h20">
+          <Image
+            src={image ? image.preview : '/images/avatar.webp'}
             alt="profile icon"
-            className="block w-20 h-20 rounded-full cursor-pointer"
+            className="rounded-full cursor-pointer"
+            layout="responsive"
+            width={70}
+            height={70}
           />
         </label>
         <label

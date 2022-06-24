@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import BackButton from '../../components/Buttons/BackButton';
 import Login from '../../components/Login';
 import useAuth from '../../hooks/auth';
 
@@ -19,6 +20,7 @@ export default function LoginPage() {
         <title>storyarc | login</title>
       </Head>
       <main className="flex overflow-auto">
+        <BackButton />
         <Login />
         <div className="flex relative grow bg-white">
           <Image

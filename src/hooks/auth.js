@@ -39,12 +39,34 @@ export function AuthProvider(props) {
     setUser(null);
   };
 
+  const createUserWithEmailAndPassword = async (
+    email,
+    password,
+    name,
+    photoUrl,
+  ) => {
+    const {
+      error: createError,
+      user: createUser,
+      token: createToken,
+    } = await AuthService.singUpWithEmailAndPassword(
+      email,
+      password,
+      name,
+      photoUrl,
+    );
+    setUser(createUser ?? null);
+    setToken(createToken ?? null);
+    setError(createError ?? '');
+  };
+
   const exportedContext = {
     user,
     setUser,
     loginWithGoogle,
     loginWithEmail,
     logout,
+    createUserWithEmailAndPassword,
     token,
     setToken,
     error,

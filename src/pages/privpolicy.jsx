@@ -7,7 +7,6 @@ export default function privpolicy() {
       <h1 className="py-5 text-2xl font-bold text-verde">
         Política de Privacidade
       </h1>
-
       <p>
         Storyarc construiu a aplicação storyarc como uma aplicação gratuita.
         Este SERVIÇO é fornecido pelo storyarc sem custos e destina-se a ser

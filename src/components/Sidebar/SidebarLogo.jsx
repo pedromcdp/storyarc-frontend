@@ -6,7 +6,7 @@ export default function SidebarLogo() {
       <Link href="/" passHref>
         <svg
           tabIndex={0}
-          className="w-full h-full"
+          className="w-full h-full focus:outline-verde"
           viewBox="0 0 1364 297"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"

@@ -1,14 +1,16 @@
 import Head from 'next/head';
 import Image from 'next/image';
+import BackButton from '../../components/Buttons/BackButton';
 import SignUp from '../../components/SignUp';
 
 export default function signup() {
   return (
-    <div className="overflow-hidden h-screen antialiased bg-red-100">
+    <div className="overflow-auto antialiased">
       <Head>
         <title>storyarc | login</title>
       </Head>
-      <main className="flex overflow-auto">
+      <main className="flex overflow-auto min-h-screen">
+        <BackButton />
         <SignUp />
         <div className="flex relative grow bg-white">
           <Image
