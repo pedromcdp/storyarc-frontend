@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import Image from 'next/image';
 
-export default function PostImage({ image, newImage }) {
+export default function PostImage({ image, newImage, description }) {
   const [showPercentage, setShowPercentage] = useState(0.5);
   const imageContainer = useRef(undefined);
 
@@ -45,7 +45,7 @@ export default function PostImage({ image, newImage }) {
       >
         <Image
           src={image}
-          alt="foto de c"
+          alt={description}
           layout="fill"
           className={`${newImage && 'grayscale'} pointer-events-none`}
           priority
@@ -54,7 +54,7 @@ export default function PostImage({ image, newImage }) {
           <>
             <Image
               src={newImage}
-              alt="foto de x"
+              alt={description}
               layout="fill"
               style={{
                 clipPath: `polygon(0 0, ${showPercentage * 100}% 0, ${
@@ -68,7 +68,7 @@ export default function PostImage({ image, newImage }) {
               style={{ left: `${showPercentage * 100}%` }}
               className="absolute inset-y-0 group-hover:opacity-100 lg:opacity-0"
             >
-              <div className="relative h-full opacity-100 hover:opacity-100 lg:opacity-50">
+              <div className="relative h-full opacity-100">
                 <div
                   role="slider"
                   aria-valuenow={showPercentage * 100}
@@ -76,8 +76,10 @@ export default function PostImage({ image, newImage }) {
                   style={{ touchAction: 'none' }}
                   onMouseDown={handleMouseDown}
                   onTouchMove={handleTouchMove}
-                  className="absolute inset-y-0 ml-[-1] w-2 bg-verde drop-shadow-md cursor-move lg:ml-[-0.5] lg:w-1"
-                ></div>
+                  className="absolute inset-y-0 -ml-16 w-32 hover:opacity-100 lg:opacity-50"
+                >
+                  <div className="absolute inset-y-0 left-1/2 justify-center w-1 bg-verde cursor-move item-center" />
+                </div>
               </div>
             </div>
           </>

@@ -31,7 +31,11 @@ export default function Post({
           newImage={newImage}
         />
         <PostDescription description={description} />
-        <PostImage image={image} newImage={newImage} />
+        <PostImage
+          image={image}
+          newImage={newImage}
+          description={description}
+        />
         <div className="mt-2" />
         {user && (
           <>
