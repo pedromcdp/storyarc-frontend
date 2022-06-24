@@ -12,14 +12,29 @@ import {
 } from '@heroicons/react/outline';
 import { useClipboard } from '@mantine/hooks';
 import PropTypes from 'prop-types';
+import { nanoid } from 'nanoid';
 import { pageUrl } from '../../utils/appUrls';
+import downloadPhoto from '../../utils/downloadPhoto';
 
-export default function PostHeader({ id, name, avatar, timestamp, newImage }) {
+export default function PostHeader({
+  id,
+  name,
+  avatar,
+  timestamp,
+  image,
+  newImage,
+}) {
   const clipboard = useClipboard();
 
   const handleCopyToClipboard = () => {
     clipboard.copy(`${pageUrl}/post/${id}`);
   };
+
+  const handleDownload = () => {
+    downloadPhoto(image, `${nanoid()}.png`);
+    if (newImage) downloadPhoto(newImage, `${nanoid()}.png`);
+  };
+
   return (
     <div tabIndex={0} className="flex justify-between items-center">
       <div className="flex items-center space-x-2">
@@ -59,7 +74,13 @@ export default function PostHeader({ id, name, avatar, timestamp, newImage }) {
               Copiar ligação
             </span>
           </li>
-          <li tabIndex={0}>
+          <li
+            tabIndex={0}
+            onClick={handleDownload}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') handleDownload();
+            }}
+          >
             <span className="text-sm">
               <DocumentDownloadIcon className="w-5 h-5" />
               Descarregar {newImage ? 'imagens' : 'imagem'}

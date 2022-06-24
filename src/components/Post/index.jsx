@@ -27,6 +27,7 @@ export default function Post({
           avatar={avatar}
           timestamp={timestamp}
           id={id}
+          image={image}
           newImage={newImage}
         />
         <PostDescription description={description} />
