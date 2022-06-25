@@ -38,7 +38,7 @@ export default function PostImage({ image, newImage, description }) {
   };
 
   return (
-    <div className="h-56 md:h-72 lg:h-96">
+    <div className="overflow-hidden h-56 md:h-72 lg:h-96">
       <div
         ref={imageContainer}
         className="group relative w-full h-full select-none"
@@ -76,7 +76,7 @@ export default function PostImage({ image, newImage, description }) {
                   style={{ touchAction: 'none' }}
                   onMouseDown={handleMouseDown}
                   onTouchMove={handleTouchMove}
-                  className="absolute inset-y-0 -ml-40 w-80 hover:opacity-100 lg:opacity-50"
+                  className="absolute inset-y-0 ml-[-3.65rem] w-28 hover:opacity-100 lg:opacity-50"
                 >
                   <div className="absolute inset-y-0 left-1/2 justify-center w-1 bg-verde cursor-move item-center" />
                 </div>

@@ -5,7 +5,7 @@ import Loading from '../Loading';
 
 export default function PostsContainer({ data, hasNextPage, fetchNextPage }) {
   return (
-    <motion.div layout>
+    <motion.div layout className="pb-24 xl:pb-0">
       <InfiniteScroll
         pageStart={0}
         loadMore={fetchNextPage}
@@ -31,7 +31,7 @@ export default function PostsContainer({ data, hasNextPage, fetchNextPage }) {
         )}
       </InfiniteScroll>
       {!hasNextPage && (
-        <div className="flex justify-center py-5 mb-20 text-sm text-verde md:mb-5 md:text-normal">
+        <div className="py-5 mb-20 text-sm text-center text-verde md:mb-5 md:text-normal">
           <p>Não temos mais publicações de momento para mostrar.</p>
         </div>
       )}

@@ -31,9 +31,9 @@ export default function MainLayout({ title, children }) {
           content="width=device-width, initial-scale=1, maximum-scale=1"
         />
       </Head>
+      <SkipToFeedBtn />
       <Header />
       <main className="flex relative">
-        <SkipToFeedBtn />
         <Sidebar />
         {showMobileSearch && <MobileSearch />}
         <div

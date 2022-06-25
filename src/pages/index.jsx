@@ -20,7 +20,7 @@ export default function Home() {
   return (
     <MainLayout title="storyarc">
       <FeedFilter />
-      {isFetching || (trendingIsFetching && <Loading size="xs" />)}
+      {(isFetching || trendingIsFetching) && <Loading size="xs" />}
       {JSON.parse(useSelector(useFeedFilter)).value === 'latest' ? (
         <PostsContainer
           data={data}
