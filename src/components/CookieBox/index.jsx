@@ -2,7 +2,7 @@ import SidebarLogo from '../Sidebar/SidebarLogo';
 
 export default function CookieBox() {
   return (
-    <div className="flex fixed right-5 bottom-5 flex-col py-4 px-6 max-w-sm bg-white rounded-2xl border shadow-xl items">
+    <div className="flex fixed right-5 bottom-5 flex-col py-4 px-6 max-w-sm bg-white rounded-2xl border shadow-sm items">
       <SidebarLogo />
       <p className="text-sm">
         O storyarc usa{' '}
