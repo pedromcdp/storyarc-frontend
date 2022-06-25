@@ -11,7 +11,7 @@ import useAuth from '../../hooks/auth';
 function Sidebar() {
   const { user } = useAuth();
   return (
-    <div className="hidden overflow-scroll flex-col justify-between py-3 px-4 max-w-[600px] h-screen bg-white rounded-r-3xl border-r drop-shadow-xl md:inline-flex xl:min-w-[300px]">
+    <div className="hidden overflow-scroll flex-col justify-between py-3 px-4 max-w-[600px] h-screen bg-white rounded-r-3xl border-r shadow-sm md:inline-flex xl:min-w-[300px]">
       <div className="flex flex-col flex-none">
         <SidebarLogo />
         <SidebarSearch />

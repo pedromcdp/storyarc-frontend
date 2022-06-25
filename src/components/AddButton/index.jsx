@@ -20,7 +20,7 @@ export default function AddButton() {
     <button
       type="button"
       aria-label="Criar uma publicação"
-      className="flex p-5 space-x-1 w-full bg-white rounded-xl border hover:border hover:border-verde focus:outline-verde drop-shadow-xl"
+      className="flex p-5 space-x-1 w-full bg-white rounded-xl border hover:border hover:border-verde focus:outline-verde shadow-sm"
       onClick={handleClick}
     >
       <PlusCircleIcon className="w-6 h-6 text-verde" />

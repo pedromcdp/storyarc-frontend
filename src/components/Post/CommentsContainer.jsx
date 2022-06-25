@@ -23,7 +23,7 @@ export default function CommentsContainer({ id }) {
               <CommentCell key={comment._id} comment={comment} postId={id} />
             ))
           )
-        ) : data.length > 0 ? (
+        ) : data?.length > 0 ? (
           data.map((comment) => (
             <CommentCell key={comment._id} comment={comment} postId={id} />
           ))
