@@ -7,10 +7,10 @@ import { useRemovePostMutation } from '../../services/storyarc';
 import useAuth from '../../hooks/auth';
 import { useGetLatest } from '../../hooks/useAPI';
 
-export default function CardView({ post, ownPost, refetch }) {
+export default function CardView({ post, refetch }) {
   const [removePost] = useRemovePostMutation();
   const { refetch: revalidateRecentPosts } = useGetLatest();
-  const { token } = useAuth();
+  const { user, token } = useAuth();
 
   const handlePostDelete = async () => {
     const { data } = await removePost({
@@ -25,7 +25,7 @@ export default function CardView({ post, ownPost, refetch }) {
 
   return (
     <article className="flex mb-2 h-36 bg-white rounded-md border shadow-sm lg:h-48">
-      <div className="relative w-4/12 min-w-[8rem] h-full rounded-l-md">
+      <div className="relative min-w-[33%] h-full rounded-l-md">
         <Image
           src={post.photo}
           alt={`foto de ${post.description}`}
@@ -48,7 +48,7 @@ export default function CardView({ post, ownPost, refetch }) {
           >
             <p className="cursor-pointer">{post.description}</p>
           </Link>
-          {ownPost && (
+          {user.uid === post.user._id && (
             <button
               aria-label="Apagar publicação"
               className="p-1 hover:text-red-500 hover:bg-gray-100 rounded-full transition-colors duration-75 ease-in-out"
