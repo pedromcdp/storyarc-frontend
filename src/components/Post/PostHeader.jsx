@@ -15,6 +15,7 @@ import { useClipboard } from '@mantine/hooks';
 import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
 import { pageUrl } from '../../utils/appUrls';
+import { useReportPostMutation } from '../../services/storyarc';
 import downloadPhoto from '../../utils/downloadPhoto';
 import Notification from '../Notification';
 
@@ -28,9 +29,17 @@ export default function PostHeader({
 }) {
   const clipboard = useClipboard();
   const [showPortal, setShowPortal] = useState(false);
+  const [type, setType] = useState('success');
+  const [title, setTitle] = useState(null);
+  const [subtitle, setSubtitle] = useState(null);
+  const [reportPost] = useReportPostMutation();
 
   const handleCopyToClipboard = () => {
     clipboard.copy(`${pageUrl}/post/${id}`);
+    setShowPortal(true);
+    setType('link');
+    setTitle('Ligação copiada');
+    setSubtitle('Ligacão copiada para a área de transferência');
   };
 
   const handleDownload = () => {
@@ -92,8 +101,14 @@ export default function PostHeader({
           <div className="w-full h-[1.2px] bg-gray-100 rounded-2xl"></div>
           <li
             tabIndex={0}
-            onClick={() => {
-              setShowPortal(true);
+            onClick={async () => {
+              const { data } = await reportPost(id);
+              if (data) {
+                setShowPortal(true);
+                setType('success');
+                setTitle('Publicação reportada');
+                setSubtitle('O storyarc irá rever a publicação');
+              }
             }}
           >
             <span className="text-sm">
@@ -106,8 +121,9 @@ export default function PostHeader({
       <Notification
         show={showPortal}
         closeFn={() => setShowPortal(false)}
-        title="Publicação reportada"
-        subtitle="O storyarc irá rever a publicação"
+        type={type}
+        title={title}
+        subtitle={subtitle}
       />
     </div>
   );

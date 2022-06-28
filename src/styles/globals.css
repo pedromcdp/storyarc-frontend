@@ -15,3 +15,7 @@
 .footerItem {
   @apply after:mx-[0.25rem] after:content-['\00B7'] cursor-pointer;
 }
+
+.notificationIcon {
+  @apply w-8 h-8;
+}

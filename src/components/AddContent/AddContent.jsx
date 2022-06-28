@@ -3,6 +3,7 @@ import { Fragment, useState, useRef } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XIcon } from '@heroicons/react/solid';
 import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 import {
   useAddContent,
   closeAddContent,
@@ -27,6 +28,7 @@ export default function AddContent() {
   const [uploadPost] = useUploadPostMutation();
   const { refetch } = useGetLatest();
   const inputs = [descRef, locationRef, dateRef];
+  const router = useRouter();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -58,6 +60,11 @@ export default function AddContent() {
               setFiles([]);
               dispatch(closeAddContent());
               dispatch(hideLoading());
+              router.push('/');
+              document.getElementById('scrollparent').scrollTo({
+                top: 0,
+                behavior: 'smooth',
+              });
             })
             .catch((err) => {
               setDisabled(false);

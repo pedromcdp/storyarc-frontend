@@ -80,6 +80,12 @@ export const StoryArcAPI = createApi({
         body: { postId },
       }),
     }),
+    reportPost: builder.mutation({
+      query: (id) => ({
+        url: `posts/${id}/report`,
+        method: 'PUT',
+      }),
+    }),
   }),
 });
 
@@ -93,4 +99,5 @@ export const {
   useSavePostMutation,
   useUnsavePostMutation,
   useDeleteCommentMutation,
+  useReportPostMutation,
 } = StoryArcAPI;
