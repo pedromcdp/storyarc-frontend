@@ -1,5 +1,7 @@
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
+import { Portal } from 'react-portal';
 import PostHeader from './PostHeader';
 import PostDescription from './PostDescription';
 import PostImage from './PostImage';
@@ -18,6 +20,7 @@ export default function Post({
   newImage,
 }) {
   const { user } = useAuth();
+  const [showPortal, setShowPortal] = useState(false);
 
   return (
     <motion.article initial={false} layout className="flex flex-col">
@@ -35,6 +38,7 @@ export default function Post({
           image={image}
           newImage={newImage}
           description={description}
+          openPortal={() => setShowPortal(true)}
         />
         <div className="mt-2" />
         {user && (
@@ -45,6 +49,20 @@ export default function Post({
         )}
         <CommentsContainer id={id} />
       </motion.div>
+      {showPortal && (
+        <Portal>
+          <div className="flex fixed inset-0 z-50 justify-center items-center">
+            <div
+              className="fixed inset-0 bg-black/30"
+              aria-hidden="true"
+              onClick={() => setShowPortal(false)}
+            />
+            <div className="z-50 p-10 bg-white rounded-lg shadow-lg">
+              <h1>hello :)</h1>
+            </div>
+          </div>
+        </Portal>
+      )}
     </motion.article>
   );
 }

@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
+import { useState } from 'react';
 import Image from 'next/image';
 import dayjs from 'dayjs';
 import {
@@ -15,6 +16,7 @@ import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
 import { pageUrl } from '../../utils/appUrls';
 import downloadPhoto from '../../utils/downloadPhoto';
+import Notification from '../Notification';
 
 export default function PostHeader({
   id,
@@ -25,6 +27,7 @@ export default function PostHeader({
   newImage,
 }) {
   const clipboard = useClipboard();
+  const [showPortal, setShowPortal] = useState(false);
 
   const handleCopyToClipboard = () => {
     clipboard.copy(`${pageUrl}/post/${id}`);
@@ -87,7 +90,12 @@ export default function PostHeader({
             </span>
           </li>
           <div className="w-full h-[1.2px] bg-gray-100 rounded-2xl"></div>
-          <li tabIndex={0}>
+          <li
+            tabIndex={0}
+            onClick={() => {
+              setShowPortal(true);
+            }}
+          >
             <span className="text-sm">
               <ExclamationCircleIcon className="w-5 h-5 text-red-500 " />
               Reportar publicação
@@ -95,6 +103,12 @@ export default function PostHeader({
           </li>
         </ul>
       </div>
+      <Notification
+        show={showPortal}
+        closeFn={() => setShowPortal(false)}
+        title="Publicação reportada"
+        subtitle="O storyarc irá rever a publicação"
+      />
     </div>
   );
 }
