@@ -30,10 +30,12 @@
     "next": "12.1.5",
     "next-pwa": "^5.5.2",
     "next-redux-wrapper": "^7.0.5",
+    "nookies": "^2.5.2",
     "react": "18.0.0",
     "react-dom": "18.0.0",
     "react-dropzone": "^14.2.1",
     "react-infinite-scroller": "^1.2.6",
+    "react-portal": "^4.2.2",
     "react-query": "^3.39.1",
     "react-redux": "^8.0.1",
     "sharp": "^0.30.4"
