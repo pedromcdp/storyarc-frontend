@@ -47,6 +47,7 @@ export const AuthService = {
       await userCred.user.sendEmailVerification({
         url: pageUrl,
       });
+      await userCred.user.reload();
       return {
         user: userCred.user,
         token,
