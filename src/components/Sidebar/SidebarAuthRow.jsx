@@ -1,11 +1,27 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { LogoutIcon } from '@heroicons/react/outline';
 import PropTypes from 'prop-types';
+import { useAddUserMutation } from '../../services/storyarc';
 import useAuth from '../../hooks/auth';
 
 export default function SidebarAuthRow({ user, Icon }) {
   const { logout, token, user: authUser } = useAuth();
+  const [addUser] = useAddUserMutation();
+
+  useEffect(() => {
+    if (authUser.photoURL) {
+      addUser({
+        id: authUser.uid,
+        avatar: authUser.photoURL,
+        name: authUser.displayName,
+        email: authUser.email,
+      });
+    }
+  }, [authUser]);
+
   return (
     <div
       role="button"
@@ -23,8 +39,8 @@ export default function SidebarAuthRow({ user, Icon }) {
         <div className="group flex items-center space-x-2">
           {user && (
             <Image
-              src={user?.photoURL}
-              alt={user?.displayName}
+              src={user.photoURL ? user.photoURL : '/images/avatar.webp'}
+              alt={user.displayName ? user.displayName : user.email}
               width={35}
               height={35}
               layout="fixed"

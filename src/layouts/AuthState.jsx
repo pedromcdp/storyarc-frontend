@@ -5,13 +5,11 @@ import 'firebase/compat/auth';
 import PropTypes from 'prop-types';
 import cron from 'cron';
 import useAuth from '../hooks/auth';
-import { useAddUserMutation } from '../services/storyarc';
 import { SplashScreen } from '../components/SplashScreen';
 
 export default function AuthState({ children }) {
   const { setUser, setToken } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
-  const [addUser] = useAddUserMutation();
   const [job] = useState(
     new cron.CronJob('0 */15 * * * *', async () => {
       if (firebase.auth().currentUser) {
@@ -25,14 +23,10 @@ export default function AuthState({ children }) {
     firebase.auth().onAuthStateChanged(async (user) => {
       setUser(user);
       if (user) {
+        await user.reload();
+        user = firebase.auth().currentUser;
         const token = await user.getIdToken();
         setToken(token);
-        addUser({
-          id: user.uid,
-          avatar: user.photoURL,
-          name: user.displayName,
-          email: user.email,
-        });
       }
       setIsLoading(false);
     });

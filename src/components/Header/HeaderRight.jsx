@@ -59,8 +59,8 @@ export default function HeaderRight() {
             className="justify-center items-center p-[0.45rem] w-10 h-10 hover:bg-gray-100 rounded-full cursor-pointer dropdown dropdown-end"
           >
             <Image
-              src={user.photoURL}
-              alt={user.displayName}
+              src={user.photoURL ? user.photoURL : '/images/avatar.webp'}
+              alt={user.displayName ? user.displayName : user.email}
               width={28}
               height={28}
               layout="fixed"

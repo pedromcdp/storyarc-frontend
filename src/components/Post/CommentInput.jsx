@@ -38,7 +38,7 @@ export default function CommentInput({ user, id }) {
       onSubmit={handleSubmit}
     >
       <Image
-        src={user.photoURL}
+        src={user.photoURL ? user.photoURL : '/images/avatar.webp'}
         alt={user.displayName}
         width={40}
         height={45}
