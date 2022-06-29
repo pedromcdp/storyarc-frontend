@@ -161,7 +161,7 @@ export default function SignUpForm() {
         <button
           type="submit"
           aria-label="Botão para iniciar sessão"
-          className="py-3 px-7 w-full text-white hover:text-verde focus:text-verde bg-verde hover:bg-white focus:bg-white disabled:bg-gray-100 rounded-lg border border-verde focus:outline-verde shadow-md transition-all duration-100 ease-in-out disabled:cursor-not-allowed"
+          className="submitBtn"
         >
           Criar Conta
         </button>

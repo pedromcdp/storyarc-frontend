@@ -24,3 +24,7 @@
   @apply py-3 px-4 m-0 mt-4 mb-1 w-full 
   rounded-lg border focus:border-verde border-solid focus:outline-none shadow transition ease-in-out form-control;
 }
+
+.submitBtn {
+  @apply py-3 px-7 w-full text-white hover:text-verde focus:text-verde bg-verde hover:bg-white focus:bg-white disabled:bg-gray-100 rounded-lg border border-verde focus:outline-verde shadow-md transition-all duration-100 ease-in-out disabled:cursor-not-allowed;
+}

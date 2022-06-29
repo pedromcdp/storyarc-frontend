@@ -23,7 +23,7 @@ export function AuthProvider(props) {
     setError(authError ?? '');
   };
 
-  const loginWithEmail = async ({ email, password }) => {
+  const loginWithEmail = async (email, password) => {
     const {
       error: emailError,
       user: emailUser,
