@@ -15,12 +15,11 @@ export default function LoginForm() {
   const { loginWithEmail, error } = useAuth();
 
   useEffect(() => {
-    console.log(error);
     switch (error) {
       case 'auth/user-not-found':
         setError('email', {
           type: 'manual',
-          message: 'Não foi possível encontral o utilizador',
+          message: 'Não foi possível encontrar o utilizador',
         });
         break;
       case 'auth/wrong-password':
