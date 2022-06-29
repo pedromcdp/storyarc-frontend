@@ -30,6 +30,13 @@
     ],
     "tailwindcss/no-custom-classname": "off",
     "object-curly-newline": "off",
-    "prettier/prettier": ["error", { "endOfLine": "auto" }]
+    "prettier/prettier": ["error", { "endOfLine": "auto" }],
+    "jsx-a11y/anchor-is-valid": [
+      "error",
+      {
+        "components": ["Link"],
+        "aspects": ["invalidHref"]
+      }
+    ]
   }
 }

@@ -19,3 +19,8 @@
 .notificationIcon {
   @apply w-8 h-8;
 }
+
+.formInput {
+  @apply py-3 px-4 m-0 mt-4 mb-1 w-full 
+  rounded-lg border focus:border-verde border-solid focus:outline-none shadow transition ease-in-out form-control;
+}

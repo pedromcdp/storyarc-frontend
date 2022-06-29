@@ -26,7 +26,7 @@ export const UploadService = {
     }),
   uploadUserImage: (file) =>
     new Promise((resolve, reject) => {
-      const storageRef = firebase.storage().ref(`avatars/${nanoid()}`);
+      const storageRef = firebase.storage().ref(`avatars/${nanoid()}.png`);
       const uploadTask = storageRef.put(file);
       uploadTask.on(
         'state_changed',

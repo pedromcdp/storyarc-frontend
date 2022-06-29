@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Transition } from '@headlessui/react';

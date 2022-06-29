@@ -1,13 +1,22 @@
 import Head from 'next/head';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import useAuth from '../../hooks/auth';
 import BackButton from '../../components/Buttons/BackButton';
 import SignUp from '../../components/SignUp';
 
-export default function signup() {
+export default function SignUpPage() {
+  const { user } = useAuth();
+  const router = useRouter();
+
+  if (user) {
+    router.replace('/');
+    return null;
+  }
   return (
     <div className="overflow-auto antialiased">
       <Head>
-        <title>storyarc | login</title>
+        <title>storyarc | sign up</title>
       </Head>
       <main className="flex overflow-auto min-h-screen">
         <BackButton />
