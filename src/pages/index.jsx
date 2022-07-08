@@ -9,10 +9,11 @@ import { useGetLatest, useGetTrending } from '../hooks/useAPI';
 import { fetchLatest } from '../utils/apiCalls';
 
 export default function Home() {
-  const { data, isFetching, hasNextPage, fetchNextPage } = useGetLatest();
+  const { data, isLoading, hasNextPage, fetchNextPage } = useGetLatest();
   const {
     data: trendingData,
-    isFetching: trendingIsFetching,
+    isLoading: trendingIsLoading,
+
     hasNextPage: trendingHasNextPage,
     fetchNextPage: trendingFetchNextPage,
   } = useGetTrending();
@@ -20,7 +21,7 @@ export default function Home() {
   return (
     <MainLayout title="storyarc">
       <FeedFilter />
-      {(isFetching || trendingIsFetching) && <Loading size="xs" />}
+      {(isLoading || trendingIsLoading) && <Loading size="xs" />}
       {JSON.parse(useSelector(useFeedFilter)).value === 'latest' ? (
         <PostsContainer
           data={data}
