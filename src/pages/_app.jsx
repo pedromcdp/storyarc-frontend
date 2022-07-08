@@ -3,6 +3,7 @@ import '../config/firebaseConfig';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { QueryClient, QueryClientProvider, Hydrate } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
 import { parseCookies } from 'nookies';
 import { AuthProvider } from '../hooks/auth';
 import 'dayjs/locale/pt';
@@ -23,6 +24,7 @@ function StoryArc({ Component, pageProps }) {
           <AuthState>
             <Component {...pageProps} />
             {acceptedCookies !== 'ouioui' && <CookieBox />}
+            <ReactQueryDevtools />
           </AuthState>
         </AuthProvider>
       </Hydrate>
