@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { apiUrl } from './appUrls';
 
+// Get Requests
 const fetchLatest = (page) =>
   axios.get(`${apiUrl}/posts/latest?p=${page}`).then((res) => res.data);
 
@@ -39,6 +40,13 @@ const fetchUserLikedPosts = (uid, token) =>
     })
     .then((res) => res.data);
 
+// Post Requests
+const postComment = (id, comment) =>
+  axios.post(`${apiUrl}/posts/${id}/addComment`, comment);
+
+const deleteComment = (id, postId) =>
+  axios.post(`${apiUrl}/comments/${id}`, { postId });
+
 export {
   fetchLatest,
   fetchTrending,
@@ -48,4 +56,6 @@ export {
   fetchUserPosts,
   fetchUserSavedPosts,
   fetchUserLikedPosts,
+  postComment,
+  deleteComment,
 };

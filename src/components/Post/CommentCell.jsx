@@ -2,20 +2,16 @@
 import Image from 'next/image';
 import dayjs from 'dayjs';
 import { ClockIcon, TrashIcon } from '@heroicons/react/outline';
-import { useDeleteCommentMutation } from '../../services/storyarc';
+
 import useAuth from '../../hooks/auth';
-import { useGetPostComments } from '../../hooks/useAPI';
+import { useDeleteComment } from '../../hooks/useAPI';
 
 export default function CommentCell({ comment, postId }) {
   const { user } = useAuth();
-  const [deleteComment] = useDeleteCommentMutation();
-  const { refetch } = useGetPostComments(postId);
+  const { mutate: deleteComment } = useDeleteComment();
 
-  const handleDelete = async () => {
-    const { data } = await deleteComment({ id: comment._id, postId });
-    if (data) {
-      refetch();
-    }
+  const handleDelete = () => {
+    deleteComment({ id: comment._id, postId });
   };
 
   return (

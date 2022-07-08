@@ -1,4 +1,9 @@
-import { useQuery, useInfiniteQuery } from 'react-query';
+import {
+  useQuery,
+  useInfiniteQuery,
+  useMutation,
+  useQueryClient,
+} from 'react-query';
 import {
   fetchLatest,
   fetchTrending,
@@ -8,9 +13,12 @@ import {
   fetchUserPosts,
   fetchUserSavedPosts,
   fetchUserLikedPosts,
+  postComment,
+  deleteComment,
 } from '../utils/apiCalls';
 
 export function useGetLatest() {
+  const queryClient = useQueryClient();
   return useInfiniteQuery(
     'latest',
     ({ pageParam = 0 }) => fetchLatest(pageParam),
@@ -19,6 +27,13 @@ export function useGetLatest() {
       getNextPageParam: (lastPage) => {
         if (lastPage.nextPage < lastPage.totalPages) return lastPage.nextPage;
         return undefined;
+      },
+      onSuccess: (data) => {
+        data.pages.forEach((pages) => {
+          pages.data.forEach((post) => {
+            queryClient.setQueryData(['posts', post._id], post);
+          });
+        });
       },
     },
   );
@@ -53,11 +68,43 @@ export function useGetSearch(query) {
 }
 
 export function useGetPost(postId) {
-  return useQuery(['posts', postId], () => fetchPost(postId));
+  const queryClient = useQueryClient();
+  return useQuery(['posts', postId], () => fetchPost(postId), {
+    initialData: () => queryClient.getQueryData(['posts', postId]),
+  });
 }
 
 export function useGetPostComments(postId) {
-  return useQuery(['comments', postId], () => fetchPostComments(postId));
+  return useQuery(['comments', postId], () => fetchPostComments(postId), {
+    refetchInterval: 3000,
+  });
+}
+
+export function useCreateComment() {
+  const queryClient = useQueryClient();
+  return useMutation(({ id, comment }) => postComment(id, comment), {
+    onSuccess: ({ data }) => {
+      const { comment } = data;
+      queryClient.setQueryData(['comments', comment.postId], (oldQueryData) => [
+        ...oldQueryData,
+        comment,
+      ]);
+    },
+  });
+}
+
+export function useDeleteComment() {
+  const queryClient = useQueryClient();
+  return useMutation(({ id, postId }) => deleteComment(id, postId), {
+    onMutate: ({ id, postId }) => {
+      queryClient.setQueryData(['comments', postId], (oldQueryData) =>
+        oldQueryData.filter((comment) => comment._id !== id),
+      );
+    },
+    onSuccess: (data, variables) => {
+      queryClient.invalidateQueries(['comments', variables.postId]);
+    },
+  });
 }
 
 export function useGetUserPosts(uid, token) {

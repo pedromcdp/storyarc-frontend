@@ -13,13 +13,6 @@ export const StoryArcAPI = createApi({
     }
   },
   endpoints: (builder) => ({
-    addComment: builder.mutation({
-      query: ({ id, comment }) => ({
-        url: `posts/${id}/addComment`,
-        method: 'POST',
-        body: comment,
-      }),
-    }),
     addUser: builder.mutation({
       query: (user) => ({
         url: `users`,
@@ -73,13 +66,6 @@ export const StoryArcAPI = createApi({
         headers: { Authorization: `Bearer ${token}` },
       }),
     }),
-    deleteComment: builder.mutation({
-      query: ({ id, postId }) => ({
-        url: `comments/${id}`,
-        method: 'POST',
-        body: { postId },
-      }),
-    }),
     reportPost: builder.mutation({
       query: (id) => ({
         url: `posts/${id}/report`,
@@ -90,7 +76,6 @@ export const StoryArcAPI = createApi({
 });
 
 export const {
-  useAddCommentMutation,
   useAddUserMutation,
   useUploadPostMutation,
   useRemovePostMutation,
@@ -98,6 +83,5 @@ export const {
   useDislikePostMutation,
   useSavePostMutation,
   useUnsavePostMutation,
-  useDeleteCommentMutation,
   useReportPostMutation,
 } = StoryArcAPI;

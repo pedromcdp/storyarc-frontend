@@ -3,13 +3,11 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { PaperAirplaneIcon } from '@heroicons/react/outline';
 import PropTypes from 'prop-types';
-import { useAddCommentMutation } from '../../services/storyarc';
-import { useGetPostComments } from '../../hooks/useAPI';
+import { useCreateComment } from '../../hooks/useAPI';
 
 export default function CommentInput({ user, id }) {
   const [comment, setComment] = useState('');
-  const [addComment] = useAddCommentMutation();
-  const { refetch } = useGetPostComments(id);
+  const { mutateAsync: createComment } = useCreateComment();
 
   const handleTyping = (e) => {
     setComment(e.target.value);
@@ -17,7 +15,7 @@ export default function CommentInput({ user, id }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { data } = await addComment({
+    const { data } = await createComment({
       id,
       comment: {
         postId: id,
@@ -27,7 +25,6 @@ export default function CommentInput({ user, id }) {
     });
     if (data) {
       setComment('');
-      refetch();
     }
   };
 
