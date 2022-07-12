@@ -86,12 +86,12 @@ export default function PostFooter({ id }) {
       >
         {liked ? (
           <>
-            <ThumbLike24Filled className="text-verde" />
+            <ThumbLike24Filled className="w-6 h-6 text-verde" />
             <span className="text-sm">Gosto</span>
           </>
         ) : (
           <>
-            <ThumbLike24Regular className="group-hover:text-verde" />
+            <ThumbLike24Regular className="w-6 h-6 group-hover:text-verde" />
             <span className="text-sm group-hover:text-verde">
               Gostar da publicação
             </span>
@@ -104,12 +104,12 @@ export default function PostFooter({ id }) {
       >
         {bookmarked ? (
           <>
-            <Bookmark24Filled className="text-verde" />
+            <Bookmark24Filled className="w-6 h-6 text-verde" />
             <span className="text-sm">Publicação Guardada</span>
           </>
         ) : (
           <>
-            <Bookmark24Regular className="group-hover:text-verde" />
+            <Bookmark24Regular className="w-6 h-6 group-hover:text-verde" />
             <span className="text-sm group-hover:text-verde">
               Guardar publicação
             </span>
