@@ -13,7 +13,6 @@ export default function SignUpForm() {
   const dispatch = useDispatch();
   const [image, setImage] = useState(null);
   const [isDisabled, setIsDisabled] = useState(false);
-  const [show, setShow] = useState(false);
   const { createUserWithEmailAndPassword } = useAuth();
   const {
     register,
@@ -25,7 +24,6 @@ export default function SignUpForm() {
   const onSubmit = async (data) => {
     const { name, email, password } = data;
     setIsDisabled(true);
-    setShow(true);
     dispatch(
       showNotification({
         type: 'info',
