@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { PaperAirplaneIcon } from '@heroicons/react/outline';
 import PropTypes from 'prop-types';
-import { useCreateComment } from '../../hooks/useAPI';
+import { useCreateComment } from '../../hooks/useMutation';
 
 export default function CommentInput({ user, id }) {
   const [comment, setComment] = useState('');
@@ -15,7 +15,8 @@ export default function CommentInput({ user, id }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { data } = await createComment({
+    setComment('');
+    createComment({
       id,
       comment: {
         postId: id,
@@ -23,9 +24,6 @@ export default function CommentInput({ user, id }) {
         body: comment,
       },
     });
-    if (data) {
-      setComment('');
-    }
   };
 
   return (
@@ -63,4 +61,5 @@ export default function CommentInput({ user, id }) {
 
 CommentInput.propTypes = {
   user: PropTypes.object.isRequired,
+  id: PropTypes.string.isRequired,
 };

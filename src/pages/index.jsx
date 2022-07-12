@@ -5,15 +5,15 @@ import PostsContainer from '../components/Feed/PostsContainer';
 import Loading from '../components/Loading';
 import FeedFilter from '../components/FeedFilter';
 import { useFeedFilter } from '../features/feedFilter/feedFilterSlice';
-import { useGetLatest, useGetTrending } from '../hooks/useAPI';
+import { useGetRecent, useGetTrending } from '../hooks/useQuery';
 import { fetchLatest } from '../utils/apiCalls';
 
 export default function Home() {
-  const { data, isLoading, hasNextPage, fetchNextPage } = useGetLatest();
+  const { data, isLoading, isRefetching, hasNextPage, fetchNextPage } =
+    useGetRecent();
   const {
     data: trendingData,
     isLoading: trendingIsLoading,
-
     hasNextPage: trendingHasNextPage,
     fetchNextPage: trendingFetchNextPage,
   } = useGetTrending();
@@ -21,7 +21,9 @@ export default function Home() {
   return (
     <MainLayout title="storyarc">
       <FeedFilter />
-      {(isLoading || trendingIsLoading) && <Loading size="xs" />}
+      {(isLoading || trendingIsLoading || isRefetching) && (
+        <Loading size="xs" />
+      )}
       {JSON.parse(useSelector(useFeedFilter)).value === 'latest' ? (
         <PostsContainer
           data={data}
@@ -46,7 +48,7 @@ export async function getServerSideProps(context) {
     'public, s-maxage=10, stale-while-revalidate=59',
   );
   const queryClient = new QueryClient();
-  await queryClient.prefetchInfiniteQuery('latest', () => fetchLatest(0));
+  await queryClient.prefetchInfiniteQuery('recent', () => fetchLatest(0));
   return {
     props: {
       preloadedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),

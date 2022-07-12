@@ -28,3 +28,11 @@
 .submitBtn {
   @apply py-3 px-7 w-full text-white hover:text-verde focus:text-verde bg-verde hover:bg-white focus:bg-white disabled:bg-gray-100 rounded-lg border border-verde focus:outline-verde shadow-md transition-all duration-100 ease-in-out disabled:cursor-not-allowed;
 }
+
+.addContentInput {
+  @apply py-2 px-3 mb-1 w-full font-light tracking-wide leading-tight text-gray-700 rounded-md border focus:border-verde focus:outline-none shadow appearance-none min-h-[2.8rem];
+}
+
+.addContentDescInput {
+  @apply py-2 px-3 pb-12 mb-1 w-full font-light tracking-wide leading-tight text-gray-700 rounded-md border focus:border-verde focus:outline-none shadow appearance-none;
+}

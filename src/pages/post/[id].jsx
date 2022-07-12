@@ -3,7 +3,7 @@ import MainLayout from '../../layouts/MainLayout';
 
 import Loading from '../../components/Loading';
 import { fetchPost } from '../../utils/apiCalls';
-import { useGetPost } from '../../hooks/useAPI';
+import { useGetPost } from '../../hooks/useQuery';
 import Post from '../../components/Post';
 
 export default function PostPage({ postId }) {

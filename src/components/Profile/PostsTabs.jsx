@@ -1,16 +1,12 @@
 /* eslint-disable no-nested-ternary */
 import { Tab } from '@headlessui/react';
 import { Fragment } from 'react';
+import { AnimateSharedLayout, motion } from 'framer-motion';
 import CardView from '../Post/CardView';
 import NoPosts from './NoPosts';
 import HourGlassLoadingAnim from '../Loading';
 
-export default function PostsTabs({
-  ownPosts,
-  savedPosts,
-  refetch,
-  isLoading,
-}) {
+export default function PostsTabs({ ownPosts, savedPosts, isLoading }) {
   return (
     <div className="overflow-auto pt-5 pb-32 scroll-smooth">
       <Tab.Group>
@@ -40,15 +36,19 @@ export default function PostsTabs({
         </Tab.List>
         <Tab.Panels>
           <Tab.Panel>
-            {isLoading ? (
-              <HourGlassLoadingAnim />
-            ) : ownPosts.length > 0 ? (
-              ownPosts.map((post) => (
-                <CardView key={post._id} post={post} refetch={refetch} />
-              ))
-            ) : (
-              <NoPosts text="Sem Publicações" />
-            )}
+            <AnimateSharedLayout>
+              <motion.div layout>
+                {isLoading ? (
+                  <HourGlassLoadingAnim />
+                ) : ownPosts.length > 0 ? (
+                  ownPosts.map((post) => (
+                    <CardView key={post._id} post={post} />
+                  ))
+                ) : (
+                  <NoPosts text="Sem Publicações" />
+                )}
+              </motion.div>
+            </AnimateSharedLayout>
           </Tab.Panel>
           <Tab.Panel>
             {savedPosts?.savedPosts.length ? (

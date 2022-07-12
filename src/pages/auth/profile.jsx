@@ -9,12 +9,12 @@ import Avatar from '../../components/Profile/Avatar';
 import ProfileData from '../../components/Profile/ProfileData';
 import PostsTabs from '../../components/Profile/PostsTabs';
 import { fetchUserPosts, fetchUserSavedPosts } from '../../utils/apiCalls';
-import { useGetUserPosts, useGetUserSavedPosts } from '../../hooks/useAPI';
+import { useGetUserPosts, useGetUserSavedPosts } from '../../hooks/useQuery';
 
 export default function Profile({ uid, token }) {
   const { user } = useAuth();
   const router = useRouter();
-  const { data: ownPosts, isLoading, refetch } = useGetUserPosts(uid, token);
+  const { data: ownPosts, isLoading } = useGetUserPosts(uid, token);
   const { data: savedPosts } = useGetUserSavedPosts(uid, token);
 
   if (!user) {
@@ -51,7 +51,6 @@ export default function Profile({ uid, token }) {
       <PostsTabs
         ownPosts={ownPosts}
         savedPosts={savedPosts}
-        refetch={refetch}
         isLoading={isLoading}
       />
     </MainLayout>

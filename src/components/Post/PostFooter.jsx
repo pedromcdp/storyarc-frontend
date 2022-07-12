@@ -6,74 +6,62 @@ import {
   ThumbLike24Filled,
   ThumbLike24Regular,
 } from '@fluentui/react-icons';
-
 import useAuth from '../../hooks/auth';
 import {
-  useLikePostMutation,
-  useDislikePostMutation,
-  useSavePostMutation,
-  useUnsavePostMutation,
-} from '../../services/storyarc';
-import { useGetUserLikedPosts, useGetUserSavedPosts } from '../../hooks/useAPI';
+  useGetUserLikedPosts,
+  useGetUserSavedPosts,
+} from '../../hooks/useQuery';
+import {
+  useDislikePost,
+  useLikePost,
+  useSavePost,
+  useUnsavePost,
+} from '../../hooks/useMutation';
 
 export default function PostFooter({ id }) {
   const { user, token } = useAuth();
   const [liked, setLiked] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
-  const [savePost] = useSavePostMutation();
-  const [unsavePost] = useUnsavePostMutation();
-  const [likePost] = useLikePostMutation();
-  const [dislikePost] = useDislikePostMutation();
-  const { data: userSavedPostsData, refetch: revalidateSavedPosts } =
-    useGetUserSavedPosts(user?.uid, token);
-  const { data: userLikedPostsData, refetch: revalidateLikes } =
-    useGetUserLikedPosts(user?.uid, token);
+  const { data: userSavedPostsData } = useGetUserSavedPosts(user?.uid, token);
+  const { data: userLikedPostsData } = useGetUserLikedPosts(user?.uid, token);
+  const { mutate: likePost } = useLikePost();
+  const { mutate: dislikePost } = useDislikePost();
+  const { mutate: savePost } = useSavePost();
+  const { mutate: unsavePost } = useUnsavePost();
 
-  const handleLike = async () => {
+  const handleLike = () => {
     if (!liked) {
       setLiked(true);
-      const { data } = await likePost({
+      likePost({
         id: user.uid,
         postId: id,
         token,
       });
-      if (data) {
-        revalidateLikes();
-      }
     } else {
       setLiked(false);
-      const { data } = await dislikePost({
+      dislikePost({
         id: user.uid,
         postId: id,
         token,
       });
-      if (data) {
-        revalidateLikes();
-      }
     }
   };
 
-  const handleBookmark = async () => {
+  const handleBookmark = () => {
     if (!bookmarked) {
       setBookmarked(true);
-      const { data } = await savePost({
+      savePost({
         id: user.uid,
         postId: id,
         token,
       });
-      if (data) {
-        revalidateSavedPosts();
-      }
     } else {
       setBookmarked(false);
-      const { data } = await unsavePost({
+      unsavePost({
         id: user.uid,
         postId: id,
         token,
       });
-      if (data) {
-        revalidateSavedPosts();
-      }
     }
   };
 

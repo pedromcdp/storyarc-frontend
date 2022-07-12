@@ -1,9 +1,4 @@
-import {
-  useQuery,
-  useInfiniteQuery,
-  useMutation,
-  useQueryClient,
-} from 'react-query';
+import { useQuery, useInfiniteQuery, useQueryClient } from 'react-query';
 import {
   fetchLatest,
   fetchTrending,
@@ -13,14 +8,12 @@ import {
   fetchUserPosts,
   fetchUserSavedPosts,
   fetchUserLikedPosts,
-  postComment,
-  deleteComment,
 } from '../utils/apiCalls';
 
-export function useGetLatest() {
+export function useGetRecent() {
   const queryClient = useQueryClient();
   return useInfiniteQuery(
-    'latest',
+    'recent',
     ({ pageParam = 0 }) => fetchLatest(pageParam),
     {
       keepPreviousData: true,
@@ -77,33 +70,6 @@ export function useGetPost(postId) {
 export function useGetPostComments(postId) {
   return useQuery(['comments', postId], () => fetchPostComments(postId), {
     refetchInterval: 3000,
-  });
-}
-
-export function useCreateComment() {
-  const queryClient = useQueryClient();
-  return useMutation(({ id, comment }) => postComment(id, comment), {
-    onSuccess: ({ data }) => {
-      const { comment } = data;
-      queryClient.setQueryData(['comments', comment.postId], (oldQueryData) => [
-        ...oldQueryData,
-        comment,
-      ]);
-    },
-  });
-}
-
-export function useDeleteComment() {
-  const queryClient = useQueryClient();
-  return useMutation(({ id, postId }) => deleteComment(id, postId), {
-    onMutate: ({ id, postId }) => {
-      queryClient.setQueryData(['comments', postId], (oldQueryData) =>
-        oldQueryData.filter((comment) => comment._id !== id),
-      );
-    },
-    onSuccess: (data, variables) => {
-      queryClient.invalidateQueries(['comments', variables.postId]);
-    },
   });
 }
 

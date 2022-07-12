@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import dayjs from 'dayjs';
 import {
@@ -10,14 +10,17 @@ import {
   LinkIcon,
   ExclamationCircleIcon,
   DocumentDownloadIcon,
+  TrashIcon,
 } from '@heroicons/react/outline';
 import { useClipboard } from '@mantine/hooks';
 import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
 import { pageUrl } from '../../utils/appUrls';
-import { useReportPostMutation } from '../../services/storyarc';
 import downloadPhoto from '../../utils/downloadPhoto';
 import Notification from '../Notification';
+import { useDeletePost, useReportPost } from '../../hooks/useMutation';
+import { useGetUserPosts } from '../../hooks/useQuery';
+import useAuth from '../../hooks/auth';
 
 export default function PostHeader({
   id,
@@ -27,12 +30,23 @@ export default function PostHeader({
   image,
   newImage,
 }) {
+  const { user, token } = useAuth();
+  const [ownPost, setOwnPost] = useState(false);
   const clipboard = useClipboard();
   const [showPortal, setShowPortal] = useState(false);
   const [type, setType] = useState('success');
   const [title, setTitle] = useState(null);
   const [subtitle, setSubtitle] = useState(null);
-  const [reportPost] = useReportPostMutation();
+  const { mutateAsync: reportPost } = useReportPost();
+  const { data: ownPosts } = useGetUserPosts(user?.uid, token);
+  const { mutateAsync: deletePost } = useDeletePost();
+
+  useEffect(() => {
+    if (ownPosts) {
+      const isOwnPost = ownPosts.some((post) => post._id === id);
+      setOwnPost(Boolean(isOwnPost));
+    }
+  }, [ownPosts, id]);
 
   const handleCopyToClipboard = () => {
     clipboard.copy(`${pageUrl}/post/${id}`);
@@ -99,23 +113,45 @@ export default function PostHeader({
             </span>
           </li>
           <div className="w-full h-[1.2px] bg-gray-100 rounded-2xl"></div>
-          <li
-            tabIndex={0}
-            onClick={async () => {
-              const { data } = await reportPost(id);
-              if (data) {
-                setShowPortal(true);
-                setType('success');
-                setTitle('Publicação reportada');
-                setSubtitle('O storyarc irá rever a publicação');
-              }
-            }}
-          >
-            <span className="text-sm">
-              <ExclamationCircleIcon className="w-5 h-5 text-red-500 " />
-              Reportar publicação
-            </span>
-          </li>
+          {!ownPost ? (
+            <li
+              tabIndex={0}
+              onClick={async () => {
+                const { data } = await reportPost(id);
+                if (data) {
+                  setShowPortal(true);
+                  setType('success');
+                  setTitle('Publicação reportada');
+                  setSubtitle('O storyarc irá rever a publicação');
+                }
+              }}
+            >
+              <span className="text-sm">
+                <ExclamationCircleIcon className="w-5 h-5 text-red-500 " />
+                Reportar publicação
+              </span>
+            </li>
+          ) : (
+            <li
+              tabIndex={0}
+              onClick={() => {
+                deletePost({
+                  postId: id,
+                  token,
+                }).then(() => {
+                  setShowPortal(true);
+                  setType('info');
+                  setTitle('Publicação apagada');
+                  setSubtitle(null);
+                });
+              }}
+            >
+              <span className="text-sm">
+                <TrashIcon className="w-5 h-5 text-red-500 " />
+                Apagar publicação
+              </span>
+            </li>
+          )}
         </ul>
       </div>
       <Notification

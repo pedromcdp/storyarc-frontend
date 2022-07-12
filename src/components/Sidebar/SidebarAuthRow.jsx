@@ -4,12 +4,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { LogoutIcon } from '@heroicons/react/outline';
 import PropTypes from 'prop-types';
-import { useAddUserMutation } from '../../services/storyarc';
 import useAuth from '../../hooks/auth';
+import { useAddUser } from '../../hooks/useMutation';
 
 export default function SidebarAuthRow({ user, Icon }) {
   const { logout, token, user: authUser } = useAuth();
-  const [addUser] = useAddUserMutation();
+  const { mutate: addUser } = useAddUser();
 
   useEffect(() => {
     if (authUser.photoURL) {

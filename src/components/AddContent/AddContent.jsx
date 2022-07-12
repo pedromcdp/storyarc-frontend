@@ -1,9 +1,8 @@
-/* eslint-disable no-alert */
-import { Fragment, useState, useRef } from 'react';
+import { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { XIcon } from '@heroicons/react/solid';
 import { useDispatch, useSelector } from 'react-redux';
-import { useRouter } from 'next/router';
+import { useForm } from 'react-hook-form';
 import {
   useAddContent,
   closeAddContent,
@@ -12,69 +11,73 @@ import {
 } from '../../features/addContent/addContentSlice';
 import PhotoDropzone from './PhotoDropzone';
 import { UploadService } from '../../services/uploadService';
-import { useUploadPostMutation } from '../../services/storyarc';
 import useAuth from '../../hooks/auth';
-import { useGetLatest } from '../../hooks/useAPI';
+import { useCreatePost } from '../../hooks/useMutation';
 
 export default function AddContent() {
   const { user } = useAuth();
   const isOpen = useSelector(useAddContent);
   const dispatch = useDispatch();
-  const descRef = useRef(null);
-  const locationRef = useRef(null);
-  const dateRef = useRef(null);
   const [files, setFiles] = useState([]);
   const [disabled, setDisabled] = useState(false);
-  const [uploadPost] = useUploadPostMutation();
-  const { refetch } = useGetLatest();
-  const inputs = [descRef, locationRef, dateRef];
-  const router = useRouter();
+  const { mutateAsync: createPost } = useCreatePost();
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    inputs.map((input) => {
-      if (input.current.value === '' || files.length === 0) {
-        alert('É necessário preencher todos os campos');
-      }
-      return true;
-    });
-    if (inputs.every((input) => input.current.value !== '')) {
+  const onSubmit = (data) => {
+    const { description, location, date } = data;
+    if (files.length) {
       setDisabled(true);
       dispatch(showLoading());
       const promises = files.map((file) => UploadService.uploadFile(file));
       Promise.all(promises)
-        .then(async (photoUrls) => {
-          uploadPost({
+        .then((photoUrls) => {
+          createPost({
             user: user.uid,
             postType: photoUrls.length > 1 ? 'comparacao' : 'foto',
-            description: descRef.current.value,
+            description,
             photo: photoUrls[0],
             newPhoto: photoUrls.length > 1 ? photoUrls[1] : null,
-            streetName: locationRef.current.value,
-            contentDate: dateRef.current.value,
+            streetName: location,
+            contentDate: date,
           })
             .then(() => {
-              refetch();
               setDisabled(false);
               setFiles([]);
               dispatch(closeAddContent());
               dispatch(hideLoading());
-              router.push('/');
               document.getElementById('scrollparent').scrollTo({
                 top: 0,
                 behavior: 'smooth',
               });
             })
-            .catch((err) => {
+            .catch(() => {
               setDisabled(false);
-              alert(err.message);
+              dispatch(hideLoading());
+              setError('network', {
+                type: 'manual',
+                message:
+                  'Não foi possível submeter a publicação, tente novamente',
+              });
             });
         })
-        .catch((err) => {
+        .catch(() => {
           setDisabled(false);
-          console.log(err);
+          dispatch(hideLoading());
+          setError('network', {
+            type: 'manual',
+            message: 'Não foi possível submeter a publicação, tente novamente',
+          });
         });
+    } else {
+      setError('images', {
+        type: 'manual',
+        message: 'Por favor, selecione pelo menos uma imagem',
+      });
     }
   };
 
@@ -117,33 +120,80 @@ export default function AddContent() {
                   <XIcon className="w-6 h-6" />
                 </button>
               </Dialog.Title>
-              <form className="p-4 space-y-5" onSubmit={handleSubmit}>
-                <input
-                  ref={descRef}
-                  disabled={disabled}
-                  className="py-2 px-3 pb-12 w-full font-light tracking-wide leading-tight text-gray-700 rounded-md border focus:border-verde focus:outline-none shadow appearance-none focus:shadow-outline"
-                  type="text"
-                  placeholder="Adiciona uma descrição"
-                />
-                <input
-                  ref={locationRef}
-                  disabled={disabled}
-                  className="py-2 px-3 w-full font-light tracking-wide leading-tight text-gray-700 rounded border focus:border-verde focus:outline-none shadow appearance-none focus:shadow-outline"
-                  type="text"
-                  placeholder="Introduz a localização da fotografia"
-                />
-                <input
-                  ref={dateRef}
-                  disabled={disabled}
-                  className="py-2 px-3 w-full font-light tracking-wide leading-tight text-gray-700 rounded border focus:border-verde focus:outline-none shadow appearance-none min-h-10 focus:shadow-outline"
-                  type="date"
-                  placeholder="Seleciona uma data"
-                />
+              {errors.network && (
+                <p className="text-xs text-red-500">{errors.network.message}</p>
+              )}
+              <form className="p-4 space-y-4" onSubmit={handleSubmit(onSubmit)}>
+                <div>
+                  <input
+                    {...register('description', {
+                      required: {
+                        value: true,
+                        message: 'É necessário preencher o campo descrição',
+                      },
+                      minLength: {
+                        value: 10,
+                        message: 'A descrição deve ter no mínimo 10 caracteres',
+                      },
+                    })}
+                    disabled={disabled}
+                    className="addContentDescInput"
+                    placeholder="Adiciona uma descrição"
+                  />
+                  {errors.description && (
+                    <p className="text-xs text-red-500">
+                      {errors.description.message}
+                    </p>
+                  )}
+                </div>
+                <div>
+                  <input
+                    {...register('location', {
+                      required: {
+                        value: true,
+                        message: 'É necessário preencher o campo localização',
+                      },
+                    })}
+                    disabled={disabled}
+                    className="addContentInput"
+                    type="text"
+                    placeholder="Introduz a localização da fotografia"
+                  />
+                  {errors.location && (
+                    <p className="text-xs text-red-500">
+                      {errors.location.message}
+                    </p>
+                  )}
+                </div>
+                <div>
+                  <input
+                    {...register('date', {
+                      required: {
+                        value: true,
+                        message: 'É necessário preencher o campo data',
+                      },
+                    })}
+                    disabled={disabled}
+                    className="addContentInput"
+                    type="date"
+                    placeholder="Seleciona uma data"
+                  />
+                  {errors.date && (
+                    <p className="text-xs text-red-500">
+                      {errors.date.message}
+                    </p>
+                  )}
+                </div>
                 <PhotoDropzone
                   files={files}
                   setFiles={setFiles}
                   disabled={disabled}
                 />
+                {errors.images && (
+                  <p className="text-xs text-red-500">
+                    {errors.images.message}
+                  </p>
+                )}
                 <div className="flex items-center pt-4 space-x-2 rounded-b border-t border-gray-200">
                   <button
                     disabled={disabled}

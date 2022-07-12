@@ -4,7 +4,7 @@ import ShowSearchTerm from '../../components/Search/ShowSearchTerm';
 import PostsContainer from '../../components/Feed/PostsContainer';
 import Loading from '../../components/Loading';
 import NoPosts from '../../components/Profile/NoPosts';
-import { useGetSearch } from '../../hooks/useAPI';
+import { useGetSearch } from '../../hooks/useQuery';
 import { fetchSearch } from '../../utils/apiCalls';
 
 export default function PostPage({ q }) {

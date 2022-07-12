@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import { ClockIcon, TrashIcon } from '@heroicons/react/outline';
 
 import useAuth from '../../hooks/auth';
-import { useDeleteComment } from '../../hooks/useAPI';
+import { useDeleteComment } from '../../hooks/useMutation';
 
 export default function CommentCell({ comment, postId }) {
   const { user } = useAuth();

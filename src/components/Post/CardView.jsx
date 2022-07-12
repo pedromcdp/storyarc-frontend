@@ -3,24 +3,18 @@ import Image from 'next/image';
 import dayjs from 'dayjs';
 import { TrashIcon } from '@heroicons/react/outline';
 import propTypes from 'prop-types';
-import { useRemovePostMutation } from '../../services/storyarc';
 import useAuth from '../../hooks/auth';
-import { useGetLatest } from '../../hooks/useAPI';
+import { useDeletePost } from '../../hooks/useMutation';
 
-export default function CardView({ post, refetch }) {
-  const [removePost] = useRemovePostMutation();
-  const { refetch: revalidateRecentPosts } = useGetLatest();
+export default function CardView({ post }) {
   const { user, token } = useAuth();
+  const { mutate: deletePost } = useDeletePost();
 
   const handlePostDelete = async () => {
-    const { data } = await removePost({
+    deletePost({
       postId: post._id,
       token,
     });
-    if (data) {
-      refetch();
-      revalidateRecentPosts();
-    }
   };
 
   return (
@@ -30,7 +24,7 @@ export default function CardView({ post, refetch }) {
           src={post.photo}
           alt={`foto de ${post.description}`}
           layout="fill"
-          className="object-cover pointer-events-none"
+          className="object-cover rounded-l-md pointer-events-none"
           priority
         />
       </div>

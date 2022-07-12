@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import CommentCell from './CommentCell';
 import NoPosts from '../Profile/NoPosts';
 import HourGlassLoadingAnim from '../Loading';
-import { useGetPostComments } from '../../hooks/useAPI';
+import { useGetPostComments } from '../../hooks/useQuery';
 
 export default function CommentsContainer({ id }) {
   const { data, isLoading } = useGetPostComments(id);
