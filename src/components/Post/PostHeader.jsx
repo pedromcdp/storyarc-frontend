@@ -15,9 +15,10 @@ import {
 import { useClipboard } from '@mantine/hooks';
 import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
+import { useDispatch } from 'react-redux';
+import { showNotification } from '../../features/notification/notificationSlice';
 import { pageUrl } from '../../utils/appUrls';
 import downloadPhoto from '../../utils/downloadPhoto';
-import Notification from '../Notification';
 import { useDeletePost, useReportPost } from '../../hooks/useMutation';
 import { useGetUserPosts } from '../../hooks/useQuery';
 import useAuth from '../../hooks/auth';
@@ -30,15 +31,12 @@ export default function PostHeader({
   image,
   newImage,
 }) {
+  const dispatch = useDispatch();
   const { user, token } = useAuth();
   const [ownPost, setOwnPost] = useState(false);
   const clipboard = useClipboard();
-  const [showPortal, setShowPortal] = useState(false);
-  const [type, setType] = useState('success');
-  const [title, setTitle] = useState(null);
-  const [subtitle, setSubtitle] = useState(null);
-  const { mutateAsync: reportPost } = useReportPost();
   const { data: ownPosts } = useGetUserPosts(user?.uid, token);
+  const { mutateAsync: reportPost } = useReportPost();
   const { mutateAsync: deletePost } = useDeletePost();
 
   useEffect(() => {
@@ -50,10 +48,13 @@ export default function PostHeader({
 
   const handleCopyToClipboard = () => {
     clipboard.copy(`${pageUrl}/post/${id}`);
-    setShowPortal(true);
-    setType('link');
-    setTitle('Ligação copiada');
-    setSubtitle('Ligacão copiada para a área de transferência');
+    dispatch(
+      showNotification({
+        type: 'link',
+        title: 'Ligação copiada',
+        subtitle: 'Ligacão copiada para a área de transferência',
+      }),
+    );
   };
 
   const handleDownload = () => {
@@ -119,10 +120,13 @@ export default function PostHeader({
               onClick={async () => {
                 const { data } = await reportPost(id);
                 if (data) {
-                  setShowPortal(true);
-                  setType('success');
-                  setTitle('Publicação reportada');
-                  setSubtitle('O storyarc irá rever a publicação');
+                  dispatch(
+                    showNotification({
+                      type: 'success',
+                      title: 'Publicação reportada',
+                      subtitle: 'O storyarc irá rever a publicação',
+                    }),
+                  );
                 }
               }}
             >
@@ -139,10 +143,13 @@ export default function PostHeader({
                   postId: id,
                   token,
                 }).then(() => {
-                  setShowPortal(true);
-                  setType('info');
-                  setTitle('Publicação apagada');
-                  setSubtitle(null);
+                  dispatch(
+                    showNotification({
+                      type: 'info',
+                      title: 'Publicação apagada',
+                      subtitle: null,
+                    }),
+                  );
                 });
               }}
             >
@@ -154,13 +161,6 @@ export default function PostHeader({
           )}
         </ul>
       </div>
-      <Notification
-        show={showPortal}
-        closeFn={() => setShowPortal(false)}
-        type={type}
-        title={title}
-        subtitle={subtitle}
-      />
     </div>
   );
 }

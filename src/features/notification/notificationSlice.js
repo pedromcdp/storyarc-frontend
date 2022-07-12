@@ -3,9 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   show: false,
   title: '',
-  subtitle: '',
+  subtitle: null,
   type: '',
-  timeout: 3000,
 };
 
 const notificationSlice = createSlice({
@@ -17,9 +16,10 @@ const notificationSlice = createSlice({
       state.title = action.payload.title;
       state.subtitle = action.payload.subtitle;
       state.type = action.payload.type;
-      state.timeout = action.payload.timeout || 3000;
     },
-    hideNotification: () => initialState,
+    hideNotification: (state) => {
+      state.show = false;
+    },
   },
 });
 

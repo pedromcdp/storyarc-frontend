@@ -5,22 +5,29 @@ import { XIcon } from '@heroicons/react/solid';
 import { Transition } from '@headlessui/react';
 import { motion, useAnimation } from 'framer-motion';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 import NotificationIcon from './NotificationIcon';
+import {
+  useNotification,
+  hideNotification,
+} from '../../features/notification/notificationSlice';
 
-export default function Notification({ show, closeFn, type, title, subtitle }) {
+export default function Notification() {
+  const notificationDetails = useSelector(useNotification);
+  const dispatch = useDispatch();
   const controls = useAnimation();
 
   useEffect(() => {
-    if (!show) return;
+    if (!notificationDetails.show) return;
     const timeout = setTimeout(() => {
-      closeFn();
+      dispatch(hideNotification());
     }, 3000);
     return () => clearTimeout(timeout);
-  }, [show]);
+  }, [notificationDetails.show]);
 
   const handleDragEnd = async (event, info) => {
     if (info.offset.x >= 120) {
-      closeFn();
+      dispatch(hideNotification());
     } else {
       controls.start({ x: 0, opacity: 1, transition: { duration: 0.5 } });
     }
@@ -28,7 +35,7 @@ export default function Notification({ show, closeFn, type, title, subtitle }) {
 
   return (
     <Portal>
-      <Transition show={show} appear={true}>
+      <Transition show={notificationDetails.show} appear={true}>
         <Transition.Child
           enter="ease-in-out duration-200"
           enterFrom="-translate-y-full sm:-translate-y-0 sm:translate-x-full opacity-0"
@@ -49,17 +56,19 @@ export default function Notification({ show, closeFn, type, title, subtitle }) {
           >
             <button
               className="fixed top-2 right-2 w-5 h-5 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-100 ease-in-out sm:opacity-0"
-              onClick={closeFn}
+              onClick={() => dispatch(hideNotification())}
             >
               <XIcon />
             </button>
             <div className="flex justify-between items-center mr-4">
               <div className="flex gap-2 items-center">
-                <NotificationIcon type={type} />
+                <NotificationIcon type={notificationDetails.type} />
                 <div className="flex flex-col">
-                  <span>{title}</span>
-                  {subtitle && (
-                    <span className="text-xs text-gray-500">{subtitle}</span>
+                  <span>{notificationDetails.title}</span>
+                  {notificationDetails.subtitle && (
+                    <span className="text-xs text-gray-500">
+                      {notificationDetails.subtitle}
+                    </span>
                   )}
                 </div>
               </div>

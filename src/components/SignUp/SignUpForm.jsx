@@ -2,13 +2,15 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import useAuth from '../../hooks/auth';
 import { UploadService } from '../../services/uploadService';
 import GoogleLoginButton from '../Login/GoogleLoginButton';
 import { defaultAvatarUrl } from '../../utils/appUrls';
-import Notification from '../Notification';
+import { showNotification } from '../../features/notification/notificationSlice';
 
 export default function SignUpForm() {
+  const dispatch = useDispatch();
   const [image, setImage] = useState(null);
   const [isDisabled, setIsDisabled] = useState(false);
   const [show, setShow] = useState(false);
@@ -24,6 +26,13 @@ export default function SignUpForm() {
     const { name, email, password } = data;
     setIsDisabled(true);
     setShow(true);
+    dispatch(
+      showNotification({
+        type: 'info',
+        title: 'Conta a ser criada',
+        subtitle: 'Por favor, aguarda enquanto a tua conta é criada',
+      }),
+    );
     if (image) {
       UploadService.uploadUserImage(image)
         .then((url) => {
@@ -176,13 +185,6 @@ export default function SignUpForm() {
         <p className="mx-4 mb-0">Ou</p>
       </div>
       <GoogleLoginButton />
-      <Notification
-        show={show}
-        closeFn={() => setShow(false)}
-        type="info"
-        title="Conta a ser criada"
-        subtitle="Por favor, aguarda enquanto a tua conta é criada"
-      />
     </form>
   );
 }

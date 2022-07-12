@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import cron from 'cron';
 import useAuth from '../hooks/auth';
 import { SplashScreen } from '../components/SplashScreen';
+import Notification from '../components/Notification';
 
 export default function AuthState({ children }) {
   const { setUser, setToken } = useAuth();
@@ -36,7 +37,12 @@ export default function AuthState({ children }) {
   if (isLoading) {
     return <SplashScreen />;
   }
-  return children;
+  return (
+    <>
+      {children}
+      <Notification />
+    </>
+  );
 }
 
 AuthState.propTypes = {
