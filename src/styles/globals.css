@@ -9,7 +9,7 @@
 }
 
 .navbarIcon {
-  @apply flex items-center p-2 cursor-pointer space-x-1;
+  @apply flex items-center p-1 cursor-pointer;
 }
 
 .footerItem {

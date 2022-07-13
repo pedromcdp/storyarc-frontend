@@ -16,7 +16,7 @@ export default function NotificationButton() {
     <button
       role="link"
       aria-label="Notificações"
-      className="relative p-1 -mt-2 rounded-full transition duration-100 ease-in-out lg:hover:bg-gray-100"
+      className="relative p-1 mr-1 rounded-full transition duration-100 ease-in-out md:-mt-2 md:mr-0 lg:hover:bg-gray-100"
       onClick={handleClick}
     >
       <BellIcon className="w-6 h-6 text-verde" />

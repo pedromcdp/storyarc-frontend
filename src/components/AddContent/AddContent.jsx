@@ -1,4 +1,5 @@
 import { Fragment, useState } from 'react';
+import { motion } from 'framer-motion';
 import { Dialog, Transition } from '@headlessui/react';
 import { XIcon } from '@heroicons/react/solid';
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,6 +20,7 @@ export default function AddContent() {
   const isOpen = useSelector(useAddContent);
   const dispatch = useDispatch();
   const [files, setFiles] = useState([]);
+  const [showPreview, setShowPreview] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const { mutateAsync: createPost } = useCreatePost();
   const {
@@ -188,6 +190,7 @@ export default function AddContent() {
                   files={files}
                   setFiles={setFiles}
                   disabled={disabled}
+                  showPreview={showPreview}
                 />
                 {errors.images && (
                   <p className="text-xs text-red-500">
@@ -210,6 +213,20 @@ export default function AddContent() {
                   >
                     Cancelar
                   </button>
+                  {files.length === 2 && (
+                    <motion.button
+                      initial={{ scale: 0, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      exit={{ scale: 0, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                      disabled={disabled}
+                      onClick={() => setShowPreview(!showPreview)}
+                      type="button"
+                      className="py-2.5 px-5 text-sm font-medium bg-white hover:bg-gray-100 disabled:bg-gray-100 rounded-lg border  border-gray-200 focus:outline-verde disabled:cursor-not-allowed"
+                    >
+                      Preview
+                    </motion.button>
+                  )}
                 </div>
               </form>
             </Dialog.Panel>

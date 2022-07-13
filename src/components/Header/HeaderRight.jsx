@@ -15,6 +15,7 @@ import { openDialog } from '../../features/dialog/dialogSlice';
 import { openAddContent } from '../../features/addContent/addContentSlice';
 import { showSearch } from '../../features/search/searchSlice';
 import useAuth from '../../hooks/auth';
+import NotificationButton from '../Sidebar/NotificationButton';
 
 export default function HeaderRight() {
   const router = useRouter();
@@ -38,7 +39,8 @@ export default function HeaderRight() {
 
   return (
     <div id="navbarRight" className="flex basis-3/4 justify-end sm:basis-1/4">
-      <div className="flex justify-between items-center space-x-1">
+      <div className="flex justify-between items-center space-x-2 text-verde">
+        {user && <NotificationButton />}
         <button
           aria-label="abrir caixa de pesquisa"
           onClick={() => dispatch(showSearch())}
@@ -51,7 +53,7 @@ export default function HeaderRight() {
           onClick={handleAddBtnClick}
           className="hover:bg-gray-100 rounded-full navbarIcon"
         >
-          <PlusIcon className="w-5 h-5" />
+          <PlusIcon className="w-6 h-6" />
         </button>
         {user ? (
           <div
