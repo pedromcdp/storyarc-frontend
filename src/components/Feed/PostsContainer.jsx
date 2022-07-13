@@ -20,6 +20,7 @@ export default function PostsContainer({ data, hasNextPage, fetchNextPage }) {
             <Post
               key={post._id}
               id={post._id}
+              uid={post.user._id}
               username={post.user.name}
               avatar={post.user.avatar}
               timestamp={post.createdAt}

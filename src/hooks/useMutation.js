@@ -10,6 +10,7 @@ import {
   unsavePost,
   reportPost,
   CreateOrUpdateUser,
+  createNotification,
 } from '../utils/apiCalls';
 
 export const useAddUser = () => useMutation((user) => CreateOrUpdateUser(user));
@@ -127,3 +128,14 @@ export const useUnsavePost = () => {
 };
 
 export const useReportPost = () => useMutation((id) => reportPost(id));
+
+export const useCreateNotification = () =>
+  useMutation(
+    ({ id, token, notification }) =>
+      createNotification(id, token, notification),
+    {
+      onSuccess: (data) => {
+        console.log(data);
+      },
+    },
+  );

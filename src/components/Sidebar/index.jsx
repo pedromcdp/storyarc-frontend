@@ -7,13 +7,18 @@ import RowsContainer from './RowsContainer';
 import { feedFilters } from '../../utils/feedFilters';
 import SidebarAuthRow from './SidebarAuthRow';
 import useAuth from '../../hooks/auth';
+import NotificationButton from './NotificationButton';
 
 function Sidebar() {
   const { user } = useAuth();
+
   return (
     <div className="hidden flex-col justify-between py-3 px-4 max-w-[600px] h-screen bg-white rounded-r-3xl border-r shadow-sm md:inline-flex xl:min-w-[300px]">
       <div className="flex flex-col flex-none">
-        <SidebarLogo />
+        <div className="flex justify-between items-center">
+          <SidebarLogo />
+          {user && <NotificationButton />}
+        </div>
         <SidebarSearch />
       </div>
       <div className="flex flex-col grow">

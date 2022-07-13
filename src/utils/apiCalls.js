@@ -40,6 +40,20 @@ const fetchUserLikedPosts = (uid, token) =>
     })
     .then((res) => res.data);
 
+const fetchUserNotification = (token) =>
+  axios
+    .get(`${apiUrl}/users/notifications/list`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((res) => res.data);
+
+const fetchUserNotificationCount = (token) =>
+  axios
+    .get(`${apiUrl}/users/notifications/count`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((res) => res.data);
+
 // Post Requests
 const postComment = (id, comment) =>
   axios.post(`${apiUrl}/posts/${id}/addComment`, comment);
@@ -96,6 +110,13 @@ const unsavePost = (id, postId, token) =>
     )
     .then((res) => res.data);
 
+const createNotification = (id, token, notification) =>
+  axios
+    .post(`${apiUrl}/users/${id}/sendNotification`, notification, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((res) => res.data);
+
 const CreateOrUpdateUser = (user) =>
   axios.put(`${apiUrl}/users`, user).then((res) => res.data);
 
@@ -108,6 +129,8 @@ export {
   fetchUserPosts,
   fetchUserSavedPosts,
   fetchUserLikedPosts,
+  fetchUserNotification,
+  fetchUserNotificationCount,
   postComment,
   deleteComment,
   createPost,
@@ -118,4 +141,5 @@ export {
   unsavePost,
   reportPost,
   CreateOrUpdateUser,
+  createNotification,
 };

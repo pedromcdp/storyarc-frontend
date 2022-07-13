@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import '../styles/globals.css';
 import '../config/firebaseConfig';
 import dayjs from 'dayjs';
@@ -15,17 +16,21 @@ import CookieBox from '../components/CookieBox';
 function StoryArc({ Component, pageProps }) {
   dayjs.extend(relativeTime);
   dayjs.locale('pt');
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        refetchOnWindowFocus: false,
-        refetchOnmount: false,
-        refetchOnReconnect: false,
-        retry: false,
-        staleTime: Infinity,
-      },
-    },
-  });
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            refetchOnWindowFocus: false,
+            refetchOnmount: false,
+            refetchOnReconnect: false,
+            retry: false,
+            staleTime: Infinity,
+            cacheTime: Infinity,
+          },
+        },
+      }),
+  );
   const { acceptedCookies } = parseCookies();
 
   return (

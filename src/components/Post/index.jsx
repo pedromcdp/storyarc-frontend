@@ -12,6 +12,7 @@ import useAuth from '../../hooks/auth';
 
 export default function Post({
   id,
+  uid,
   username,
   avatar,
   timestamp,
@@ -43,7 +44,7 @@ export default function Post({
         <div className="mt-2" />
         {user && (
           <>
-            <PostFooter id={id} />
+            <PostFooter id={id} uid={uid} />
             <CommentInput user={user} id={id} />
           </>
         )}
@@ -57,7 +58,7 @@ export default function Post({
               aria-hidden="true"
               onClick={() => setShowPortal(false)}
             />
-            <div className="z-50 p-10 bg-white rounded-lg shadow-lg">
+            <div className="z-50 p-10 mx-0 w-full max-w-[95rem] h-5/6 rounded-lg shadow-lg md:mx-12 md:bg-white lg:mx-14 xl:mx-24">
               <h1>hello :)</h1>
             </div>
           </div>

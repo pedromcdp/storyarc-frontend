@@ -12,7 +12,7 @@ export default function AuthState({ children }) {
   const { setUser, setToken } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
   const [job] = useState(
-    new cron.CronJob('0 */15 * * * *', async () => {
+    new cron.CronJob('0 */2 * * * *', async () => {
       if (firebase.auth().currentUser) {
         const token = await firebase.auth().currentUser.getIdToken();
         setToken(token);

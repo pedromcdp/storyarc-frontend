@@ -48,7 +48,12 @@ export default function PostImage({
         ref={imageContainer}
         className="group relative w-full h-full select-none"
       >
-        <button onClick={() => openPortal}>
+        <button
+          onClick={() => {
+            console.log('clicked');
+            openPortal();
+          }}
+        >
           <Image
             src={image}
             alt={description}
@@ -59,7 +64,12 @@ export default function PostImage({
         </button>
         {newImage && (
           <>
-            <button onClick={() => openPortal()}>
+            <button
+              onClick={() => {
+                console.log('clicked');
+                openPortal();
+              }}
+            >
               <Image
                 src={newImage}
                 alt={description}

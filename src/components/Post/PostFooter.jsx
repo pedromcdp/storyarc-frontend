@@ -12,13 +12,14 @@ import {
   useGetUserSavedPosts,
 } from '../../hooks/useQuery';
 import {
+  useCreateNotification,
   useDislikePost,
   useLikePost,
   useSavePost,
   useUnsavePost,
 } from '../../hooks/useMutation';
 
-export default function PostFooter({ id }) {
+export default function PostFooter({ id, uid }) {
   const { user, token } = useAuth();
   const [liked, setLiked] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
@@ -28,6 +29,7 @@ export default function PostFooter({ id }) {
   const { mutate: dislikePost } = useDislikePost();
   const { mutate: savePost } = useSavePost();
   const { mutate: unsavePost } = useUnsavePost();
+  const { mutate: sendNotification } = useCreateNotification();
 
   const handleLike = () => {
     if (!liked) {
@@ -36,6 +38,14 @@ export default function PostFooter({ id }) {
         id: user.uid,
         postId: id,
         token,
+      });
+      sendNotification({
+        id: uid,
+        token,
+        notification: {
+          post: id,
+          type: 'like',
+        },
       });
     } else {
       setLiked(false);
