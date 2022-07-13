@@ -36,6 +36,7 @@ export default function PhotoDropzone({
   disabled,
   showPreview,
 }) {
+  const showGuide = !showPreview && files.length === 2;
   const { getRootProps, getInputProps, isDragAccept, isDragReject } =
     useDropzone({
       accept: {
@@ -118,7 +119,7 @@ export default function PhotoDropzone({
         </div>
       ) : (
         <>
-          {files.length === 2 && (
+          {showGuide && (
             <motion.section
               initial={{
                 opacity: 0,

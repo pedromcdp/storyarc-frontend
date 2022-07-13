@@ -224,7 +224,7 @@ export default function AddContent() {
                       type="button"
                       className="py-2.5 px-5 text-sm font-medium bg-white hover:bg-gray-100 disabled:bg-gray-100 rounded-lg border  border-gray-200 focus:outline-verde disabled:cursor-not-allowed"
                     >
-                      Preview
+                      {showPreview ? 'Voltar' : 'Preview'}
                     </motion.button>
                   )}
                 </div>
