@@ -4,7 +4,6 @@ import { Portal } from 'react-portal';
 import { XIcon } from '@heroicons/react/solid';
 import { Transition } from '@headlessui/react';
 import { motion, useAnimation } from 'framer-motion';
-import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import NotificationIcon from './NotificationIcon';
 import {
@@ -79,11 +78,3 @@ export default function Notification() {
     </Portal>
   );
 }
-
-Notification.propTypes = {
-  show: PropTypes.bool.isRequired,
-  closeFn: PropTypes.func.isRequired,
-  type: PropTypes.string,
-  title: PropTypes.string.isRequired,
-  subtitle: PropTypes.string,
-};
