@@ -24,7 +24,6 @@ export default function AuthState({ children }) {
     firebase.auth().onAuthStateChanged(async (user) => {
       setUser(user);
       if (user) {
-        await user.reload();
         user = firebase.auth().currentUser;
         const token = await user.getIdToken();
         setToken(token);

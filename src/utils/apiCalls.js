@@ -120,6 +120,20 @@ const createNotification = (id, token, notification) =>
 const CreateOrUpdateUser = (user) =>
   axios.put(`${apiUrl}/users`, user).then((res) => res.data);
 
+const deleteNotification = (token) =>
+  axios
+    .delete(`${apiUrl}/users/notifications/clear`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((res) => res.data);
+
+const deleteNotificationOnDislikes = (id, token) =>
+  axios
+    .delete(`${apiUrl}/users/notifications/remove/${id}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    })
+    .then((res) => res.data);
+
 export {
   fetchLatest,
   fetchTrending,
@@ -142,4 +156,6 @@ export {
   reportPost,
   CreateOrUpdateUser,
   createNotification,
+  deleteNotification,
+  deleteNotificationOnDislikes,
 };

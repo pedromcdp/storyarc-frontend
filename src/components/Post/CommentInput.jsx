@@ -3,12 +3,17 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { PaperAirplaneIcon } from '@heroicons/react/outline';
 import PropTypes from 'prop-types';
-import { useCreateComment } from '../../hooks/useMutation';
+import {
+  useCreateComment,
+  useCreateNotification,
+} from '../../hooks/useMutation';
+import useAuth from '../../hooks/auth';
 
-export default function CommentInput({ user, id }) {
+export default function CommentInput({ user, id, uid }) {
+  const { token } = useAuth();
   const [comment, setComment] = useState('');
   const { mutateAsync: createComment } = useCreateComment();
-
+  const { mutate: sendNotification } = useCreateNotification();
   const handleTyping = (e) => {
     setComment(e.target.value);
   };
@@ -24,6 +29,16 @@ export default function CommentInput({ user, id }) {
         body: comment,
       },
     });
+    if (user.uid !== id) {
+      sendNotification({
+        id: uid,
+        token,
+        notification: {
+          post: id,
+          type: 'comment',
+        },
+      });
+    }
   };
 
   return (

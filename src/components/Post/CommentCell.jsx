@@ -4,14 +4,22 @@ import dayjs from 'dayjs';
 import { ClockIcon, TrashIcon } from '@heroicons/react/outline';
 
 import useAuth from '../../hooks/auth';
-import { useDeleteComment } from '../../hooks/useMutation';
+import {
+  useDeleteComment,
+  useRemoveNotification,
+} from '../../hooks/useMutation';
 
 export default function CommentCell({ comment, postId }) {
-  const { user } = useAuth();
+  const { user, token } = useAuth();
   const { mutate: deleteComment } = useDeleteComment();
+  const { mutate: removeNotification } = useRemoveNotification();
 
   const handleDelete = () => {
     deleteComment({ id: comment._id, postId });
+    removeNotification({
+      id: postId,
+      token,
+    });
   };
 
   return (

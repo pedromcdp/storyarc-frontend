@@ -17,6 +17,7 @@ import {
   useCreateNotification,
   useDislikePost,
   useLikePost,
+  useRemoveNotification,
   useSavePost,
   useUnsavePost,
 } from '../../hooks/useMutation';
@@ -32,6 +33,7 @@ export default function PostFooter({ id, uid }) {
   const { mutate: savePost } = useSavePost();
   const { mutate: unsavePost } = useUnsavePost();
   const { mutate: sendNotification } = useCreateNotification();
+  const { mutate: removeNotification } = useRemoveNotification();
   const dispatch = useDispatch();
 
   const handleLike = () => {
@@ -42,19 +44,25 @@ export default function PostFooter({ id, uid }) {
         postId: id,
         token,
       });
-      sendNotification({
-        id: uid,
-        token,
-        notification: {
-          post: id,
-          type: 'like',
-        },
-      });
+      if (user.uid !== uid) {
+        sendNotification({
+          id: uid,
+          token,
+          notification: {
+            post: id,
+            type: 'like',
+          },
+        });
+      }
     } else {
       setLiked(false);
       dislikePost({
         id: user.uid,
         postId: id,
+        token,
+      });
+      removeNotification({
+        id,
         token,
       });
     }

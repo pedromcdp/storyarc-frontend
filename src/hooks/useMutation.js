@@ -11,6 +11,8 @@ import {
   reportPost,
   CreateOrUpdateUser,
   createNotification,
+  deleteNotification,
+  deleteNotificationOnDislikes,
 } from '../utils/apiCalls';
 
 export const useAddUser = () => useMutation((user) => CreateOrUpdateUser(user));
@@ -139,3 +141,30 @@ export const useCreateNotification = () =>
       },
     },
   );
+
+export const useClearNotifications = () => {
+  const queryClient = useQueryClient();
+  return useMutation((token) => deleteNotification(token), {
+    onMutate: () => {
+      queryClient.setQueryData('userNotifications', () => ({
+        unreadCount: 0,
+        notifications: [],
+      }));
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries('userNotifications');
+    },
+  });
+};
+
+export const useRemoveNotification = () => {
+  const queryClient = useQueryClient();
+  return useMutation(
+    ({ id, token }) => deleteNotificationOnDislikes(id, token),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('userNotifications');
+      },
+    },
+  );
+};

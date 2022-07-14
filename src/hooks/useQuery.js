@@ -87,13 +87,17 @@ export function useGetUserLikedPosts(uid, token) {
   return useQuery('userLikedPosts', () => fetchUserLikedPosts(uid, token));
 }
 
-export function useGetUserNotification(token) {
-  return useQuery('userNotifications', () => fetchUserNotification(token));
+export function useGetUserNotifications(token) {
+  return useQuery('userNotifications', () => fetchUserNotification(token), {
+    keepPreviousData: true,
+    refetchInterval: 3000,
+    refetchOnMount: true,
+  });
 }
 
 export function useGetUserNotificationCount(token) {
   return useQuery(
-    ['userNotificationCount', token],
+    'userNotificationCount',
     () => fetchUserNotificationCount(token),
     {
       keepPreviousData: true,

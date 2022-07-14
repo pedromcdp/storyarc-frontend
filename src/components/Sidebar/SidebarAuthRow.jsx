@@ -4,13 +4,16 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { LogoutIcon } from '@heroicons/react/outline';
 import PropTypes from 'prop-types';
+import { useQueryClient } from 'react-query';
+import { useRouter } from 'next/router';
 import useAuth from '../../hooks/auth';
 import { useAddUser } from '../../hooks/useMutation';
 
 export default function SidebarAuthRow({ user, Icon }) {
   const { logout, token, user: authUser } = useAuth();
   const { mutate: addUser } = useAddUser();
-
+  const router = useRouter();
+  const queryClient = useQueryClient();
   useEffect(() => {
     if (authUser.photoURL) {
       addUser({
@@ -59,7 +62,15 @@ export default function SidebarAuthRow({ user, Icon }) {
       <button
         type="button"
         aria-label="Botão para encerrar sessão"
-        onClick={() => logout()}
+        onClick={() => {
+          queryClient.removeQueries('userNotifications');
+          queryClient.removeQueries('userNotificationCount');
+          queryClient.removeQueries('userSavedPosts');
+          queryClient.removeQueries('userLikedPosts');
+          queryClient.removeQueries('userPosts');
+          logout();
+          router.push('/');
+        }}
         className="flex grow justify-end opacity-0 group-hover:opacity-100 group-focus:opacity-100 hover:opacity-100 focus:opacity-100"
       >
         <LogoutIcon className="w-6 h-6 opacity-50 hover:opacity-100 focus:opacity-100 transition duration-75 ease-in-out" />

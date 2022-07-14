@@ -45,7 +45,7 @@ export default function Post({
         {user && (
           <>
             <PostFooter id={id} uid={uid} />
-            <CommentInput user={user} id={id} />
+            <CommentInput user={user} id={id} uid={uid} />
           </>
         )}
         <CommentsContainer id={id} />
