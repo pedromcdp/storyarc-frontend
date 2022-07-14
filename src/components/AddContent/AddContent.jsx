@@ -195,7 +195,13 @@ export default function AddContent() {
                           disabled,
                           placeholder: 'Introduz a data da fotografia',
                         }}
-                        onChange={(date) => setValue('date', date.year())}
+                        onChange={(date) => {
+                          if (typeof date === 'string') {
+                            setValue('date', date);
+                          } else {
+                            setValue('date', date.year());
+                          }
+                        }}
                         value={value}
                         timeFormat={false}
                         closeOnSelect={true}
