@@ -3,7 +3,9 @@ import { motion } from 'framer-motion';
 import { Dialog, Transition } from '@headlessui/react';
 import { XIcon } from '@heroicons/react/solid';
 import { useDispatch, useSelector } from 'react-redux';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
+import Datetime from 'react-datetime';
+import moment from 'moment';
 import {
   useAddContent,
   closeAddContent,
@@ -14,6 +16,7 @@ import PhotoDropzone from './PhotoDropzone';
 import { UploadService } from '../../services/uploadService';
 import useAuth from '../../hooks/auth';
 import { useCreatePost } from '../../hooks/useMutation';
+import 'react-datetime/css/react-datetime.css';
 
 export default function AddContent() {
   const { user } = useAuth();
@@ -27,6 +30,8 @@ export default function AddContent() {
     register,
     handleSubmit,
     setError,
+    control,
+    setValue,
     formState: { errors },
   } = useForm();
 
@@ -168,17 +173,55 @@ export default function AddContent() {
                   )}
                 </div>
                 <div>
-                  <input
-                    {...register('date', {
+                  <Controller
+                    name="date"
+                    control={control}
+                    render={({ value, field }) => (
+                      <Datetime
+                        {...field}
+                        dateFormat="YYYY"
+                        initialViewMode="years"
+                        inputProps={{
+                          className: 'addContentInput',
+                          disabled,
+                          placeholder: 'Introduz a data da fotografia',
+                        }}
+                        onChange={(date) => setValue('date', date.year())}
+                        value={value}
+                        timeFormat={false}
+                        closeOnSelect={true}
+                        isValidDate={(current) =>
+                          current.isBefore(moment()) &&
+                          current.isAfter(moment('1822-01-01'))
+                        }
+                      />
+                    )}
+                    rules={{
                       required: {
                         value: true,
                         message: 'É necessário preencher o campo data',
                       },
-                    })}
-                    disabled={disabled}
-                    className="addContentInput"
-                    type="date"
-                    placeholder="Seleciona uma data"
+                      maxLength: {
+                        value: 4,
+                        message: 'O ano deve ter 4 dígitos',
+                      },
+                      minLength: {
+                        value: 4,
+                        message: 'O ano deve ter 4 dígitos',
+                      },
+                      pattern: {
+                        value: /^[0-9]*$/,
+                        message: 'O ano deve ter apenas dígitos',
+                      },
+                      min: {
+                        value: 1822,
+                        message: 'O ano deve ser maior ou igual a 1900',
+                      },
+                      max: {
+                        value: moment().year(),
+                        message: 'O ano deve ser menor ou igual ao ano atual',
+                      },
+                    }}
                   />
                   {errors.date && (
                     <p className="text-xs text-red-500">
