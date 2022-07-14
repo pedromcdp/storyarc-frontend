@@ -17,6 +17,7 @@ import { UploadService } from '../../services/uploadService';
 import useAuth from '../../hooks/auth';
 import { useCreatePost } from '../../hooks/useMutation';
 import 'react-datetime/css/react-datetime.css';
+import { showNotification } from '../../features/notification/notificationSlice';
 
 export default function AddContent() {
   const { user } = useAuth();
@@ -57,6 +58,14 @@ export default function AddContent() {
               setFiles([]);
               dispatch(closeAddContent());
               dispatch(hideLoading());
+              dispatch(
+                showNotification({
+                  type: 'success',
+                  title: 'Publicação criada com sucesso',
+                  subtitle:
+                    'Agora é só aguardar que os outros utilzadores vejam a sua publicação!',
+                }),
+              );
               document.getElementById('scrollparent').scrollTo({
                 top: 0,
                 behavior: 'smooth',

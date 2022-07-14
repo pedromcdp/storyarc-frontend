@@ -42,7 +42,7 @@ export default function Notification() {
           leave="ease-out duration-300"
           leaveFrom="translate-y-0 sm:translate-x-0 opacity-100"
           leaveTo="-translate-y-full sm:-translate-y-0 sm:translate-x-full opacity-0"
-          className="group fixed top-16 right-1/2 z-30 w-3/4 transition-all ease-in-out translate-x-1/2 sm:right-3 sm:w-[22rem] sm:translate-x-0 md:top-3 sm:top-15"
+          className="group fixed top-16 right-1/2 z-50 w-3/4 transition-all ease-in-out translate-x-1/2 sm:right-3 sm:w-[22rem] sm:translate-x-0 md:top-3 sm:top-15"
         >
           <motion.div
             drag="x"

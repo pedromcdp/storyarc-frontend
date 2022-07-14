@@ -17,7 +17,7 @@
 }
 
 .notificationIcon {
-  @apply w-8 h-8;
+  @apply flex-none w-8 h-8;
 }
 
 .formInput {
