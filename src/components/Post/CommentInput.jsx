@@ -29,7 +29,7 @@ export default function CommentInput({ user, id, uid }) {
         body: comment,
       },
     });
-    if (user.uid !== id) {
+    if (user.uid !== uid) {
       sendNotification({
         id: uid,
         token,
