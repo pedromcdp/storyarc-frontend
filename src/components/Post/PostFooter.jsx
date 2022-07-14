@@ -6,7 +6,9 @@ import {
   ThumbLike24Filled,
   ThumbLike24Regular,
 } from '@fluentui/react-icons';
+import { useDispatch } from 'react-redux';
 import useAuth from '../../hooks/auth';
+import { showNotification } from '../../features/notification/notificationSlice';
 import {
   useGetUserLikedPosts,
   useGetUserSavedPosts,
@@ -30,6 +32,7 @@ export default function PostFooter({ id, uid }) {
   const { mutate: savePost } = useSavePost();
   const { mutate: unsavePost } = useUnsavePost();
   const { mutate: sendNotification } = useCreateNotification();
+  const dispatch = useDispatch();
 
   const handleLike = () => {
     if (!liked) {
@@ -65,6 +68,12 @@ export default function PostFooter({ id, uid }) {
         postId: id,
         token,
       });
+      dispatch(
+        showNotification({
+          type: 'success',
+          title: 'Publicação guardada',
+        }),
+      );
     } else {
       setBookmarked(false);
       unsavePost({
