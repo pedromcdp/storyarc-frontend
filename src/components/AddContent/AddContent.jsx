@@ -230,7 +230,7 @@ export default function AddContent() {
                       },
                       min: {
                         value: 1822,
-                        message: 'O ano deve ser maior ou igual a 1900',
+                        message: 'O ano deve ser maior ou igual a 1822',
                       },
                       max: {
                         value: moment().year(),
