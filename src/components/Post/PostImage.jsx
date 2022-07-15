@@ -6,6 +6,7 @@ export default function PostImage({
   newImage,
   description,
   openPortal,
+  isFullScreen,
 }) {
   const [showPercentage, setShowPercentage] = useState(0.5);
   const imageContainer = useRef(undefined);
@@ -43,15 +44,18 @@ export default function PostImage({
   };
 
   return (
-    <div className="overflow-hidden h-56 md:h-72 lg:h-96">
+    <div
+      className={
+        isFullScreen ? 'w-full h-full' : 'overflow-hidden h-56 md:h-72 lg:h-96'
+      }
+    >
       <div
         ref={imageContainer}
         className="group relative w-full h-full select-none"
       >
         <button
           onClick={() => {
-            console.log('clicked');
-            openPortal();
+            if (!isFullScreen) openPortal();
           }}
         >
           <Image
@@ -66,8 +70,7 @@ export default function PostImage({
           <>
             <button
               onClick={() => {
-                console.log('clicked');
-                openPortal();
+                if (!isFullScreen) openPortal();
               }}
             >
               <Image

@@ -1,11 +1,12 @@
-import { useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useState, useEffect } from 'react';
 import '../styles/globals.css';
 import '../config/firebaseConfig';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { QueryClient, QueryClientProvider, Hydrate } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import { parseCookies } from 'nookies';
+import { parseCookies, setCookie } from 'nookies';
 import { Provider } from 'react-redux';
 import { store } from '../app/store';
 import { AuthProvider } from '../hooks/auth';
@@ -32,6 +33,12 @@ function StoryArc({ Component, pageProps }) {
       }),
   );
   const { acceptedCookies } = parseCookies();
+
+  useEffect(() => {
+    if (acceptedCookies) {
+      setCookie(null, 'acceptedCookies', 'ouioui');
+    }
+  }, []);
 
   return (
     <Provider store={store}>

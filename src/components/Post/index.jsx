@@ -1,13 +1,12 @@
-import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { motion } from 'framer-motion';
-import { Portal } from 'react-portal';
+import { motion, useCycle } from 'framer-motion';
 import PostHeader from './PostHeader';
 import PostDescription from './PostDescription';
 import PostImage from './PostImage';
 import PostFooter from './PostFooter';
 import CommentInput from './CommentInput';
 import CommentsContainer from './CommentsContainer';
+import FullScreenView from './FullScreenView';
 import useAuth from '../../hooks/auth';
 
 export default function Post({
@@ -21,7 +20,7 @@ export default function Post({
   newImage,
 }) {
   const { user } = useAuth();
-  const [showPortal, setShowPortal] = useState(false);
+  const [showPortal, setShowPortal] = useCycle(false, true);
 
   return (
     <motion.article initial={false} layout className="flex flex-col">
@@ -39,7 +38,7 @@ export default function Post({
           image={image}
           newImage={newImage}
           description={description}
-          openPortal={() => setShowPortal(true)}
+          openPortal={setShowPortal}
         />
         <div className="mt-2" />
         {user && (
@@ -50,20 +49,13 @@ export default function Post({
         )}
         <CommentsContainer id={id} />
       </motion.div>
-      {showPortal && (
-        <Portal>
-          <div className="flex fixed inset-0 z-50 justify-center items-center">
-            <div
-              className="fixed inset-0 bg-black/30"
-              aria-hidden="true"
-              onClick={() => setShowPortal(false)}
-            />
-            <div className="z-50 p-10 mx-0 w-full max-w-[95rem] h-5/6 rounded-lg shadow-lg md:mx-12 md:bg-white lg:mx-14 xl:mx-24">
-              <h1>hello :)</h1>
-            </div>
-          </div>
-        </Portal>
-      )}
+      <FullScreenView
+        showPortal={showPortal}
+        setShowPortal={setShowPortal}
+        image={image}
+        newImage={newImage}
+        description={description}
+      />
     </motion.article>
   );
 }
