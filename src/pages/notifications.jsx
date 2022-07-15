@@ -1,17 +1,32 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useRouter } from 'next/router';
 import { CollectionIcon, TrashIcon } from '@heroicons/react/outline';
+import { useEffect } from 'react';
 import NotificationPageContainer from '../components/Notification/NotificationPageContainer';
 import NotificationPageItem from '../components/Notification/NotificationPageItem';
 import useAuth from '../hooks/auth';
 import { useGetUserNotifications } from '../hooks/useQuery';
 import MainLayout from '../layouts/MainLayout';
-import { useClearNotifications } from '../hooks/useMutation';
+import {
+  useClearNotifications,
+  useMarkNotificationsAsRead,
+} from '../hooks/useMutation';
 
 export default function Notifications() {
   const { user, token } = useAuth();
   const router = useRouter();
   const { data: notificationData } = useGetUserNotifications(token);
   const { mutate: clearNotifications } = useClearNotifications();
+  const { mutate: markNotificationsAsRead } = useMarkNotificationsAsRead();
+
+  useEffect(() => {
+    if (user) {
+      const tiemer = setTimeout(() => {
+        markNotificationsAsRead(token);
+      }, 1500);
+      return () => clearTimeout(tiemer);
+    }
+  }, []);
 
   if (!user) {
     router.replace('/');

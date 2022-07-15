@@ -9,7 +9,6 @@ import {
   fetchUserSavedPosts,
   fetchUserLikedPosts,
   fetchUserNotification,
-  fetchUserNotificationCount,
 } from '../utils/apiCalls';
 
 export function useGetRecent() {
@@ -93,16 +92,4 @@ export function useGetUserNotifications(token) {
     refetchInterval: 3000,
     refetchOnMount: true,
   });
-}
-
-export function useGetUserNotificationCount(token) {
-  return useQuery(
-    'userNotificationCount',
-    () => fetchUserNotificationCount(token),
-    {
-      keepPreviousData: true,
-      refetchInterval: 3000,
-      cacheTime: Infinity,
-    },
-  );
 }

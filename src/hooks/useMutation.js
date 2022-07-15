@@ -13,6 +13,7 @@ import {
   createNotification,
   deleteNotification,
   deleteNotificationOnDislikes,
+  markNotificationsAsRead,
 } from '../utils/apiCalls';
 
 export const useAddUser = () => useMutation((user) => CreateOrUpdateUser(user));
@@ -167,4 +168,22 @@ export const useRemoveNotification = () => {
       },
     },
   );
+};
+
+export const useMarkNotificationsAsRead = () => {
+  const queryClient = useQueryClient();
+  return useMutation((token) => markNotificationsAsRead(token), {
+    onMutate: () => {
+      queryClient.setQueryData('userNotifications', (oldQueryData) => ({
+        unreadCount: 0,
+        notifications: oldQueryData.notifications.map((notification) => ({
+          ...notification,
+          read: true,
+        })),
+      }));
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries('userNotifications');
+    },
+  });
 };

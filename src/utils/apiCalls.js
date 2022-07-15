@@ -47,13 +47,6 @@ const fetchUserNotification = (token) =>
     })
     .then((res) => res.data);
 
-const fetchUserNotificationCount = (token) =>
-  axios
-    .get(`${apiUrl}/users/notifications/count`, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-    .then((res) => res.data);
-
 // Post Requests
 const postComment = (id, comment) =>
   axios.post(`${apiUrl}/posts/${id}/addComment`, comment);
@@ -134,6 +127,17 @@ const deleteNotificationOnDislikes = (id, token) =>
     })
     .then((res) => res.data);
 
+const markNotificationsAsRead = (token) =>
+  axios
+    .put(
+      `${apiUrl}/users/notifications/read`,
+      {},
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      },
+    )
+    .then((res) => res.data);
+
 export {
   fetchLatest,
   fetchTrending,
@@ -144,7 +148,6 @@ export {
   fetchUserSavedPosts,
   fetchUserLikedPosts,
   fetchUserNotification,
-  fetchUserNotificationCount,
   postComment,
   deleteComment,
   createPost,
@@ -158,4 +161,5 @@ export {
   createNotification,
   deleteNotification,
   deleteNotificationOnDislikes,
+  markNotificationsAsRead,
 };

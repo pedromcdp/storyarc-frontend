@@ -11,7 +11,7 @@ export default function NotificationPageItem({ notification }) {
       <div
         className={`flex p-4 space-x-2 bg-white rounded-2xl border transition-shadow duration-100 ease-in-out ${
           !read ? 'shadow-md' : 'shadow-sm'
-        } `}
+        } cursor-pointer`}
       >
         <div className="flex flex-none">
           <Image
