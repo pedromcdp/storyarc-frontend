@@ -21,10 +21,10 @@ export default function Notifications() {
 
   useEffect(() => {
     if (user) {
-      const tiemer = setTimeout(() => {
+      const timer = setTimeout(() => {
         markNotificationsAsRead(token);
       }, 1500);
-      return () => clearTimeout(tiemer);
+      return () => clearTimeout(timer);
     }
   }, []);
 
