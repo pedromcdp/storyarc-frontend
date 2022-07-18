@@ -22,10 +22,6 @@ function StoryArc({ Component, pageProps }) {
       new QueryClient({
         defaultOptions: {
           queries: {
-            refetchOnWindowFocus: false,
-            refetchOnmount: false,
-            refetchOnReconnect: false,
-            retry: false,
             staleTime: Infinity,
             cacheTime: Infinity,
           },
