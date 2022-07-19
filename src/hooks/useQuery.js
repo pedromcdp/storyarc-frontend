@@ -75,7 +75,9 @@ export function useGetPostComments(postId) {
 }
 
 export function useGetUserPosts(uid, token) {
-  return useQuery('userPosts', () => fetchUserPosts(uid, token));
+  return useQuery('userPosts', () => fetchUserPosts(uid, token), {
+    enabled: token !== null,
+  });
 }
 
 export function useGetUserSavedPosts(uid, token) {

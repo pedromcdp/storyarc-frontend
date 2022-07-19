@@ -40,11 +40,13 @@ export default function PostHeader({
   const { mutateAsync: deletePost } = useDeletePost();
 
   useEffect(() => {
-    if (ownPosts) {
-      const isOwnPost = ownPosts.some((post) => post._id === id);
-      setOwnPost(Boolean(isOwnPost));
+    if (user) {
+      if (ownPosts) {
+        const isOwnPost = ownPosts.some((post) => post._id === id);
+        setOwnPost(Boolean(isOwnPost));
+      }
     }
-  }, [ownPosts, id]);
+  }, [ownPosts, id, user]);
 
   const handleCopyToClipboard = () => {
     clipboard.copy(`${pageUrl}/post/${id}`);
@@ -114,7 +116,7 @@ export default function PostHeader({
             </span>
           </li>
           <div className="w-full h-[1.2px] bg-gray-100 rounded-2xl"></div>
-          {!ownPost ? (
+          {!ownPost || !user ? (
             <li
               tabIndex={0}
               onClick={async () => {
