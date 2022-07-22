@@ -81,11 +81,21 @@ export function useGetUserPosts(uid, token) {
 }
 
 export function useGetUserSavedPosts(uid, token) {
-  return useQuery('userSavedPosts', () => fetchUserSavedPosts(uid, token));
+  return useQuery('userSavedPosts', () => fetchUserSavedPosts(uid, token), {
+    initialData: () => {
+      const initialData = { savedPosts: [] };
+      return initialData;
+    },
+  });
 }
 
 export function useGetUserLikedPosts(uid, token) {
-  return useQuery('userLikedPosts', () => fetchUserLikedPosts(uid, token));
+  return useQuery('userLikedPosts', () => fetchUserLikedPosts(uid, token), {
+    initialData: () => {
+      const initialData = { likedPosts: [] };
+      return initialData;
+    },
+  });
 }
 
 export function useGetUserNotifications(token) {

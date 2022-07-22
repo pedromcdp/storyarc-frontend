@@ -133,14 +133,8 @@ export const useUnsavePost = () => {
 export const useReportPost = () => useMutation((id) => reportPost(id));
 
 export const useCreateNotification = () =>
-  useMutation(
-    ({ id, token, notification }) =>
-      createNotification(id, token, notification),
-    {
-      onSuccess: (data) => {
-        console.log(data);
-      },
-    },
+  useMutation(({ id, token, notification }) =>
+    createNotification(id, token, notification),
   );
 
 export const useClearNotifications = () => {

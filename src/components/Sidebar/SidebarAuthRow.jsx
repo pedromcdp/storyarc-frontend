@@ -39,7 +39,7 @@ export default function SidebarAuthRow({ user, Icon }) {
         as="/auth/profile"
         passHref
       >
-        <div className="group flex items-center space-x-2">
+        <div className="group flex grow items-center space-x-2">
           {user && (
             <Image
               src={user.photoURL ? user.photoURL : '/images/avatar.webp'}
@@ -71,7 +71,7 @@ export default function SidebarAuthRow({ user, Icon }) {
           logout();
           router.push('/');
         }}
-        className="flex grow justify-end opacity-0 group-hover:opacity-100 group-focus:opacity-100 hover:opacity-100 focus:opacity-100"
+        className="flex-none justify-end opacity-0 group-hover:opacity-100 group-focus:opacity-100 hover:opacity-100 focus:opacity-100"
       >
         <LogoutIcon className="w-6 h-6 opacity-50 hover:opacity-100 focus:opacity-100 transition duration-75 ease-in-out" />
       </button>
