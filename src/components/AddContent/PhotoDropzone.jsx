@@ -1,7 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import { motion } from 'framer-motion';
 import { useMemo, useEffect } from 'react';
+import { SwitchHorizontalIcon } from '@heroicons/react/solid';
 import { useDropzone } from 'react-dropzone';
 import Image from 'next/image';
 import { TrashIcon } from '@heroicons/react/outline';
+import ComparePreview from './ComparePreview';
 
 const baseStyle = {
   flex: 1,
@@ -11,7 +15,6 @@ const baseStyle = {
   padding: '20px',
   borderWidth: 2,
   borderRadius: 2,
-  borderColor: '#eeeeee',
   borderStyle: 'dashed',
   backgroundColor: '#fafafa',
   color: '#bdbdbd',
@@ -27,13 +30,20 @@ const rejectStyle = {
   borderColor: '#ff1744',
 };
 
-export default function PhotoDropzone({ files, setFiles }) {
+export default function PhotoDropzone({
+  files,
+  setFiles,
+  disabled,
+  showPreview,
+}) {
+  const showGuide = !showPreview && files.length === 2;
   const { getRootProps, getInputProps, isDragAccept, isDragReject } =
     useDropzone({
       accept: {
         'image/*': [],
       },
       maxFiles: 2,
+      maxSize: 3 * 1048576,
       onDrop: (acceptedFiles) => {
         setFiles(
           acceptedFiles.map((file) =>
@@ -65,12 +75,18 @@ export default function PhotoDropzone({ files, setFiles }) {
     setFiles(temp);
   };
 
+  const swapImage = () => {
+    const temp = [...files];
+    temp.splice(1, 0, temp.splice(0, 1)[0]);
+    setFiles(temp);
+  };
+
   return (
     <section className="container">
       {files.length === 0 ? (
         <div
           {...getRootProps({ className: 'dropzone', style })}
-          className="py-6 px-3 w-full font-light tracking-wide leading-tight text-gray-700 rounded border focus:outline-none shadow appearance-none cursor-pointer focus:shadow-outline"
+          className="py-6 px-3 w-full font-light tracking-wide leading-tight text-gray-700 rounded border focus:border-verde focus:outline-none shadow appearance-none cursor-pointer focus:shadow-outline"
         >
           <svg
             className="m-auto w-28 h-28 rotate-12"
@@ -94,6 +110,7 @@ export default function PhotoDropzone({ files, setFiles }) {
           </p>
           <input
             {...getInputProps()}
+            disabled={disabled}
             type="file"
             id="myfile"
             name="myfile"
@@ -101,26 +118,55 @@ export default function PhotoDropzone({ files, setFiles }) {
           />
         </div>
       ) : (
-        <aside className="flex">
-          {files.map((file, i) => (
-            <button
-              className="relative grow h-56 border border-verde"
-              onClick={() => removeImage(i)}
-              key={file.name}
+        <>
+          {showGuide && (
+            <motion.section
+              initial={{
+                opacity: 0,
+                scale: 0,
+              }}
+              animate={{
+                opacity: 1,
+                scale: 1,
+              }}
+              className="flex justify-center items-center mb-1"
             >
-              <Image
-                src={file.preview}
-                alt={file.name}
-                layout="fill"
-                className="object-cover object-center"
-                onLoad={() => URL.revokeObjectURL(file.preview)}
-              />
-              <div className="flex absolute inset-0 justify-center items-center bg-black/0 hover:bg-black/40 opacity-0 hover:opacity-100 transition duration-200 ease-out cursor-pointer">
-                <TrashIcon className="w-8 h-8 text-white" />
+              <div className="basis-2/5 ">Foto antiga</div>
+              <div className="flex basis-1/5 justify-center">
+                <button type="button" onClick={() => swapImage()}>
+                  <SwitchHorizontalIcon className="p-1 w-7 h-7 text-verde hover:bg-gray-100 rounded-full" />
+                </button>
               </div>
-            </button>
-          ))}
-        </aside>
+              <div className="flex basis-2/5 justify-end">
+                <span>Foto mais recente</span>
+              </div>
+            </motion.section>
+          )}
+          <aside className="flex">
+            {!showPreview ? (
+              files.map((file, i) => (
+                <button
+                  className="relative grow h-56 border border-verde"
+                  onClick={() => removeImage(i)}
+                  key={file.name}
+                >
+                  <Image
+                    src={file.preview}
+                    alt={file.name}
+                    layout="fill"
+                    className="object-scale-down w-full h-full"
+                    onLoad={() => URL.revokeObjectURL(file.preview)}
+                  />
+                  <div className="flex absolute inset-0 justify-center items-center bg-black/0 hover:bg-black/40 opacity-0 hover:opacity-100 transition duration-200 ease-out cursor-pointer">
+                    <TrashIcon className="w-8 h-8 text-white" />
+                  </div>
+                </button>
+              ))
+            ) : (
+              <ComparePreview files={files} />
+            )}
+          </aside>
+        </>
       )}
     </section>
   );

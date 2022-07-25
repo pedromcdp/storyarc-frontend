@@ -1,7 +1,13 @@
 import { useState, useRef } from 'react';
 import Image from 'next/image';
 
-export default function PostImage({ image, newImage }) {
+export default function PostImage({
+  image,
+  newImage,
+  description,
+  openPortal,
+  isFullScreen,
+}) {
   const [showPercentage, setShowPercentage] = useState(0.5);
   const imageContainer = useRef(undefined);
 
@@ -38,37 +44,53 @@ export default function PostImage({ image, newImage }) {
   };
 
   return (
-    <div className="h-56 md:h-72 lg:h-96">
+    <div
+      className={
+        isFullScreen ? 'w-full h-full' : 'overflow-hidden h-56 md:h-72 lg:h-96'
+      }
+    >
       <div
         ref={imageContainer}
         className="group relative w-full h-full select-none"
       >
-        <Image
-          src={image}
-          alt="foto de c"
-          layout="fill"
-          className={`${newImage && 'grayscale'} pointer-events-none`}
-          priority
-        />
+        <button
+          onClick={() => {
+            if (!isFullScreen) openPortal();
+          }}
+        >
+          <Image
+            src={image}
+            alt={description}
+            layout="fill"
+            className={`${newImage && 'grayscale'} pointer-events-none`}
+            priority
+          />
+        </button>
         {newImage && (
           <>
-            <Image
-              src={newImage}
-              alt="foto de x"
-              layout="fill"
-              style={{
-                clipPath: `polygon(0 0, ${showPercentage * 100}% 0, ${
-                  showPercentage * 100
-                }% 100%, 0 100%)`,
+            <button
+              onClick={() => {
+                if (!isFullScreen) openPortal();
               }}
-              className="pointer-events-none"
-              priority
-            />
+            >
+              <Image
+                src={newImage}
+                alt={description}
+                layout="fill"
+                style={{
+                  clipPath: `polygon(0 0, ${showPercentage * 100}% 0, ${
+                    showPercentage * 100
+                  }% 100%, 0 100%)`,
+                }}
+                className="pointer-events-none"
+                priority
+              />
+            </button>
             <div
               style={{ left: `${showPercentage * 100}%` }}
-              className="absolute inset-y-0 group-hover:opacity-100 sm:opacity-0"
+              className="absolute inset-y-0 group-hover:opacity-100 lg:opacity-0"
             >
-              <div className="relative h-full opacity-50 hover:opacity-100">
+              <div className="relative h-full opacity-100">
                 <div
                   role="slider"
                   aria-valuenow={showPercentage * 100}
@@ -76,10 +98,12 @@ export default function PostImage({ image, newImage }) {
                   style={{ touchAction: 'none' }}
                   onMouseDown={handleMouseDown}
                   onTouchMove={handleTouchMove}
-                  className="absolute inset-y-0 ml-[-0.5] w-1 bg-verde drop-shadow-md cursor-move"
-                ></div>
+                  className="absolute inset-y-0 ml-[-3.65rem] w-28 focus-visible:ring-verde hover:opacity-100 lg:opacity-50"
+                >
+                  <div className="absolute inset-y-0 left-1/2 justify-center w-1 bg-verde cursor-move item-center" />
+                </div>
               </div>
-            </div>{' '}
+            </div>
           </>
         )}
       </div>

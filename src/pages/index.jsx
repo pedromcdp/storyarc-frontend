@@ -1,30 +1,57 @@
+import { QueryClient, dehydrate } from 'react-query';
+import { useSelector } from 'react-redux';
 import MainLayout from '../layouts/MainLayout';
-import FeedFilter from '../components/FeedFilter';
 import PostsContainer from '../components/Feed/PostsContainer';
-import { wrapper } from '../app/store';
-import {
-  getAllPost,
-  useGetAllPostQuery,
-  getRunningOperationPromises,
-} from '../services/storyarc';
+import Loading from '../components/Loading';
+import FeedFilter from '../components/FeedFilter';
+import { useFeedFilter } from '../features/feedFilter/feedFilterSlice';
+import { useGetRecent, useGetTrending } from '../hooks/useQuery';
+import { fetchLatest } from '../utils/apiCalls';
 
 export default function Home() {
-  const { data } = useGetAllPostQuery();
+  const { data, isLoading, isRefetching, hasNextPage, fetchNextPage } =
+    useGetRecent();
+  const {
+    data: trendingData,
+    isLoading: trendingIsLoading,
+    hasNextPage: trendingHasNextPage,
+    fetchNextPage: trendingFetchNextPage,
+  } = useGetTrending();
+
   return (
     <MainLayout title="storyarc">
       <FeedFilter />
-      <PostsContainer data={data.data} />
+      {(isLoading || trendingIsLoading || isRefetching) && (
+        <Loading size="xs" />
+      )}
+      {JSON.parse(useSelector(useFeedFilter)).value === 'latest' ? (
+        <PostsContainer
+          data={data}
+          hasNextPage={hasNextPage}
+          fetchNextPage={fetchNextPage}
+        />
+      ) : (
+        <PostsContainer
+          data={trendingData}
+          hasNextPage={trendingHasNextPage}
+          fetchNextPage={trendingFetchNextPage}
+        />
+      )}
     </MainLayout>
   );
 }
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  (store) => async () => {
-    store.dispatch(getAllPost.initiate());
-    await Promise.all(getRunningOperationPromises());
-
-    return {
-      props: {},
-    };
-  },
-);
+export async function getServerSideProps(context) {
+  const { res } = context;
+  res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=10, stale-while-revalidate=59',
+  );
+  const queryClient = new QueryClient();
+  await queryClient.prefetchInfiniteQuery('recent', () => fetchLatest(0));
+  return {
+    props: {
+      preloadedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+    },
+  };
+}

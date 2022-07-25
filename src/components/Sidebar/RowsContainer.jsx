@@ -10,13 +10,13 @@ export default function RowsContainer({
   return (
     <section className={`md:mt-4 w-max-full ${moreClasses}`}>
       <h1
-        className="mb-1 text-sm tracking-wide text-gray-500 md:text-base"
+        className="mb-1 text-sm tracking-wide text-gray-500 focus:outline-verde md:text-base"
         tabIndex={0}
         aria-label={ariaText}
       >
         {title}
       </h1>
-      <div className="flex justify-evenly md:block md:mt-2 md:space-y-1">
+      <div className="flex gap-2 justify-evenly md:block md:mt-2 md:space-y-1">
         {children}
       </div>
     </section>

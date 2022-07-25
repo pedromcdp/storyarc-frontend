@@ -28,6 +28,19 @@ const nextConfig = withPWA({
     register: true,
     skipWaiting: true,
     disable: process.env.NODE_ENV === 'development',
+    runtimeCaching: [
+      {
+        urlPattern: /^https:\/\/firebasestorage\.googleapis\.com/,
+        handler: 'NetworkFirst',
+        options: {
+          cacheName: 'firebase-storage',
+          expiration: {
+            maxEntries: 100,
+            maxAgeSeconds: 7 * 24 * 60 * 60, // 1 week
+          },
+        },
+      },
+    ],
   },
 });
 

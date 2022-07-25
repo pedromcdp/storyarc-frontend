@@ -1,15 +1,30 @@
-import Link from 'next/link';
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import { useRouter } from 'next/router';
+import { useGetRecent } from '../../hooks/useQuery';
 
 export default function SidebarLogo() {
+  const { refetch } = useGetRecent();
+  const router = useRouter();
+
   return (
-    <div
-      className="mb-1 w-36 h-12 cursor-pointer"
-      aria-label="Storyarc"
-      role="link"
-    >
-      <Link href="/" passHref>
+    <div className="flex justify-center items-center mb-1 w-36 h-12 outline-verde cursor-pointer">
+      <button
+        aria-label="storyarc"
+        role="link"
+        onClick={() => {
+          document.getElementById('scrollparent').scrollTo({
+            top: 0,
+            behavior: 'smooth',
+          });
+          if (router.route === '/') {
+            refetch();
+          } else {
+            router.push('/');
+          }
+        }}
+      >
         <svg
-          tabIndex={0}
           className="w-full h-full"
           viewBox="0 0 1364 297"
           fill="none"
@@ -50,7 +65,7 @@ export default function SidebarLogo() {
             fill="#37B780"
           />
         </svg>
-      </Link>
+      </button>
     </div>
   );
 }

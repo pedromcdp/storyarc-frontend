@@ -9,9 +9,30 @@
 }
 
 .navbarIcon {
-  @apply flex items-center p-2 cursor-pointer space-x-1;
+  @apply flex items-center p-1 cursor-pointer;
 }
 
 .footerItem {
   @apply after:mx-[0.25rem] after:content-['\00B7'] cursor-pointer;
+}
+
+.notificationIcon {
+  @apply flex-none w-8 h-8;
+}
+
+.formInput {
+  @apply py-3 px-4 m-0 mt-4 mb-1 w-full 
+  rounded-lg border focus:border-verde border-solid focus:outline-none shadow transition ease-in-out form-control;
+}
+
+.submitBtn {
+  @apply py-3 px-7 w-full text-white hover:text-verde focus:text-verde bg-verde hover:bg-white focus:bg-white disabled:bg-gray-100 rounded-lg border border-verde focus:outline-verde shadow-md transition-all duration-100 ease-in-out disabled:cursor-not-allowed;
+}
+
+.addContentInput {
+  @apply py-2 px-3 mb-1 w-full font-light tracking-wide leading-tight text-gray-700 rounded-md border focus:border-verde focus:outline-none shadow appearance-none min-h-[2.8rem];
+}
+
+.addContentDescInput {
+  @apply py-2 px-3 pb-12 mb-1 w-full font-light tracking-wide leading-tight text-gray-700 rounded-md border focus:border-verde focus:outline-none shadow appearance-none;
 }

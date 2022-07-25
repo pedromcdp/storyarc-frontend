@@ -1,25 +1,17 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import dayjs from 'dayjs';
 import { TrashIcon } from '@heroicons/react/outline';
 import propTypes from 'prop-types';
-import { useRemovePostMutation } from '../../services/storyarc';
 import useAuth from '../../hooks/auth';
+import { useDeletePost } from '../../hooks/useMutation';
 
-export default function CardView({ post, ownPost, refetch }) {
-  const [removePost, removePostResponse] = useRemovePostMutation();
-  const { token } = useAuth();
+export default function CardView({ post }) {
+  const { user, token } = useAuth();
+  const { mutate: deletePost } = useDeletePost();
 
-  useEffect(() => {
-    if (removePostResponse.status === 'fulfilled') {
-      refetch();
-    }
-  }, [removePostResponse]);
-
-  const handlePostDelete = () => {
-    removePost({
+  const handlePostDelete = async () => {
+    deletePost({
       postId: post._id,
       token,
     });
@@ -27,12 +19,12 @@ export default function CardView({ post, ownPost, refetch }) {
 
   return (
     <article className="flex mb-2 h-36 bg-white rounded-md border shadow-sm lg:h-48">
-      <div className="relative w-4/12 min-w-[8rem] h-full rounded-l-md">
+      <div className="relative min-w-[33%] h-full rounded-l-md">
         <Image
           src={post.photo}
-          alt={`foto de ${post.username}`}
+          alt={`foto de ${post.description}`}
           layout="fill"
-          className="object-cover pointer-events-none"
+          className="object-cover rounded-l-md pointer-events-none"
           priority
         />
       </div>
@@ -50,10 +42,10 @@ export default function CardView({ post, ownPost, refetch }) {
           >
             <p className="cursor-pointer">{post.description}</p>
           </Link>
-          {ownPost && (
+          {user.uid === post.user._id && (
             <button
               aria-label="Apagar publicação"
-              className="p-1 hover:bg-gray-100 rounded-full"
+              className="p-1 hover:text-red-500 hover:bg-gray-100 rounded-full transition-colors duration-75 ease-in-out"
               onClick={handlePostDelete}
             >
               <TrashIcon className="w-6 h-6" />

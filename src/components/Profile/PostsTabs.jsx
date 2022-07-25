@@ -1,19 +1,14 @@
 /* eslint-disable no-nested-ternary */
 import { Tab } from '@headlessui/react';
 import { Fragment } from 'react';
+import { AnimateSharedLayout, motion } from 'framer-motion';
 import CardView from '../Post/CardView';
 import NoPosts from './NoPosts';
 import HourGlassLoadingAnim from '../Loading';
 
-export default function PostsTabs({
-  ownPosts,
-  savedPosts,
-  refetch,
-  isLoading,
-  isFetching,
-}) {
+export default function PostsTabs({ ownPosts, savedPosts, isLoading }) {
   return (
-    <div className="overflow-auto py-5 scroll-smooth">
+    <div className="overflow-auto pt-5 pb-32 scroll-smooth">
       <Tab.Group>
         <Tab.List className="flex justify-center items-center mb-2 space-x-4 bg-white rounded-md border">
           <Tab as={Fragment}>
@@ -41,20 +36,24 @@ export default function PostsTabs({
         </Tab.List>
         <Tab.Panels>
           <Tab.Panel>
-            {isLoading || isFetching ? (
-              <HourGlassLoadingAnim />
-            ) : ownPosts.length > 0 ? (
-              ownPosts.map((post) => (
-                <CardView key={post.id} post={post} ownPost refetch={refetch} />
-              ))
-            ) : (
-              <NoPosts text="Sem Publicações" />
-            )}
+            <AnimateSharedLayout>
+              <motion.div layout>
+                {isLoading ? (
+                  <HourGlassLoadingAnim />
+                ) : ownPosts.length > 0 ? (
+                  ownPosts.map((post) => (
+                    <CardView key={post._id} post={post} />
+                  ))
+                ) : (
+                  <NoPosts text="Sem Publicações" />
+                )}
+              </motion.div>
+            </AnimateSharedLayout>
           </Tab.Panel>
           <Tab.Panel>
             {savedPosts?.savedPosts.length ? (
               savedPosts.savedPosts.map((post) => (
-                <CardView key={post.id} post={post} />
+                <CardView key={post._id} post={post} />
               ))
             ) : (
               <NoPosts text="Sem Publicações" />

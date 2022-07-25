@@ -3,35 +3,46 @@ import { useEffect, useState } from 'react';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import PropTypes from 'prop-types';
+import cron from 'cron';
 import useAuth from '../hooks/auth';
-import { useAddUserMutation } from '../services/storyarc';
+import { SplashScreen } from '../components/SplashScreen';
+import Notification from '../components/Notification';
 
 export default function AuthState({ children }) {
   const { setUser, setToken } = useAuth();
   const [isLoading, setIsLoading] = useState(true);
-  const [addUser] = useAddUserMutation();
+  const [job] = useState(
+    new cron.CronJob('0 */2 * * * *', async () => {
+      if (firebase.auth().currentUser) {
+        const token = await firebase.auth().currentUser.getIdToken();
+        setToken(token);
+      }
+    }),
+  );
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(async (user) => {
       setUser(user);
       if (user) {
+        user = firebase.auth().currentUser;
         const token = await user.getIdToken();
+        setUser(user);
         setToken(token);
-        addUser({
-          id: user.uid,
-          avatar: user.photoURL,
-          name: user.displayName,
-          email: user.email,
-        });
       }
       setIsLoading(false);
     });
+    job.start();
   }, []);
 
   if (isLoading) {
-    return null;
+    return <SplashScreen />;
   }
-  return children;
+  return (
+    <>
+      {children}
+      <Notification />
+    </>
+  );
 }
 
 AuthState.propTypes = {

@@ -1,39 +1,45 @@
-import Head from 'next/head';
-import Header from '../../components/Header';
-import Sidebar from '../../components/Sidebar';
-import Feed from '../../components/Feed';
-import { wrapper } from '../../app/store';
-import {
-  getPostWithUserAndCommentsData,
-  getRunningOperationPromises,
-  useGetPostWithUserAndCommentsDataQuery,
-} from '../../services/storyarc';
+import { dehydrate, QueryClient } from 'react-query';
+import MainLayout from '../../layouts/MainLayout';
+
+import Loading from '../../components/Loading';
+import { fetchPost } from '../../utils/apiCalls';
+import { useGetPost } from '../../hooks/useQuery';
+import Post from '../../components/Post';
 
 export default function PostPage({ postId }) {
-  const { data } = useGetPostWithUserAndCommentsDataQuery(postId);
+  const { data: post, isLoading } = useGetPost(postId);
+
   return (
-    <div className="overflow-hidden h-screen font-body antialiased bg-gray-100">
-      <Head>
-        <title>storyarc</title>
-      </Head>
-      <Header />
-      <main className="flex">
-        <Sidebar />
-        <Feed data={data} />
-      </main>
-    </div>
+    <MainLayout title="storyarc">
+      {isLoading && <Loading size="xs" />}
+      <div className="pb-10">
+        <Post
+          id={post._id}
+          username={post.user.name}
+          avatar={post.user.avatar}
+          timestamp={post.createdAt}
+          description={post.description}
+          image={post.photo}
+          newImage={post.newPhoto}
+        />
+      </div>
+    </MainLayout>
   );
 }
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  (store) => async (context) => {
-    const id = context.params?.id;
-    store.dispatch(getPostWithUserAndCommentsData.initiate(id));
-    await Promise.all(getRunningOperationPromises());
-    return {
-      props: {
-        postId: id,
-      },
-    };
-  },
-);
+export async function getServerSideProps(context) {
+  const { res } = context;
+  res.setHeader(
+    'Cache-Control',
+    'public, s-maxage=10, stale-while-revalidate=59',
+  );
+  const { id } = context.params;
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery(['posts', id], () => fetchPost(id));
+  return {
+    props: {
+      postId: id,
+      preloadedState: dehydrate(queryClient),
+    },
+  };
+}

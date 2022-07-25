@@ -1,29 +1,29 @@
 import {
-  ClockIcon,
+  // ClockIcon,
   TrendingUpIcon,
-  CalendarIcon,
+  // CalendarIcon,
   HashtagIcon,
 } from '@heroicons/react/outline';
 
 export const feedFilters = [
   {
     name: 'Recentes',
-    value: '/recent',
+    value: 'latest',
     icon: HashtagIcon,
   },
   {
     name: 'Em alta',
-    value: '/trending',
+    value: 'trending',
     icon: TrendingUpIcon,
   },
-  {
-    name: 'Por ano',
-    value: '/per-year',
-    icon: CalendarIcon,
-  },
-  {
-    name: 'Por década',
-    value: '/per-decade',
-    icon: ClockIcon,
-  },
+  // {
+  //   name: 'Por ano',
+  //   value: 'per-year',
+  //   icon: CalendarIcon,
+  // },
+  // {
+  //   name: 'Por década',
+  //   value: 'per-decade',
+  //   icon: ClockIcon,
+  // },
 ];

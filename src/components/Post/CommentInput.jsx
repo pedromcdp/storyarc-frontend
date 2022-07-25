@@ -1,35 +1,27 @@
 /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Image from 'next/image';
 import { PaperAirplaneIcon } from '@heroicons/react/outline';
 import PropTypes from 'prop-types';
 import {
-  useAddCommentMutation,
-  useGetPostCommentsQuery,
-} from '../../services/storyarc';
+  useCreateComment,
+  useCreateNotification,
+} from '../../hooks/useMutation';
+import useAuth from '../../hooks/auth';
 
-export default function CommentInput({ user, id }) {
+export default function CommentInput({ user, id, uid }) {
+  const { token } = useAuth();
   const [comment, setComment] = useState('');
-  const [addComment, addCommentResult] = useAddCommentMutation();
-  const { refetch } = useGetPostCommentsQuery({
-    postId: id,
-  });
-
-  useEffect(() => {
-    if (addCommentResult.status === 'fulfilled') {
-      setComment('');
-      refetch();
-    }
-  }, [addCommentResult, refetch]);
-
+  const { mutateAsync: createComment } = useCreateComment();
+  const { mutate: sendNotification } = useCreateNotification();
   const handleTyping = (e) => {
     setComment(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('submitting comment');
-    addComment({
+    setComment('');
+    createComment({
       id,
       comment: {
         postId: id,
@@ -37,6 +29,16 @@ export default function CommentInput({ user, id }) {
         body: comment,
       },
     });
+    if (user.uid !== uid) {
+      sendNotification({
+        id: uid,
+        token,
+        notification: {
+          post: id,
+          type: 'comment',
+        },
+      });
+    }
   };
 
   return (
@@ -46,7 +48,7 @@ export default function CommentInput({ user, id }) {
       onSubmit={handleSubmit}
     >
       <Image
-        src={user.photoURL}
+        src={user.photoURL ? user.photoURL : '/images/avatar.webp'}
         alt={user.displayName}
         width={40}
         height={45}
@@ -74,4 +76,5 @@ export default function CommentInput({ user, id }) {
 
 CommentInput.propTypes = {
   user: PropTypes.object.isRequired,
+  id: PropTypes.string.isRequired,
 };

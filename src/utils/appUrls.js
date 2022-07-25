@@ -8,4 +8,6 @@ const apiUrl =
     ? 'http://localhost:8080'
     : 'https://api.storyarc.pt';
 
-export { pageUrl, apiUrl };
+const defaultAvatarUrl =
+  'https://firebasestorage.googleapis.com/v0/b/storyarc-bf600.appspot.com/o/avatars%2Favatar.webp?alt=media';
+export { pageUrl, apiUrl, defaultAvatarUrl };
