@@ -8,7 +8,7 @@ export default function SidebarLogo() {
   const router = useRouter();
 
   return (
-    <div className="flex justify-center items-center mb-1 w-36 h-12 outline-verde cursor-pointer">
+    <div className="mb-1 flex h-16 w-44 cursor-pointer items-center justify-center outline-verde">
       <button
         aria-label="storyarc"
         role="link"
@@ -25,7 +25,7 @@ export default function SidebarLogo() {
         }}
       >
         <svg
-          className="w-full h-full"
+          className="h-full w-full"
           viewBox="0 0 1364 297"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"

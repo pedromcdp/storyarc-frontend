@@ -1,8 +1,25 @@
 /** @type {import('next').NextConfig} */
-const withPWA = require('next-pwa');
+const withPWA = require('next-pwa')({
+  dest: 'public',
+  register: true,
+  skipWaiting: true,
+  disable: process.env.NODE_ENV === 'development',
+  runtimeCaching: [
+    {
+      urlPattern: /^https:\/\/firebasestorage\.googleapis\.com/,
+      handler: 'NetworkFirst',
+      options: {
+        cacheName: 'firebase-storage',
+        expiration: {
+          maxEntries: 100,
+          maxAgeSeconds: 7 * 24 * 60 * 60, // 1 week
+        },
+      },
+    },
+  ],
+});
 
 const nextConfig = withPWA({
-  reactStrictMode: true,
   env: {
     FIREBASE_API_KEY: process.env.FIREBASE_API_KEY,
     FIREBASE_AUTH_DOMAIN: process.env.FIREBASE_AUTH_DOMAIN,
@@ -23,25 +40,7 @@ const nextConfig = withPWA({
       '3.bp.blogspot.com',
     ],
   },
-  pwa: {
-    dest: 'public',
-    register: true,
-    skipWaiting: true,
-    disable: process.env.NODE_ENV === 'development',
-    runtimeCaching: [
-      {
-        urlPattern: /^https:\/\/firebasestorage\.googleapis\.com/,
-        handler: 'NetworkFirst',
-        options: {
-          cacheName: 'firebase-storage',
-          expiration: {
-            maxEntries: 100,
-            maxAgeSeconds: 7 * 24 * 60 * 60, // 1 week
-          },
-        },
-      },
-    ],
-  },
+  reactStrictMode: true,
 });
 
 module.exports = nextConfig;

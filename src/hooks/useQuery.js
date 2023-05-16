@@ -5,6 +5,7 @@ import {
   fetchPost,
   fetchPostComments,
   fetchSearch,
+  fetchUser,
   fetchUserPosts,
   fetchUserSavedPosts,
   fetchUserLikedPosts,
@@ -69,9 +70,7 @@ export function useGetPost(postId) {
 }
 
 export function useGetPostComments(postId) {
-  return useQuery(['comments', postId], () => fetchPostComments(postId), {
-    refetchInterval: 3000,
-  });
+  return useQuery(['comments', postId], () => fetchPostComments(postId));
 }
 
 export function useGetUserPosts(uid, token) {
@@ -81,27 +80,27 @@ export function useGetUserPosts(uid, token) {
 }
 
 export function useGetUserSavedPosts(uid, token) {
-  return useQuery('userSavedPosts', () => fetchUserSavedPosts(uid, token), {
-    initialData: () => {
-      const initialData = { savedPosts: [] };
-      return initialData;
-    },
-  });
+  return useQuery(['userSavedPosts', uid], () =>
+    fetchUserSavedPosts(uid, token),
+  );
 }
 
 export function useGetUserLikedPosts(uid, token) {
-  return useQuery('userLikedPosts', () => fetchUserLikedPosts(uid, token), {
-    initialData: () => {
-      const initialData = { likedPosts: [] };
-      return initialData;
-    },
-  });
+  return useQuery(['userLikedPosts', uid], () =>
+    fetchUserLikedPosts(uid, token),
+  );
 }
 
 export function useGetUserNotifications(token) {
-  return useQuery('userNotifications', () => fetchUserNotification(token), {
-    keepPreviousData: true,
-    refetchInterval: 1500,
-    refetchOnMount: true,
-  });
+  return useQuery(
+    ['userNotifications', token],
+    () => fetchUserNotification(token),
+    {
+      keepPreviousData: true,
+    },
+  );
+}
+
+export function useGetUser(uid) {
+  return useQuery(['user', uid], () => fetchUser(uid));
 }

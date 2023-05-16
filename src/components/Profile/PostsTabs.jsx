@@ -8,13 +8,13 @@ import HourGlassLoadingAnim from '../Loading';
 
 export default function PostsTabs({ ownPosts, savedPosts, isLoading }) {
   return (
-    <div className="overflow-auto pt-5 pb-32 scroll-smooth">
+    <div className="overflow-auto scroll-smooth pb-32 pt-5">
       <Tab.Group>
-        <Tab.List className="flex justify-center items-center mb-2 space-x-4 bg-white rounded-md border">
+        <Tab.List className="mb-2 flex items-center justify-center space-x-4 rounded-md border bg-white">
           <Tab as={Fragment}>
             {({ selected }) => (
               <button
-                className={`border-b-2 py-2 px-4 lg:text-base text-sm ${
+                className={`border-b-2 px-4 py-2 text-sm outline-none transition duration-100 ease-in-out lg:text-base ${
                   selected ? 'border-verde' : 'border-transparent'
                 }`}
               >
@@ -25,7 +25,7 @@ export default function PostsTabs({ ownPosts, savedPosts, isLoading }) {
           <Tab as={Fragment}>
             {({ selected }) => (
               <button
-                className={`border-b-2 py-2 px-4 lg:text-base text-sm ${
+                className={`border-b-2 px-4 py-2 text-sm outline-none transition  duration-100 ease-in-out lg:text-base ${
                   selected ? 'border-verde' : 'border-transparent'
                 }`}
               >

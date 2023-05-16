@@ -16,6 +16,7 @@ import { useClipboard } from '@mantine/hooks';
 import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
 import { useDispatch } from 'react-redux';
+import Link from 'next/link';
 import { showNotification } from '../../features/notification/notificationSlice';
 import { pageUrl } from '../../utils/appUrls';
 import downloadPhoto from '../../utils/downloadPhoto';
@@ -24,6 +25,7 @@ import { useGetUserPosts } from '../../hooks/useQuery';
 import useAuth from '../../hooks/auth';
 
 export default function PostHeader({
+  uid,
   id,
   name,
   avatar,
@@ -65,20 +67,24 @@ export default function PostHeader({
   };
 
   return (
-    <div tabIndex={0} className="flex justify-between items-center">
+    <div tabIndex={0} className="flex items-center justify-between">
       <div className="flex items-center space-x-2">
-        <Image
-          src={avatar}
-          width={45}
-          height={45}
-          alt={`Foto de perfil de ${name}`}
-          layout="fixed"
-          className="mask mask-squircle"
-        />
+        <Link href={`/user/${uid}`} passHref>
+          <Image
+            src={avatar}
+            width={45}
+            height={45}
+            alt={`Foto de perfil de ${name}`}
+            layout="fixed"
+            className="mask mask-squircle cursor-pointer"
+          />
+        </Link>
         <div className="flex flex-col">
-          <span>{name}</span>
+          <Link href={`/user/${uid}`} passHref>
+            <span className="cursor-pointer select-none">{name}</span>
+          </Link>
           <div className="flex space-x-1 text-gray-500">
-            <ClockIcon className="w-4 h-4" />
+            <ClockIcon className="h-4 w-4" />
             <span className="text-xs">
               {`Publicado ${dayjs(timestamp).fromNow()}`}
             </span>
@@ -87,10 +93,10 @@ export default function PostHeader({
       </div>
       <div
         tabIndex={0}
-        className="p-[0.45rem] hover:bg-gray-100 rounded-full cursor-pointer dropdown dropdown-end"
+        className="dropdown-end dropdown cursor-pointer rounded-full p-[0.45rem] hover:bg-gray-100"
       >
-        <DotsHorizontalIcon className="w-5 h-5" />
-        <ul className="p-2 w-60 bg-white drop-shadow-lg dropdown-content menu rounded-box">
+        <DotsHorizontalIcon className="h-5 w-5" />
+        <ul className="dropdown-content menu rounded-box w-60 bg-white p-2 drop-shadow-lg">
           <li
             tabIndex={0}
             onClick={handleCopyToClipboard}
@@ -99,7 +105,7 @@ export default function PostHeader({
             }}
           >
             <span className="text-sm">
-              <LinkIcon className="w-5 h-5" />
+              <LinkIcon className="h-5 w-5" />
               Copiar ligação
             </span>
           </li>
@@ -111,11 +117,11 @@ export default function PostHeader({
             }}
           >
             <span className="text-sm">
-              <DocumentDownloadIcon className="w-5 h-5" />
+              <DocumentDownloadIcon className="h-5 w-5" />
               Descarregar {newImage ? 'imagens' : 'imagem'}
             </span>
           </li>
-          <div className="w-full h-[1.2px] bg-gray-100 rounded-2xl"></div>
+          <div className="h-[1.2px] w-full rounded-2xl bg-gray-100"></div>
           {!ownPost || !user ? (
             <li
               tabIndex={0}
@@ -133,7 +139,7 @@ export default function PostHeader({
               }}
             >
               <span className="text-sm">
-                <ExclamationCircleIcon className="w-5 h-5 text-red-500 " />
+                <ExclamationCircleIcon className="h-5 w-5 text-red-500 " />
                 Reportar publicação
               </span>
             </li>
@@ -156,7 +162,7 @@ export default function PostHeader({
               }}
             >
               <span className="text-sm">
-                <TrashIcon className="w-5 h-5 text-red-500 " />
+                <TrashIcon className="h-5 w-5 text-red-500 " />
                 Apagar publicação
               </span>
             </li>

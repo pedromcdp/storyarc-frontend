@@ -14,15 +14,13 @@ import {
   useGetUserSavedPosts,
 } from '../../hooks/useQuery';
 import {
-  useCreateNotification,
   useDislikePost,
   useLikePost,
-  useRemoveNotification,
   useSavePost,
   useUnsavePost,
 } from '../../hooks/useMutation';
 
-export default function PostFooter({ id, uid }) {
+export default function PostFooter({ id, setLikesAndComents }) {
   const { user, token } = useAuth();
   const [liked, setLiked] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
@@ -30,39 +28,31 @@ export default function PostFooter({ id, uid }) {
   const { data: userLikedPostsData } = useGetUserLikedPosts(user?.uid, token);
   const { mutate: likePost } = useLikePost();
   const { mutate: dislikePost } = useDislikePost();
-  const { mutate: savePost } = useSavePost();
-  const { mutate: unsavePost } = useUnsavePost();
-  const { mutate: sendNotification } = useCreateNotification();
-  const { mutate: removeNotification } = useRemoveNotification();
+  const { mutateAsync: savePost } = useSavePost();
+  const { mutateAsync: unsavePost } = useUnsavePost();
   const dispatch = useDispatch();
 
   const handleLike = () => {
     if (!liked) {
       setLiked(true);
+      // setLikesAndComents((prevState) => ({
+      //   ...prevState,
+      //   likes: prevState.likes + 1,
+      // }));
       likePost({
         id: user.uid,
         postId: id,
         token,
       });
-      if (user.uid !== uid) {
-        sendNotification({
-          id: uid,
-          token,
-          notification: {
-            post: id,
-            type: 'like',
-          },
-        });
-      }
     } else {
       setLiked(false);
+      // setLikesAndComents((prevState) => ({
+      //   ...prevState,
+      //   likes: prevState.likes - 1,
+      // }));
       dislikePost({
         id: user.uid,
         postId: id,
-        token,
-      });
-      removeNotification({
-        id,
         token,
       });
     }
@@ -106,19 +96,19 @@ export default function PostFooter({ id, uid }) {
   }, [userSavedPostsData, userLikedPostsData]);
 
   return (
-    <div className="flex justify-evenly items-center border-t">
+    <div className="flex items-center justify-evenly border-t">
       <button
-        className="group transition-all duration-75 ease-in-out postInputBtn"
+        className="postInputBtn group transition-all duration-75 ease-in-out"
         onClick={handleLike}
       >
         {liked ? (
           <>
-            <ThumbLike24Filled className="w-6 h-6 text-verde" />
+            <ThumbLike24Filled className="h-6 w-6 text-verde" />
             <span className="text-sm">Gosto</span>
           </>
         ) : (
           <>
-            <ThumbLike24Regular className="w-6 h-6 group-hover:text-verde" />
+            <ThumbLike24Regular className="h-6 w-6 group-hover:text-verde" />
             <span className="text-sm group-hover:text-verde">
               Gostar da publicação
             </span>
@@ -126,17 +116,17 @@ export default function PostFooter({ id, uid }) {
         )}
       </button>
       <button
-        className="group transition-all duration-75 ease-in-out postInputBtn"
+        className="postInputBtn group transition-all duration-75 ease-in-out"
         onClick={handleBookmark}
       >
         {bookmarked ? (
           <>
-            <Bookmark24Filled className="w-6 h-6 text-verde" />
+            <Bookmark24Filled className="h-6 w-6 text-verde" />
             <span className="text-sm">Publicação Guardada</span>
           </>
         ) : (
           <>
-            <Bookmark24Regular className="w-6 h-6 group-hover:text-verde" />
+            <Bookmark24Regular className="h-6 w-6 group-hover:text-verde" />
             <span className="text-sm group-hover:text-verde">
               Guardar publicação
             </span>

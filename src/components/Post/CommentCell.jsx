@@ -3,6 +3,7 @@ import Image from 'next/image';
 import dayjs from 'dayjs';
 import { ClockIcon, TrashIcon } from '@heroicons/react/outline';
 
+import Link from 'next/link';
 import useAuth from '../../hooks/auth';
 import {
   useDeleteComment,
@@ -24,47 +25,53 @@ export default function CommentCell({ comment, postId }) {
 
   return (
     <div
-      className={`flex items-start gap-2 h-auto ${
+      className={`flex h-auto items-start gap-2 ${
         user?.uid === comment.user._id && 'justify-end'
       }`}
     >
       <div
-        className={`relative flex-none w-10 h-10 rounded-full shadow-sm ${
+        className={`relative h-10 w-10 flex-none rounded-full shadow-sm ${
           user?.uid === comment.user._id && 'order-2'
         }`}
       >
-        <Image
-          alt={comment.user.name}
-          src={comment.user.avatar}
-          layout="fill"
-          className="object-contain mask mask-squircle"
-        />
+        <Link href={`/user/${comment.user._id}`} passHref>
+          <Image
+            alt={comment.user.name}
+            src={comment.user.avatar}
+            layout="fill"
+            className="mask mask-squircle cursor-pointer object-contain"
+          />
+        </Link>
       </div>
       <div
         tabIndex={0}
         className={`group relative ${
           user?.uid === comment.user._id
-            ? 'pr-4 hover:pr-2 bg-gradient-to-b from-verde to-green-500 text-white rounded-l-2xl rounded-br-2xl '
-            : 'pr-4 rounded-r-2xl rounded-bl-2xl '
-        } pl-2 pt-1 pb-2 max-w-full border drop-shadow-sm transition duration-150 hover:ease-in`}
+            ? 'rounded-l-2xl rounded-br-2xl bg-gradient-to-b from-verde to-green-500 pr-4 text-white hover:pr-2 '
+            : 'rounded-r-2xl rounded-bl-2xl pr-4 '
+        } max-w-full border pb-2 pl-2 pt-1 drop-shadow-sm transition duration-150 hover:ease-in`}
       >
         <div className="flex justify-between space-x-1">
-          <p className="text-sm font-medium">{comment.user.name}</p>
+          <Link href={`/user/${comment.user._id}`} passHref>
+            <p className="cursor-pointer text-sm font-medium">
+              {comment.user.name}
+            </p>
+          </Link>
           {user?.uid === comment.user._id && (
             <button
               onClick={handleDelete}
               className="hidden group-hover:inline-block"
             >
-              <TrashIcon className="w-4 h-4 hover:text-red-500 transition-colors duration-75 ease-out" />
+              <TrashIcon className="h-4 w-4 transition-colors duration-75 ease-out hover:text-red-500" />
             </button>
           )}
         </div>
         <div
-          className={`flex items-center pb-1 space-x-1 text-[0.65rem] font-medium ${
+          className={`flex items-center space-x-1 pb-1 text-[0.65rem] font-medium ${
             user?.uid === comment.user._id ? 'text-gray-100' : 'text-gray-600'
           }`}
         >
-          <ClockIcon className="w-3 h-3" />
+          <ClockIcon className="h-3 w-3" />
           <p>{dayjs(comment.createdAt).fromNow()}</p>
         </div>
         <p className="text-[0.8rem]">{comment.body}</p>

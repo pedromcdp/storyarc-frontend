@@ -1,4 +1,6 @@
-import { createContext, useState, useContext } from 'react';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import { createContext, useState, useContext, useEffect } from 'react';
 import { AuthService } from '../services/authService';
 
 const authContext = createContext();
@@ -11,6 +13,33 @@ export function AuthProvider(props) {
   const [user, setUser] = useState(null);
   const [token, setToken] = useState(null);
   const [error, setError] = useState(null);
+
+  // listen for token changes
+  // fix for token not being valid after x amount of time
+  // clean up AuthState -- remove cron job
+  useEffect(
+    () =>
+      firebase.auth().onIdTokenChanged(async (firebaseUser) => {
+        if (!firebaseUser) {
+          setUser(null);
+          setToken(null);
+          return;
+        }
+        const firebaseToken = await firebaseUser.getIdToken();
+        setToken(firebaseToken);
+        setUser(firebaseUser);
+      }),
+    [],
+  );
+
+  // Force refresh the token every 10 minutes
+  useEffect(() => {
+    const handle = setInterval(async () => {
+      const refreshedUser = firebase.auth().currentUser;
+      if (refreshedUser) await refreshedUser.getIdToken(true);
+    }, 10 * 60 * 1000);
+    return () => clearInterval(handle);
+  }, []);
 
   const loginWithGoogle = async () => {
     const {

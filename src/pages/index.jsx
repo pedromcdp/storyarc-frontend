@@ -48,7 +48,7 @@ export async function getServerSideProps(context) {
     'public, s-maxage=10, stale-while-revalidate=59',
   );
   const queryClient = new QueryClient();
-  await queryClient.prefetchInfiniteQuery('recent', () => fetchLatest(0));
+  queryClient.prefetchInfiniteQuery('recent', () => fetchLatest(0));
   return {
     props: {
       preloadedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),

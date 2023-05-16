@@ -29,7 +29,7 @@ export default function SidebarAuthRow({ user, Icon }) {
     <div
       role="button"
       tabIndex={0}
-      className="group flex justify-center items-center p-[0.2rem] space-x-2 w-full hover:bg-gray-100 rounded-xl focus:outline-verde transition-all ease-in-out cursor-pointer md:justify-start md:p-2 md:duration-105"
+      className="md:duration-105 group flex w-full cursor-pointer items-center justify-center space-x-2 rounded-xl p-[0.2rem] transition-all ease-in-out hover:bg-gray-100 focus:outline-verde md:justify-start md:p-2"
     >
       <Link
         href={{
@@ -47,13 +47,13 @@ export default function SidebarAuthRow({ user, Icon }) {
               width={35}
               height={35}
               layout="fixed"
-              className="object-cover mask mask-squircle"
+              className="squircleMask object-cover"
             />
           )}
-          {!user && <Icon className="w-6 h-6" />}
+          {!user && <Icon className="h-6 w-6" />}
           <div className="flex flex-col leading-none">
             <p className="">{user?.displayName}</p>
-            <p className="hidden group-hover:inline-block group-focus:inline-block text-xs">
+            <p className="hidden text-xs group-hover:inline-block group-focus:inline-block">
               Ver perfil
             </p>
           </div>
@@ -71,9 +71,9 @@ export default function SidebarAuthRow({ user, Icon }) {
           logout();
           router.push('/');
         }}
-        className="flex-none justify-end opacity-0 group-hover:opacity-100 group-focus:opacity-100 hover:opacity-100 focus:opacity-100"
+        className="flex-none justify-end opacity-0 hover:opacity-100 focus:opacity-100 group-hover:opacity-100 group-focus:opacity-100"
       >
-        <LogoutIcon className="w-6 h-6 opacity-50 hover:opacity-100 focus:opacity-100 transition duration-75 ease-in-out" />
+        <LogoutIcon className="h-6 w-6 opacity-50 transition duration-75 ease-in-out hover:opacity-100 focus:opacity-100" />
       </button>
     </div>
   );

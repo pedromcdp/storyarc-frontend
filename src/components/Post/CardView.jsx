@@ -18,18 +18,18 @@ export default function CardView({ post }) {
   };
 
   return (
-    <article className="flex mb-2 h-36 bg-white rounded-md border shadow-sm lg:h-48">
-      <div className="relative min-w-[33%] h-full rounded-l-md">
+    <article className="mb-2 flex h-36 rounded-md border bg-white shadow-sm lg:h-48">
+      <div className="relative h-full min-w-[33%] rounded-l-md">
         <Image
           src={post.photo}
           alt={`foto de ${post.description}`}
           layout="fill"
-          className="object-cover rounded-l-md pointer-events-none"
+          className="pointer-events-none rounded-l-md object-cover"
           priority
         />
       </div>
       <div className="grow p-2">
-        <div className="flex justify-between items-start h-1/3">
+        <div className="flex h-1/3 items-start justify-between">
           <Link
             href={{
               pathname: `/post/${post._id}`,
@@ -45,20 +45,20 @@ export default function CardView({ post }) {
           {user.uid === post.user._id && (
             <button
               aria-label="Apagar publicação"
-              className="p-1 hover:text-red-500 hover:bg-gray-100 rounded-full transition-colors duration-75 ease-in-out"
+              className="rounded-full p-1 transition-colors duration-75 ease-in-out hover:bg-gray-100 hover:text-red-500"
               onClick={handlePostDelete}
             >
-              <TrashIcon className="w-6 h-6" />
+              <TrashIcon className="h-6 w-6" />
             </button>
           )}
         </div>
-        <div className="flex gap-1.5 items-end h-2/3">
-          <div className="relative w-10 h-10 bg-blue-800 rounded-full border shadow-sm lg:w-12 lg:h-12">
+        <div className="flex h-2/3 items-end gap-1.5">
+          <div className="relative h-9 w-9 rounded-full border bg-gray-100 shadow-sm">
             <Image
               src={post.user.avatar}
               alt={`foto de perfil de ${post.user.name}`}
               layout="fill"
-              className="object-contain object-center rounded-full"
+              className="squircleMask object-contain object-center"
               priority
             />
           </div>

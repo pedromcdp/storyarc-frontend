@@ -10,13 +10,13 @@ export default function NotificationButton() {
 
   return (
     <Link href="/notifications" passHref>
-      <a className="relative p-1 mr-1 rounded-full transition duration-100 ease-in-out md:-mt-2 md:mr-0 lg:hover:bg-gray-100">
-        <BellIcon className="w-6 h-6 text-verde" />
+      <a className="relative mr-1 rounded-full p-1 transition duration-100 ease-in-out lg:hover:bg-gray-100">
+        <BellIcon className="h-[1.3rem] w-[1.3rem] text-verde" />
         {hasNotifications && (
           <span
-            className={`absolute top-0 -right-1 ${
+            className={`absolute -right-1 top-0 ${
               data.unreadCount === 1 ? 'px-[0.45rem]' : 'px-1.5'
-            } text-xs font-medium text-white bg-red-500 rounded-lg`}
+            } rounded-lg bg-red-500 text-xs font-medium text-white`}
           >
             {data.unreadCount}
           </span>

@@ -115,7 +115,7 @@ export default function AddContent() {
         >
           <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
         </Transition.Child>
-        <div className="flex overflow-y-auto fixed inset-0 justify-center items-center p-4">
+        <div className="fixed inset-0 flex items-center justify-center overflow-y-auto p-4">
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -125,21 +125,21 @@ export default function AddContent() {
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <Dialog.Panel className="p-4 mx-auto w-full max-w-2xl bg-white rounded-xl">
-              <Dialog.Title className="flex justify-between items-center mx-4 font-medium">
+            <Dialog.Panel className="mx-auto w-full max-w-2xl rounded-xl bg-white p-4">
+              <Dialog.Title className="mx-4 flex items-center justify-between font-medium">
                 <p className="text-xl lg:text-xl">Adicionar conteúdo</p>
                 <button
                   disabled={disabled}
-                  className="p-1.5 text-gray-500 hover:text-black focus:text-black bg-transparent hover:bg-gray-100 focus:bg-gray-100 disabled:bg-gray-100 rounded-lg outline-verde disabled:cursor-not-allowed"
+                  className="rounded-lg bg-transparent p-1.5 text-gray-500 outline-verde transition duration-100 ease-in hover:bg-gray-100 hover:text-black focus:bg-gray-100 focus:text-black disabled:cursor-not-allowed disabled:bg-gray-100"
                   onClick={() => !disabled && dispatch(closeAddContent())}
                 >
-                  <XIcon className="w-6 h-6" />
+                  <XIcon className="h-6 w-6" />
                 </button>
               </Dialog.Title>
               {errors.network && (
                 <p className="text-xs text-red-500">{errors.network.message}</p>
               )}
-              <form className="p-4 space-y-4" onSubmit={handleSubmit(onSubmit)}>
+              <form className="space-y-4 p-4" onSubmit={handleSubmit(onSubmit)}>
                 <div>
                   <input
                     {...register('description', {
@@ -255,11 +255,11 @@ export default function AddContent() {
                     {errors.images.message}
                   </p>
                 )}
-                <div className="flex items-center pt-4 space-x-2 rounded-b border-t border-gray-200">
+                <div className="flex items-center space-x-2 rounded-b border-t border-gray-200 pt-4">
                   <button
                     disabled={disabled}
                     type="submit"
-                    className="py-2.5 px-5 text-sm font-medium text-center text-white bg-verde disabled:bg-gray-100 rounded-lg disabled:cursor-not-allowed"
+                    className="rounded-lg bg-verde px-5 py-2.5 text-center text-sm font-medium text-white shadow-sm disabled:cursor-not-allowed disabled:bg-gray-100"
                   >
                     Criar Publicação
                   </button>
@@ -267,7 +267,7 @@ export default function AddContent() {
                     disabled={disabled}
                     onClick={() => dispatch(closeAddContent())}
                     type="button"
-                    className="py-2.5 px-5 text-sm font-medium bg-white hover:bg-gray-100 disabled:bg-gray-100 rounded-lg border  border-gray-200 focus:outline-verde disabled:cursor-not-allowed"
+                    className="rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium shadow-sm hover:bg-gray-100 focus:outline-verde disabled:cursor-not-allowed disabled:bg-gray-100"
                   >
                     Cancelar
                   </button>
@@ -280,7 +280,7 @@ export default function AddContent() {
                       disabled={disabled}
                       onClick={() => setShowPreview(!showPreview)}
                       type="button"
-                      className="py-2.5 px-5 text-sm font-medium bg-white hover:bg-gray-100 disabled:bg-gray-100 rounded-lg border  border-gray-200 focus:outline-verde disabled:cursor-not-allowed"
+                      className="rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium hover:bg-gray-100  focus:outline-verde disabled:cursor-not-allowed disabled:bg-gray-100"
                     >
                       {showPreview ? 'Voltar' : 'Preview'}
                     </motion.button>

@@ -49,10 +49,10 @@ export default function SidebarRow({
     <button
       type="button"
       onClick={() => handleButtonClick()}
-      className={`flex focus:outline-verde justify-center items-center p-[0.2rem] space-x-[0.11rem] w-full rounded-xl transition ease-out cursor-pointer md:justify-start md:p-2 md:space-x-[0.35rem] duration-105 ${
+      className={`duration-105 flex w-full cursor-pointer items-center justify-center space-x-[0.11rem]  border-e-2 p-[0.2rem] transition ease-out focus:outline-verde md:justify-start  md:space-x-[0.35rem] md:py-2 md:pr-2 ${
         feedFilter.name === title
-          ? 'bg-verde text-white scale-105'
-          : 'hover:bg-gray-100 hover:md:scale-105'
+          ? 'scale-105 border-verde'
+          : 'border-transparent hover:rounded-sm hover:bg-gray-50 hover:md:scale-105'
       }`}
     >
       {src && (
@@ -62,17 +62,11 @@ export default function SidebarRow({
           width={30}
           height={30}
           layout="fixed"
-          className="object-cover mask mask-squircle"
+          className="mask mask-squircle object-cover"
         />
       )}
-      {Icon && (
-        <Icon
-          className={`w-6 h-6 ${
-            feedFilter.name === title ? 'text-white' : 'text-verde'
-          }`}
-        />
-      )}
-      <p className="text-[0.73rem] md:text-base">{title}</p>
+      {Icon && <Icon className={`h-6 w-6 text-verde`} />}
+      <p className="text-sm ">{title}</p>
     </button>
   );
 }

@@ -27,12 +27,14 @@ export default function PostsContainer({ data, hasNextPage, fetchNextPage }) {
               description={post.description}
               image={post.photo}
               newImage={post.newPhoto}
+              likes={post.likes}
+              comments={post.comments}
             />
           )),
         )}
       </InfiniteScroll>
       {!hasNextPage && (
-        <div className="py-5 mb-20 text-sm text-center text-verde md:mb-5 md:text-normal">
+        <div className="md:text-normal mb-20 py-5 text-center text-sm text-verde md:mb-5">
           <p>Não temos mais publicações de momento para mostrar.</p>
         </div>
       )}

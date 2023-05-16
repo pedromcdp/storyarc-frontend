@@ -1,6 +1,6 @@
 import { dehydrate, QueryClient } from 'react-query';
+import { motion } from 'framer-motion';
 import MainLayout from '../../layouts/MainLayout';
-
 import Loading from '../../components/Loading';
 import { fetchPost } from '../../utils/apiCalls';
 import { useGetPost } from '../../hooks/useQuery';
@@ -12,17 +12,41 @@ export default function PostPage({ postId }) {
   return (
     <MainLayout title="storyarc">
       {isLoading && <Loading size="xs" />}
-      <div className="pb-10">
+      <motion.div
+        initial={{
+          opacity: 0,
+          y: 10,
+          scale: 0.95,
+        }}
+        animate={{
+          opacity: 1,
+          y: 0,
+          scale: 1,
+        }}
+        exit={{
+          opacity: 0,
+          y: 10,
+          scale: 0.95,
+        }}
+        transition={{
+          duration: 0.3,
+          transition: 'easeInOut',
+        }}
+        className="pb-10"
+      >
         <Post
           id={post._id}
+          uid={post.user._id}
           username={post.user.name}
           avatar={post.user.avatar}
           timestamp={post.createdAt}
           description={post.description}
           image={post.photo}
           newImage={post.newPhoto}
+          likes={post.likes}
+          comments={post.comments}
         />
-      </div>
+      </motion.div>
     </MainLayout>
   );
 }

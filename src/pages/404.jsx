@@ -10,10 +10,10 @@ export default function Page404() {
 
   return (
     <MainLayout title="storyarc | 404">
-      <div className="flex flex-col items-center pt-10 space-y-10">
+      <div className="flex flex-col items-center space-y-10 pt-10">
         <p className="text-2xl text-verde">Pareces estar perdido na história</p>
         <div className="flex flex-1 items-center">
-          <div className="relative w-64 h-64">
+          <div className="relative h-64 w-64">
             <Image
               src="/images/hourglass.webp"
               typeof="image/webp"
@@ -27,7 +27,7 @@ export default function Page404() {
           Clica
           <button
             onClick={handleClick}
-            className="py-2 px-4 mx-2 text-white hover:text-verde bg-verde hover:bg-white rounded-md border hover:border border-transparent hover:border-verde shadow-md transition-all duration-100 ease-in cursor-pointer"
+            className="mx-2 cursor-pointer rounded-md border border-transparent bg-verde px-4 py-2 text-white shadow-md transition-all duration-100 ease-in hover:border hover:border-verde hover:bg-white hover:text-verde"
           >
             aqui
           </button>

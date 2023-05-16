@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import BackButton from '../../components/Buttons/BackButton';
 import Login from '../../components/Login';
 import useAuth from '../../hooks/auth';
 
@@ -15,14 +14,13 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="overflow-hidden h-screen antialiased bg-red-100">
+    <div className="h-screen overflow-hidden bg-red-100 antialiased">
       <Head>
         <title>storyarc | login</title>
       </Head>
       <main className="flex overflow-auto">
-        <BackButton />
         <Login />
-        <div className="flex relative grow bg-white">
+        <div className="relative flex grow bg-white">
           <Image
             src="/images/banner.webp"
             typeof="image/webp"

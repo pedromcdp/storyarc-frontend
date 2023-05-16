@@ -43,7 +43,7 @@ function StoryArc({ Component, pageProps }) {
           <AuthProvider>
             <AuthState>
               <Component {...pageProps} />
-              {acceptedCookies !== 'ouioui' && <CookieBox />}
+              {acceptedCookies !== 'true' && <CookieBox />}
               <ReactQueryDevtools />
             </AuthState>
           </AuthProvider>

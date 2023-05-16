@@ -20,7 +20,7 @@ export default function CookieBox() {
         leave="ease-out duration-500"
         leaveFrom="translate-y-0 sm:translate-x-0 opacity-100"
         leaveTo="translate-y-full sm:-translate-y-0 sm:translate-x-full opacity-0"
-        className="flex fixed right-1/2 bottom-5 flex-col py-4 px-6 w-[90%] bg-white rounded-2xl border shadow-sm transition-all duration-75 ease-in-out translate-x-1/2 sm:right-5 sm:max-w-sm sm:translate-x-0 items"
+        className="items fixed bottom-5 right-1/2 flex w-[90%] translate-x-1/2 flex-col rounded-2xl border bg-white px-6 py-4 shadow-sm transition-all duration-75 ease-in-out sm:right-5 sm:max-w-sm sm:translate-x-0"
       >
         <SidebarLogo />
         <p className="text-sm">
@@ -30,13 +30,15 @@ export default function CookieBox() {
           <span className="text-xl font-medium text-verde">cookies</span> para a
           performace ideal!
         </p>
-        <div className="flex gap-3 items-center mt-5">
+        <div className="mt-5 flex items-center gap-3">
           <button
             onClick={() => {
-              setCookie(null, 'acceptedCookies', 'ouioui');
+              setCookie(undefined, 'acceptedCookies', 'true', {
+                path: '/',
+              });
               setShow(false);
             }}
-            className="py-3 px-4 text-white hover:text-verde bg-verde hover:bg-white rounded-lg border border-verde transition ease-in-out durantion-100"
+            className="durantion-100 rounded-lg border border-verde bg-verde px-4 py-3 text-white transition ease-in-out hover:bg-white hover:text-verde"
           >
             Aceitar cookies
           </button>

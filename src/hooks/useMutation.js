@@ -39,8 +39,8 @@ export const useDeleteComment = () => {
         oldQueryData.filter((comment) => comment._id !== id),
       );
     },
-    onSuccess: (variables) => {
-      queryClient.invalidateQueries(['comments', variables.postId]);
+    onSuccess: ({ postId }) => {
+      queryClient.invalidateQueries(['comments', postId]);
     },
   });
 };
@@ -74,13 +74,13 @@ export const useDeletePost = () => {
 export const useLikePost = () => {
   const queryClient = useQueryClient();
   return useMutation(({ id, postId, token }) => likePost(id, postId, token), {
-    onMutate: ({ postId }) => {
-      queryClient.setQueryData('userLikedPosts', (oldQueryData) => ({
+    onMutate: ({ id, postId }) => {
+      queryClient.setQueryData(['userLikedPosts', id], (oldQueryData) => ({
         likedPosts: [...oldQueryData.likedPosts, { _id: postId }],
       }));
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries('userLikedPosts');
+    onSuccess: ({ id }) => {
+      queryClient.invalidateQueries(['userLikedPosts', id]);
     },
   });
 };
@@ -90,13 +90,13 @@ export const useDislikePost = () => {
   return useMutation(
     ({ id, postId, token }) => dislikePost(id, postId, token),
     {
-      onMutate: ({ postId }) => {
-        queryClient.setQueryData('userLikedPosts', (oldQueryData) => ({
+      onMutate: ({ id, postId }) => {
+        queryClient.setQueryData(['userLikedPosts', id], (oldQueryData) => ({
           likedPosts: oldQueryData.likedPosts.filter((post) => post !== postId),
         }));
       },
-      onSuccess: () => {
-        queryClient.invalidateQueries('userLikedPosts');
+      onSuccess: ({ id }) => {
+        queryClient.invalidateQueries(['userLikedPosts', id]);
       },
     },
   );
@@ -105,13 +105,13 @@ export const useDislikePost = () => {
 export const useSavePost = () => {
   const queryClient = useQueryClient();
   return useMutation(({ id, postId, token }) => savePost(id, postId, token), {
-    onMutate: ({ postId }) => {
-      queryClient.setQueryData('userSavedPosts', (oldQueryData) => ({
+    onMutate: ({ id, postId }) => {
+      queryClient.setQueryData(['userSavedPosts', id], (oldQueryData) => ({
         savedPosts: [...oldQueryData.savedPosts, { _id: postId }],
       }));
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries('userSavedPosts');
+    onSuccess: ({ id }) => {
+      queryClient.invalidateQueries(['userSavedPosts', id]);
     },
   });
 };
@@ -119,13 +119,13 @@ export const useSavePost = () => {
 export const useUnsavePost = () => {
   const queryClient = useQueryClient();
   return useMutation(({ id, postId, token }) => unsavePost(id, postId, token), {
-    onMutate: ({ postId }) => {
-      queryClient.setQueryData('userSavedPosts', (oldQueryData) => ({
+    onMutate: ({ id, postId }) => {
+      queryClient.setQueryData(['userSavedPosts', id], (oldQueryData) => ({
         savedPosts: oldQueryData.savedPosts.filter((post) => post !== postId),
       }));
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries('userSavedPosts');
+    onSuccess: ({ id }) => {
+      queryClient.invalidateQueries(['userSavedPosts', id]);
     },
   });
 };
@@ -140,14 +140,14 @@ export const useCreateNotification = () =>
 export const useClearNotifications = () => {
   const queryClient = useQueryClient();
   return useMutation((token) => deleteNotification(token), {
-    onMutate: () => {
-      queryClient.setQueryData('userNotifications', () => ({
+    onMutate: ({ token }) => {
+      queryClient.setQueryData(['userNotifications', token], () => ({
         unreadCount: 0,
         notifications: [],
       }));
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries('userNotifications');
+    onSuccess: ({ token }) => {
+      queryClient.invalidateQueries(['userNotifications', token]);
     },
   });
 };
@@ -157,8 +157,8 @@ export const useRemoveNotification = () => {
   return useMutation(
     ({ id, token }) => deleteNotificationOnDislikes(id, token),
     {
-      onSuccess: () => {
-        queryClient.invalidateQueries('userNotifications');
+      onSuccess: ({ token }) => {
+        queryClient.invalidateQueries(['userNotifications', token]);
       },
     },
   );
@@ -167,17 +167,20 @@ export const useRemoveNotification = () => {
 export const useMarkNotificationsAsRead = () => {
   const queryClient = useQueryClient();
   return useMutation((token) => markNotificationsAsRead(token), {
-    onMutate: () => {
-      queryClient.setQueryData('userNotifications', (oldQueryData) => ({
-        unreadCount: 0,
-        notifications: oldQueryData.notifications.map((notification) => ({
-          ...notification,
-          read: true,
-        })),
-      }));
+    onMutate: ({ token }) => {
+      // queryClient.setQueryData(
+      //   ['userNotifications', token],
+      //   (oldQueryData) => ({
+      //     unreadCount: 0,
+      //     notifications: oldQueryData.notifications.map((notification) => ({
+      //       ...notification,
+      //       read: true,
+      //     })),
+      //   }),
+      // );
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries('userNotifications');
+    onSuccess: ({ token }) => {
+      queryClient.invalidateQueries(['userNotifications', token]);
     },
   });
 };

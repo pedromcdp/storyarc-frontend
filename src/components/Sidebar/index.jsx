@@ -1,27 +1,27 @@
-import { UserCircleIcon } from '@heroicons/react/outline';
+// import { UserCircleIcon } from '@heroicons/react/outline';
 import { PlusCircleIcon } from '@heroicons/react/solid';
 import SidebarLogo from './SidebarLogo';
-import SidebarSearch from './SidebarSearch';
+// import SidebarSearch from './SidebarSearch';
 import SidebarRow from './SidebarRow';
 import RowsContainer from './RowsContainer';
 import { feedFilters } from '../../utils/feedFilters';
-import SidebarAuthRow from './SidebarAuthRow';
+// import SidebarAuthRow from './SidebarAuthRow';
 import useAuth from '../../hooks/auth';
-import NotificationButton from './NotificationButton';
+// import NotificationButton from './NotificationButton';
 
 function Sidebar() {
   const { user } = useAuth();
 
   return (
-    <div className="hidden flex-col justify-between py-3 px-4 max-w-[600px] h-screen bg-white rounded-r-3xl border-r shadow-sm md:inline-flex xl:min-w-[300px]">
-      <div className="flex flex-col flex-none">
-        <div className="flex justify-between items-center">
+    <aside className="hidden h-screen max-w-[600px] flex-col justify-between bg-white px-4 py-2 shadow-sm md:inline-flex xl:min-w-[300px]">
+      <div className="flex flex-none flex-col">
+        <div className="flex items-center justify-between">
           <SidebarLogo />
-          {user && <NotificationButton />}
+          {/* {user && <NotificationButton />} */}
         </div>
-        <SidebarSearch />
+        {/* <SidebarSearch /> */}
       </div>
-      <div className="flex flex-col grow">
+      <div className="flex grow flex-col">
         <RowsContainer
           title="Nova publicação"
           ariaText="Adicionar conteúdo ao storyarc"
@@ -61,7 +61,7 @@ function Sidebar() {
           />
         </RowsContainer>
       </div>
-      <div className="flex flex-none">
+      {/* <div className="flex flex-none">
         {user ? (
           <SidebarAuthRow Icon={UserCircleIcon} user={user} />
         ) : (
@@ -72,8 +72,8 @@ function Sidebar() {
             href="/auth/signin"
           />
         )}
-      </div>
-    </div>
+      </div> */}
+    </aside>
   );
 }
 

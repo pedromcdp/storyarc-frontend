@@ -7,9 +7,13 @@ import { useMarkNotificationsAsRead } from '../../hooks/useMutation';
 import useAuth from '../../hooks/auth';
 
 export default function NotificationPageItem({ notification }) {
-  const { fromUser, createdAt, type, post, read } = notification;
+  const { fromUser, createdAt, type, post } = notification;
   const { mutate: markNotificationsAsRead } = useMarkNotificationsAsRead();
   const { token } = useAuth();
+
+  if (!post) {
+    return;
+  }
 
   return (
     <Link href={`${pageUrl}/post/${post._id}`} passHref>
@@ -27,9 +31,7 @@ export default function NotificationPageItem({ notification }) {
           y: -20,
         }}
         transition={{ duration: 0.5, ease: 'easeInOut' }}
-        className={`flex p-4 space-x-2 bg-white rounded-2xl border transition-shadow duration-100 ease-in-out ${
-          !read ? 'shadow-md' : 'shadow-sm'
-        } cursor-pointer`}
+        className={`flex cursor-pointer items-center space-x-2 rounded-t-xl border-b p-4 transition duration-100 ease-in-out hover:bg-gray-50`}
         onMouseEnter={() => markNotificationsAsRead(token)}
       >
         <div className="flex flex-none">
@@ -38,11 +40,10 @@ export default function NotificationPageItem({ notification }) {
             width={45}
             height={45}
             alt={`Foto de perfil de ${fromUser.name}`}
-            layout="fixed"
-            className="mask mask-squircle"
+            className="mask mask-squircle object-center"
           />
         </div>
-        <div className="flex flex-col mt-1 space-y-1">
+        <div className="mt-1 flex flex-col space-y-1">
           <p className="leading-5 text-verde">
             <span className="font-medium text-black">{fromUser.name}</span>{' '}
             {type === 'like' ? 'gostou da' : 'comentou a'} tua publicação

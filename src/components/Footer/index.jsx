@@ -2,17 +2,17 @@ import Link from 'next/link';
 
 export default function Footer() {
   return (
-    <footer className="pt-2 mt-3 border-t border-gray-200">
+    <footer className="mt-3 border-t border-gray-200 pt-2">
       <p className="text-sm text-gray-500">
         Desenvolvido na{' '}
         <a href="https://www.ua.pt/" className="text-verde">
           Universidade de Aveiro
         </a>{' '}
         com muito
-        <span className="before:ml-[0.15rem] text-red-500">&#9829;</span>
+        <span className="text-red-500 before:ml-[0.15rem]">&#9829;</span>
       </p>
-      <ul className="flex flex-wrap mt-2 text-sm text-gray-500">
-        <li className="cursor-pointer footerItem">
+      <ul className="mt-2 flex flex-wrap text-sm text-gray-500">
+        <li className="footerItem cursor-pointer">
           <Link href="/cookies" passHref>
             <a className="hover:underline">Cookies</a>
           </Link>
@@ -28,7 +28,9 @@ export default function Footer() {
           </Link>
         </li>
       </ul>
-      <p className="mt-5 text-sm text-gray-500 uppercase">storyarc © 2022</p>
+      <p className="mt-5 text-sm uppercase text-gray-500">
+        storyarc © {new Date().getFullYear()}
+      </p>
     </footer>
   );
 }

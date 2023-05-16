@@ -28,7 +28,7 @@ export function AppDialog() {
         >
           <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
         </Transition.Child>
-        <div className="flex fixed inset-0 justify-center items-center p-4">
+        <div className="fixed inset-0 flex items-center justify-center p-4">
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -38,16 +38,16 @@ export function AppDialog() {
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <Dialog.Panel className="p-4 mx-auto max-w-sm bg-white rounded-xl">
-              <Dialog.Title className="flex items-center font-medium">
-                <ShieldExclamationIcon className="p-1 mr-1 w-[1.8rem] h-[1.8rem] text-white bg-verde mask mask-squircle" />
+            <Dialog.Panel className="mx-auto max-w-sm rounded-xl bg-white p-4">
+              <Dialog.Title className="flex items-center gap-2 font-medium">
+                <ShieldExclamationIcon className="squircleMask h-[1.8rem] w-[1.8rem] bg-verde p-1 text-white" />
                 Sem sessão iniciada
               </Dialog.Title>
               <Dialog.Description className="my-4">
                 Para criar uma publicação, é necessário iniciar uma sessão.
               </Dialog.Description>
               <button
-                className="py-[0.5rem] px-3 mr-3 rounded-lg border transition-all ease hover:scale-105 focus:scale-105"
+                className="ease mr-3 rounded-lg border px-3 py-[0.5rem] transition-all hover:scale-105 focus:scale-105"
                 onClick={() => {
                   router.push('/auth/signin');
                   dispatch(closeDialog());
@@ -56,7 +56,7 @@ export function AppDialog() {
                 Iniciar sessão
               </button>
               <button
-                className="py-[0.5rem] px-3 font-medium text-white bg-verde rounded-lg transition-all ease hover:scale-105 focus:scale-105"
+                className="ease rounded-lg bg-verde px-3 py-[0.5rem] font-medium text-white transition-all hover:scale-105 focus:scale-105"
                 onClick={() => dispatch(closeDialog())}
               >
                 Fechar

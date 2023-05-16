@@ -3,10 +3,10 @@ import { apiUrl } from './appUrls';
 
 // Get Requests
 const fetchLatest = (page) =>
-  axios.get(`${apiUrl}/posts/latest?p=${page}`).then((res) => res.data);
+  axios.get(`${apiUrl}/posts/?page=${page}`).then((res) => res.data);
 
 const fetchTrending = (page) =>
-  axios.get(`${apiUrl}/posts/trending?p=${page}`).then((res) => res.data);
+  axios.get(`${apiUrl}/posts/trending?page=${page}`).then((res) => res.data);
 
 const fetchPost = (postId) =>
   axios.get(`${apiUrl}/posts/${postId}`).then((res) => res.data);
@@ -138,12 +138,16 @@ const markNotificationsAsRead = (token) =>
     )
     .then((res) => res.data);
 
+const fetchUser = (uid) =>
+  axios.get(`${apiUrl}/users/${uid}`).then((res) => res.data);
+
 export {
   fetchLatest,
   fetchTrending,
   fetchPost,
   fetchPostComments,
   fetchSearch,
+  fetchUser,
   fetchUserPosts,
   fetchUserSavedPosts,
   fetchUserLikedPosts,
