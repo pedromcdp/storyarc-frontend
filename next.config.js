@@ -29,6 +29,7 @@ const nextConfig = withPWA({
     FIREBASE_APP_ID: process.env.FIREBASE_APP_ID,
     FIREBASE_MEASUREMENT_ID: process.env.FIREBASE_MEASUREMENT_ID,
   },
+  experimental: { runtime: 'edge' },
   images: {
     domains: [
       'firebasestorage.googleapis.com',
